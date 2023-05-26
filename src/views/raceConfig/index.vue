@@ -6,8 +6,9 @@
         <el-tab-pane label="男子" name="first">
           <ConfigTable :info="grownTableData.val" style="margin-bottom: 70px"></ConfigTable>
           <ConfigTable :info="allRoundTableData.val" style="margin-bottom: 20px"></ConfigTable>
-          <YearRule></YearRule>
-          <el-button type="primary" @click="saveGrown">保存</el-button>
+          <YearPanal :info="info.yearConfig1"></YearPanal>
+
+          <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto" @click="saveGrown">保存</el-button>
         </el-tab-pane>
         <el-tab-pane label="女子" name="second">女子</el-tab-pane>
       </el-tabs>
@@ -18,9 +19,10 @@
         <el-tab-pane v-for="item in uList" :label="`U${item}`" :name="item">
           <ConfigTable :info="uGrownTableDataMen.val" style="margin-bottom: 70px"></ConfigTable>
           <ConfigTable :info="uGrownTableDataWomen.val" style="margin-bottom: 20px"></ConfigTable>
-          <el-button type="primary" @click="saveU">保存</el-button>
         </el-tab-pane>
       </el-tabs>
+      <YearPanal :info="info.yearConfig2"></YearPanal>
+      <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto; margin-bottom: 2rem" @click="saveGrown">保存</el-button>
     </div>
   </div>
 </template>
@@ -31,8 +33,28 @@ import { ElMessage, TabsPaneContext } from 'element-plus'
 import { color } from 'echarts/core'
 import ConfigTable from './components/configTable/index'
 import Service from './api/index'
-import YearRule from './components/yearRule/index.vue'
+import YearPanal from './components/yearPanal/index.vue'
 
+const info = reactive({
+  yearConfig1: {
+    btnTxt: '一键同步所有成年组',
+    data: {
+      S: [],
+      B: [],
+      L: [],
+      A: []
+    }
+  },
+  yearConfig2: {
+    btnTxt: '一键同步U系列',
+    data: {
+      S: [],
+      B: [],
+      L: [],
+      A: []
+    }
+  }
+})
 const activeName = ref('first')
 const uActiveName = ref(5)
 const grownTableData = reactive({
@@ -201,6 +223,14 @@ const tableData = [
 ]
 </script>
 <style scoped lang="scss">
+.yearConfig {
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+}
 :deep .el-table__body {
   //-webkit-border-horizontal-spacing: 13px;  // 水平间距
   -webkit-border-vertical-spacing: 10px; // 垂直间距

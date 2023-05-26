@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; align-items: start" class="box">
-    <span class="txt" style="width: 10%; margin-top: 10px"> {{ '速度赛' }}</span>
-    <el-table ref="table" :data="info.tableData" height="100px" border>
+    <span class="txt" style="width: 10%"> {{ title }}</span>
+    <el-table ref="table" :data="info.tableData" height="5rem" border style="width: 50%">
       <el-table-column v-for="(item, index) in info.tableHead" :key="index" :prop="item.inventoryQtyByTon" :label="item.lspzName"> </el-table-column>
     </el-table>
   </div>
@@ -10,7 +10,8 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
 
-// const props = defineProps<{ info: object }>()
+const title = ref('')
+const props = defineProps<{ info: object }>()
 const info = reactive({
   tableData: [],
   tableHead: []
@@ -18,28 +19,24 @@ const info = reactive({
 
 const list = [
   {
+    inventoryQtyByTon: '排名',
+    lspzName: '积分'
+  },
+  {
     inventoryQtyByTon: 100,
-    lspzName: '物料1'
+    lspzName: '第一名'
   },
   {
     inventoryQtyByTon: 200,
-    lspzName: '物料2'
+    lspzName: '第二名'
   },
   {
-    inventoryQtyByTon: 300,
-    lspzName: '物料3'
+    inventoryQtyByTon: '',
+    lspzName: '...'
   },
   {
     inventoryQtyByTon: 400,
-    lspzName: '物料4'
-  },
-  {
-    inventoryQtyByTon: 500,
-    lspzName: '物料5'
-  },
-  {
-    inventoryQtyByTon: 600,
-    lspzName: '物料6'
+    lspzName: '第三十名'
   }
 ]
 
@@ -58,25 +55,30 @@ const getCrosswise = (list) => {
 onMounted(() => {
   getCrosswise(list)
 })
-// watch(
-//   () => props.info,
-//   (newVal) => {
-//     if ((newVal ?? '') != '') {
-//       title.value = newVal.title
-//       tableData.val = newVal.tableData
-//       if ((newVal.iptSec ?? '') != '') {
-//         iptSec.val = newVal.iptSec
-//       }
-//     }
-//   },
-//   { immediate: true }
-// )
+watch(
+  () => props.info,
+  (newVal) => {
+    if ((newVal ?? '') != '') {
+      title.value = newVal.title
+    }
+  },
+  { immediate: true }
+)
 </script>
 <style scoped lang="scss">
 .box {
   width: 100%;
+  margin-left: 5rem;
+  .txt {
+    font-weight: 700;
+  }
 }
-
+:deep .el-table__body {
+  -webkit-border-vertical-spacing: 0px !important;
+}
+:deep .el-scrollbar__view {
+  height: 40px;
+}
 // 表格
 
 // 表格最外边框

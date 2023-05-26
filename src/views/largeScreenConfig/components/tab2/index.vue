@@ -35,16 +35,41 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      style="float: right"
-      :current-page="pageInfo.page"
-      :page-sizes="pageInfo.sizes"
-      :page-size="pageInfo.size"
-      :layout="pageInfo.layout"
-      :total="pageInfo.total"
-      @size-change="handleSizeChange"
-      @current-change="handlePageChange"
-    />
+    <el-table :data="tableData.val" border>
+      <el-table-column prop="type" label="类别" align="center" min-width="120" show-overflow-tooltip> </el-table-column>
+      <el-table-column prop="img" label="当前图片" align="center" min-width="120" show-overflow-tooltip>
+        <template #default="scope">
+          <el-image style="width: 100px; height: 100px" :src="scope.row.img" fit="fill"></el-image>
+        </template>
+      </el-table-column>
+      <el-table-column prop="remark" label="备注" align="center" min-width="120" show-overflow-tooltip> </el-table-column>
+      <el-table-column prop="" label="操作" align="center" min-width="120" show-overflow-tooltip>
+        <template #default="scope">
+          <!-- <el-button
+            v-if="showInfo(scope.row)"
+            type="text"
+            @click="orderInfo(scope.row)"
+            >备货信息</el-button
+          > -->
+          <el-upload
+            class="upload-demo"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :before-remove="beforeRemove"
+            multiple
+            :limit="3"
+            :file-list="fileList"
+            accept=".jpg"
+            :on-success="commercialContractSucess"
+            :before-upload="beforeAvatarUpload"
+            :on-error="handleImageError"
+            :on-exceed="handleExceed"
+          >
+            <el-button size="small" type="text">更新</el-button>
+            <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+          </el-upload>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 

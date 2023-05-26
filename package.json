@@ -11,6 +11,11 @@
     "lint": "eslint --ext .vue,.js,.ts ./",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "*.{vue,js,ts}": [
+      "git add ."
+    ]
+  },
   "dependencies": {
     "@element-plus/icons-vue": "^0.2.7",
     "@fullcalendar/daygrid": "^5.10.1",

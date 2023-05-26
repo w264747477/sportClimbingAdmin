@@ -15,7 +15,6 @@
 </template>
 
 <script setup lang="ts">
-import { ElConfigProvider } from 'element-plus'
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 import enLocale from 'element-plus/lib/locale/lang/en'
 import { computed, onMounted } from 'vue'
@@ -31,11 +30,6 @@ onMounted(() => {
   store.dispatch('permissionModule/getPermissions')
 })
 resizeHeight()
-const locale = computed(() => {
-  const langState = store.getters['settingsModule/getLangState']
-  const local = langState === '/zh-CN' ? zhLocale : enLocale
-  return local
-})
 </script>
 
 <style lang="scss">

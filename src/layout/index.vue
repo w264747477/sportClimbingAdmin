@@ -3,7 +3,7 @@
  * @Date: 2022-02-21 13:45:30
  * @LastEditTime: 2022-02-21 15:24:34
  * @LastEditors: GeekQiaQia
- * @Description: 
+ * @Description:
  * @FilePath: /test-vue3/src/layout/index.vue
 -->
 <template>
@@ -28,11 +28,11 @@
     </el-backtop> -->
 
     <Sidebar class="sidebar-container" />
+
     <div class="main-container">
       <!--Navbar-->
-      <div :class="{ 'fixed-header': fixedHeader, 'hide-header': hideHeader }">
-        <navbar :primary="primary" />
-      </div>
+      <navbar />
+
       <!--AppMain-->
       <AppMain />
       <!--RightDrawer-->

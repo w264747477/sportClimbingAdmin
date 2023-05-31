@@ -8,7 +8,9 @@
         <el-tab-pane label="背景设置" name="second">
           <tab2></tab2>
         </el-tab-pane>
-        <el-tab-pane label="字体设置" name="thrid">字体</el-tab-pane>
+        <el-tab-pane label="字体设置" name="thrid">
+          <tab3></tab3>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <el-dialog v-model="dialogTableVisible" title="添加项目" :close-on-click-modal="false" custom-class="my-dialog" :before-close="handleClose">
@@ -29,6 +31,7 @@ import { ElMessage, TabsPaneContext } from 'element-plus'
 import Service from './api/index'
 import tab1 from './components/tab1/index.vue'
 import tab2 from './components/tab2/index.vue'
+import tab3 from './components/tab3/index.vue'
 
 interface Option {
   key: number

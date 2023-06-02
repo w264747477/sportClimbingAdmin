@@ -43,9 +43,16 @@ resizeHeight()
 .element-plus-logo {
   width: 50%;
 }
+//对话框按钮靠右显示
 .dialog-footer {
   display: flex;
   justify-content: flex-end;
   margin-right: 30px;
+}
+//按钮居中显示
+.middleBtn {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 </style>

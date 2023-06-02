@@ -2,25 +2,17 @@
   <div class="box">
     <div style="margin-bottom: 20px; margin-left: 10px">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="轮播任务" name="first">
+        <el-tab-pane label="轮播任务" name="0">
           <tab1></tab1>
         </el-tab-pane>
-        <el-tab-pane label="背景设置" name="second">
+        <el-tab-pane label="背景设置" name="1">
           <tab2></tab2>
         </el-tab-pane>
-        <el-tab-pane label="字体设置" name="thrid">
+        <el-tab-pane label="字体设置" name="2">
           <tab3></tab3>
         </el-tab-pane>
       </el-tabs>
     </div>
-    <el-dialog v-model="dialogTableVisible" title="添加项目" :close-on-click-modal="false" custom-class="my-dialog" :before-close="handleClose">
-      <el-transfer v-model="value" :titles="['可选择项', '已选择项']" :data="data" class="tsv" />
-      <div class="dialog-footer">
-        <!-- <PromiseButton type="primary" @click="confirm">确 认</PromiseButton> -->
-        <el-button @click="handleClose">取消</el-button>
-        <el-button type="primary" @click="confirm">确定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -38,6 +30,7 @@ interface Option {
   label: string
   disabled: boolean
 }
+const activeName = ref('0')
 </script>
 <style scoped lang="scss">
 :deep .el-table__body {

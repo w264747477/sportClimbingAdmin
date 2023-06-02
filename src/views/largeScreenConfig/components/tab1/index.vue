@@ -16,11 +16,19 @@
         <span style="margin-right: 20px; white-space: nowrap">轮播间隔(秒)</span>
         <el-input v-model="state.sliderTime" placeholder="Please input" clearable style="width: 180px" />
       </div>
-      <div class="dialog-footer">
+      <div class="middleBtn">
         <el-button type="primary">开始播放</el-button>
         <el-button type="primary">停止播放</el-button>
       </div>
     </div>
+    <el-dialog v-model="dialogTableVisible" title="添加项目" :close-on-click-modal="false" class="my-dialog" :before-close="handleClose">
+      <el-transfer v-model="value" :titles="['可选择项', '已选择项']" :data="data" class="tsv" />
+      <div class="dialog-footer">
+        <!-- <PromiseButton type="primary" @click="confirm">确 认</PromiseButton> -->
+        <el-button @click="handleClose">取消</el-button>
+        <el-button type="primary" @click="confirm">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -39,6 +47,12 @@ const delItem = (val) => {
   state.list = state.list.filter((item) => item != val)
 }
 const dialogTableVisible = ref(false)
+const handleClose = () => {
+  dialogTableVisible.value = false
+}
+const confirm = () => {
+  handleClose()
+}
 watch(
   () => props.info,
   (newVal) => {
@@ -59,6 +73,12 @@ watch(
   justify-content: center;
   width: 100%;
   background-color: #b7b4b4;
+}
+
+.tsv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .item {
   width: 120px;

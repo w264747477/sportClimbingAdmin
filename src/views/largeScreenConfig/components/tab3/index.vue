@@ -1,50 +1,58 @@
 <template>
-  <div class="box">
-    <div class="box_item">
-      <span>常规</span>
-      <el-table class="table" :data="tableData.val" style="width: 100%; --el-table-border-color: none" :cell-style="changeCellStyle" :header-cell-style="headerRowStyle">
-        <el-table-column prop="title" label="" align="center" />
-        <el-table-column prop="family" label="字体" align="center">
-          <template #default="scope">
-            <el-select v-model="scope.row.hasSemifinals">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-          </template>
-        </el-table-column>
-        <el-table-column prop="color" label="颜色" align="center">
-          <template #default="scope">
-            <el-select v-model="scope.row.hasSemifinals">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-          </template>
-        </el-table-column>
-        <el-table-column prop="size" label="大小" align="center">
-          <template #default="scope">
-            <el-input v-model="scope.row.semifinalsNum" clearable />
-          </template>
-        </el-table-column>
-        <el-table-column prop="x" label="横坐标" align="center">
-          <template #default="scope">
-            <el-input v-model="scope.row.semifinalsNum" clearable />
-          </template>
-        </el-table-column>
-        <el-table-column prop="y" label="纵坐标" align="center">
-          <template #default="scope">
-            <el-input v-model="scope.row.semifinalsNum" clearable />
-          </template>
-        </el-table-column>
-      </el-table>
+  <div>
+    <div class="box">
+      <ConfigTable :info="geInfo"></ConfigTable>
+      <ConfigTable :info="projectInfo"></ConfigTable>
+      <div class="middleBtn">
+        <!-- <PromiseButton type="primary" @click="confirm">确 认</PromiseButton> -->
+        <el-button @click="handleClose">重置</el-button>
+        <el-button type="primary" @click="confirm">保存</el-button>
+      </div>
+    </div>
+    <div class="box">
+      <ConfigTable :info="speedInfo"></ConfigTable>
+      <div class="middleBtn">
+        <!-- <PromiseButton type="primary" @click="confirm">确 认</PromiseButton> -->
+        <el-button @click="handleClose">重置</el-button>
+        <el-button type="primary" @click="confirm">保存</el-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
+import ConfigTable from './configTable/index.vue'
 
 const props = defineProps<{ info: object }>()
 
-const tableData = reactive({
-  val: [
+const familyOptions = [
+  {
+    value: '0',
+    label: '宋体'
+  },
+  {
+    value: '1',
+    label: '微软雅黑'
+  },
+  {
+    value: '2',
+    label: '黑体'
+  }
+]
+const colorOptions = [
+  {
+    value: '0',
+    label: '黑'
+  },
+  {
+    value: '1',
+    label: '白'
+  }
+]
+// 共性
+const geInfo = reactive({
+  tableData: [
     {
       title: '赛事名称',
       family: '0',
@@ -61,24 +69,129 @@ const tableData = reactive({
       x: 5,
       y: 6
     }
-  ]
+  ],
+  title: '共性',
+  familyOptions,
+  colorOptions
 })
-const options = [
-  {
-    value: true,
-    label: '有'
+// 项目
+const projectInfo = reactive({
+  tableData: [
+    {
+      title: '排名',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    },
+    {
+      title: '运动员号码',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    },
+    {
+      title: '代表队',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    },
+    {
+      title: '年度积分',
+      switch: true,
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    }
+  ],
+  title: '项目',
+  selInfo: {
+    value: '0',
+    selOptions: [
+      {
+        value: '0',
+        label: '攀石赛'
+      },
+      {
+        value: '1',
+        label: '速度赛'
+      }
+    ]
   },
-  {
-    value: false,
-    label: '无'
-  }
-]
+
+  familyOptions,
+  colorOptions
+})
+// 速度赛对阵图
+const speedInfo = reactive({
+  tableData: [
+    {
+      title: '赛事名称',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    },
+    {
+      title: '赛事项目',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    },
+    {
+      title: '运动员号码',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    },
+    {
+      title: '代表队',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    },
+    {
+      title: '姓名',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    },
+    {
+      title: '成绩',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    }
+  ],
+  title: '速度赛对阵图',
+  familyOptions,
+  colorOptions
+})
+
 const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
-  const obj = {
-    borderTop: '1px solid #eaeef5',
-    borderBottom: '1px solid #eaeef5'
-  }
-  return obj
+  // const obj = {
+  //   borderTop: '1px solid #eaeef5',
+  //   borderBottom: '1px solid #eaeef5'
+  // }
+  // return obj
 }
 const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
   const obj = {
@@ -92,16 +205,8 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
   width: 95%;
   margin: 0 auto;
   height: 100%;
-  .box_item {
-    margin-bottom: 2rem;
-    & > span {
-      white-space: nowrap;
-      display: block;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      font-size: 1rem;
-    }
-  }
+  border: 1px solid #f1f4f8;
+  padding: 1rem;
 }
 
 :deep .el-table__body {
@@ -109,9 +214,7 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
   -webkit-border-vertical-spacing: 10px; // 垂直间距
   border: none;
 }
-.table {
-  border: 1px solid #eaeef5;
-}
+
 .tsv {
   display: flex;
   justify-content: center;

@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; align-items: start" class="box">
     <span class="txt" style="width: 10%"> {{ title }}</span>
-    <el-table ref="table" :data="info.tableData" height="5rem" border style="width: 50%">
+    <el-table ref="table" :data="info.tableData" border style="width: 50%">
       <el-table-column v-for="(item, index) in info.tableHead" :key="index" :prop="item.inventoryQtyByTon" :label="item.lspzName"> </el-table-column>
     </el-table>
   </div>

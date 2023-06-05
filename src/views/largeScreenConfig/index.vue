@@ -20,7 +20,7 @@
 import { defineComponent, reactive, ref } from 'vue'
 import { ElMessage, TabsPaneContext } from 'element-plus'
 
-import Service from './api/index'
+import Service from './api/index.ts'
 import tab1 from './components/tab1/index.vue'
 import tab2 from './components/tab2/index.vue'
 import tab3 from './components/tab3/index.vue'

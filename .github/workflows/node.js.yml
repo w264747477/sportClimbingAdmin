@@ -1,0 +1,56 @@
+name: Docker Image CI # Actions名称
+on:
+  push:
+    branches: ['master']
+jobs:
+  # 这里我使用的是yarn，想用npm的同学将yarn命令修改为npm命令即可
+  build:
+    runs-on: sportAdmin-runner
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      # - name: Set up Node
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18
+      #     cache: 'npm'
+      - name: Install dependencies
+        run: |
+          yarn config set ignore-engines true
+          yarn install
+      - name: Build
+        run: yarn build-test
+      # - uses: actions/checkout@master
+      # - uses: borales/actions-yarn@v2.1.0
+      # - name: checkout
+      #   user: actions/checkout@master
+      # 安装依赖
+      # - name: install
+      #   run: sudo npm install
+
+      # 打包
+      # - name: build project
+      #   run: sudo npm run build-production
+
+      # 打包镜像推送到阿里云容器镜像服务
+      - name: Build the Docker image
+        run: |
+          docker login ccr.ccs.tencentyun.com  --username=${{ secrets.DUSER }}  --password=${{ secrets.DPASSWORED }}
+          docker build -t scrapbook:latest .
+          docker tag scrapbook:latest ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
+          docker push ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
+
+      - name: ssh docker login # 使用appleboy/ssh-action@master登录服务器执行拉取镜像脚本，服务器ip、用户名、密码配置方式同容器镜像服务配置方式一样
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: cd ~ && sh flow-deployAdmin.sh ${{ secrets.DUSER }} ${{ secrets.DPASSWORED }}
+          host: ${{ secrets.host }}
+          username: ${{ secrets.user }}
+          # port: 9969
+          privateKey: ${{ secrets.pem }}
+        # uses: appleboy/ssh-action@master
+        # with:
+        #   host: ${{ secrets.host }}
+        #   username: ${{ secrets.user }}
+        #   privateKey: ${{ secrets.pem }}
+        #   script: cd ~ && sh flow-deploy.sh ${{ secrets.DUSER }} ${{ secrets.DPASSWORED }}

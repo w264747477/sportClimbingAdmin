@@ -38,7 +38,7 @@
 import { reactive, ref } from 'vue'
 import { ElMessage, TabsPaneContext } from 'element-plus'
 import { color } from 'echarts/core'
-import ConfigTable from './components/configTable/index'
+import ConfigTable from './components/configTable/index.vue'
 import Service from './api/index'
 import YearPanal from './components/yearPanal/index.vue'
 

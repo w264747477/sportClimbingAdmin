@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, RouteRecordRaw, createWebHistory } from 'vue-router'
 import { store } from '../store'
 import layout from '../layout/index.vue'
 // 静态路由
@@ -154,24 +154,24 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
 
 ]
 const router = createRouter({
-  history: createWebHashHistory(), // hash模式：createWebHashHistory，history模式：createWebHistory
+  history: createWebHistory("/sportClimbingAdmin"), // hash模式：createWebHashHistory，history模式：createWebHistory
   scrollBehavior: () => ({
     top: 0
   }),
   routes: constantRoutes
 })
 router.beforeEach((to, from, next) => {
-  const options = ['login'];
-  // 登录校验
-  if (!options.includes(to.name)) {
-    const token = localStorage.getItem('token');
+  // const options = ['login'];
+  // // 登录校验
+  // if (!options.includes(to.name)) {
+  //   const token = localStorage.getItem('token');
 
-    if (!token) {
-      window.location.href = router.resolve({
-        name: 'login',
-      }).href;
-    }
-  }
+  //   if (!token) {
+  //     window.location.href = router.resolve({
+  //       name: 'login',
+  //     }).href;
+  //   }
+  // }
 
   /* 路由发生变化修改页面title */
   if (to.meta.title) {

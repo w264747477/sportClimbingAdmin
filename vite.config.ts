@@ -1,72 +1,68 @@
-/*
- * @Author: GeekQiaQia
- * @Date: 2022-02-18 16:13:43
- * @LastEditTime: 2022-06-05 20:17:00
- * @LastEditors: GeekQiaQia
- * @Description:
- * @FilePath: /vue3.0-template-admin/vite.config.ts
- */
-import path from 'path'
-import { ConfigEnv, loadEnv, UserConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import legacy from '@vitejs/plugin-legacy'
+import { defineConfig, loadEnv } from "vite";
+import vue from "@vitejs/plugin-vue";
+import * as path from "path";
+import { Console } from "console";
 
-const CWD = process.cwd()
+// https://vitejs.dev/config/
 
-// https://cn.vitejs.dev/config/
-export default ({ mode }: ConfigEnv): UserConfig => {
-  const { VITE_BASE_URL } = loadEnv(mode, CWD)
+export default defineConfig(({ command, mode, ssrBuild }) => {
+  if (command == "serve") {
+    console.log(loadEnv(mode, process.cwd()));
+  } else {
+    // command === 'build'
+  }
+  const env = loadEnv(mode, process.cwd()); // 环境变量对象
+  const { VITE_DROP_CONSOLE, VITE_APP_BASE_URL } = env;
 
   return {
-    base: VITE_BASE_URL, // 设开发或生产环境服务的 公共基础路径
-    define: {
-      // 类型： Record<string, string> 定义全局变量替换方式。每项在开发时会被定义为全局变量，而在构建时则是静态替换。
-      'process.platform': null,
-      'process.version': null
-    },
+    base: `${VITE_APP_BASE_URL}/`,
+    publicDir: "src/assets", // 要打包的静态资源，我的图片资源在这个文件夹里，不配置的话，output打包出来的文件会没有图片
     resolve: {
-      // 类型：Record<string, string> | Array<{ find: string | RegExp, replacement: string }> 将会被传递到 @rollup/plugin-alias 作为它的 entries。
+      // 设置别名
       alias: {
-        '~': path.resolve(__dirname, './'),
-        '@': path.resolve(__dirname, 'src')
+        "@": path.resolve(__dirname, "src"),
       },
-      extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.mjs'] // 类型： string[] 导入时想要省略的扩展名列表。
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@use "@/styles/element/index.scss" as *;`
-        }
-      }
-    },
-    plugins: [
-      vue(),
-      legacy({
-        targets: ['ie >= 11'],
-        additionalLegacyPolyfills: ['regenerator-runtime/runtime']
-      })
-    ],
+    plugins: [vue()],
     server: {
-      hmr: { overlay: false }, // 禁用或配置 HMR 连接 设置 server.hmr.overlay 为 false 可以禁用服务器错误遮罩层
-
-      // 服务配置
-      port: 3000, // 类型： number 指定服务器端口;
-      open: true, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
-      cors: true, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
+      port: 8080, // 启动端口
+      hmr: true,
+      // 设置 https 代理
       proxy: {
-        // 类型： Record<string, string | ProxyOp 为开发服务器配置自定义代理规则
-        '/api': {
-          target: 'http://106.12.45.247:3000/',
-          changeOrigin: true,
-          secure: false,
-          // eslint-disable-next-line no-shadow
-          rewrite: (path) => path.replace('/api', '')
-        }
-      }
+        // 设置代理
+        "^/sportClimbingAdmin/api": {
+          target: "http://1.14.96.156:8082",
+          changeOrigin: true, // 是否跨域
+          // pathRewrite: {
+          //   '^.*/mallos/api': '' //需要rewrite重写的,
+          // }
+        },
+      },
     },
-    optimizeDeps: {
-      include: ['element-plus/lib/locale/lang/zh-cn', 'element-plus/lib/locale/lang/en']
-    }
-    // https://www.vitejs.net/config/#build-commonjsoptions
-  }
-}
+    build: {
+      outDir: "sportClimbingAdmin",
+      assetsDir: "assets",
+      sourcemap: false, // 构建后是否生成 source map 文件
+      brotliSize: false, // 启用/禁用 brotli 压缩大小报告。 禁用该功能可能会提高大型项目的构建性能
+      minify: "esbuild", // 项目压缩 :boolean | 'terser' | 'esbuild'
+      chunkSizeWarningLimit: 1000, // chunk 大小警告的限制（以 kbs 为单位）默认：500
+      cssTarget: "chrome61", // 防止 vite 将 rgba() 颜色转化为 #RGBA 十六进制符号的形式  (要兼容的场景是安卓微信中的 webview 时,它不支持 CSS 中的 #RGBA 十六进制颜色符号)
+      rollupOptions: {
+        input: {
+          // 方便运维配置，我把index.html入口文件名和指定输出路径文件改为同名了，但是开发环境没有index.html会导致页面空白，所以我是再复制一份出来命名为index.html
+          main: path.resolve(__dirname, "index.html"),
+          // nested: resolve(__dirname, 'nested/index.html')
+        },
+        output: {
+          // 配置这个是让不同类型文件放在不同文件夹，不会显得太乱
+          chunkFileNames: "js/[name]-[hash].js",
+          entryFileNames: "js/[name]-[hash].js",
+          assetFileNames: "[ext]/[name]-[hash].[ext]",
+        },
+      },
+    },
+    esbuild: {
+      pure: VITE_DROP_CONSOLE ? ["console.log", "debugger"] : [],
+    },
+  };
+});

@@ -2,14 +2,20 @@
   "name": "element-plus-vite-starter",
   "private": true,
   "version": "1.1.1",
+  "type": "module",
+  "homepage": "./",
   "scripts": {
-    "preinstall": "npx only-allow yarn",
-    "dev": "vite --host",
-    "build": "vite build",
+    "dev": "vite --mode dev",
+    "build-test": "vite build --mode test",
+    "build-production": "vite build --mode pro",
     "preview": "vite preview",
-    "prod": " vue-tsc --noEmit &&vite build",
-    "lint": "eslint --ext .vue,.js,.ts ./",
-    "prepare": "husky install"
+    "build-images": "vite build --mode pro && sh ./buildtar.sh",
+    "eslint:comment": "使用 ESLint 检查并自动修复 src 目录下所有扩展名为 .js 和 .vue 的文件",
+    "eslint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "prettier:comment": "自动格式化当前目录下的所有文件",
+    "prettier": "prettier --write",
+    "commit:comment": "引导设置规范化的提交信息",
+    "commit": "git-cz"
   },
   "lint-staged": {
     "*.{vue,js,ts}": [

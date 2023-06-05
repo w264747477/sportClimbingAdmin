@@ -45,7 +45,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       {
         path: '/largeScreenConfig',
         name: 'LargeScreenConfig',
-        component: () => import('@/views/largeScreenConfig/index'),
+        component: () => import('@/views/largeScreenConfig/index.vue'),
         meta: {
           title: {
             '/zh-CN': '大屏配置',
@@ -70,7 +70,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       {
         path: '/exportList',
         name: 'ExportList',
-        component: () => import('@/views/exportList/index'),
+        component: () => import('@/views/exportList/index.vue'),
         meta: {
           title: {
             '/zh-CN': '导出名单',
@@ -95,7 +95,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       {
         path: '/gradeModification',
         name: 'GradeModification',
-        component: () => import('@/views/gradeModification/index'),
+        component: () => import('@/views/gradeModification/index.vue'),
         meta: {
           title: {
             '/zh-CN': '成绩修改',

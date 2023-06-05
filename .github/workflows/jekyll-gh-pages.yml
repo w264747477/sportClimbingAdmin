@@ -40,14 +40,14 @@ jobs:
       - name: Build
         run: yarn build-production
       - name: routerFix
-        run: cp sportClimbing/index.html sportClimbing/404.html
+        run: cp sportClimbingAdmin/index.html sportClimbingAdmin/404.html
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload dist repository
-          path: './sportClimbing'
+          path: './sportClimbingAdmin'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1

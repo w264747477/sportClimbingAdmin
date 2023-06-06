@@ -8,5 +8,5 @@ docker rmi ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
 echo -e "---------docker Pull--------"
 docker pull ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
 echo -e "---------docker Create and Start--------"
-docker run --rm -d -p 8080:8080 --name scrapbookCt ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
+docker run --rm -d -p 8081:8081 --name scrapbookCt ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
 echo -e "---------deploy Success--------"

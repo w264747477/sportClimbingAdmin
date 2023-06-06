@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin-bottom: 20px; margin-left: 10px">
-      <h2>成年组</h2>
+      <h2>成年组测试</h2>
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="男子" name="first">
           <ConfigTable :info="info.adultMen.grownTableData" style="margin-bottom: 70px"></ConfigTable>

@@ -5,7 +5,7 @@ on:
 jobs:
   # 这里我使用的是yarn，想用npm的同学将yarn命令修改为npm命令即可
   build:
-    runs-on: sportAdmin-runner
+    runs-on: 0ef5abee7108
     steps:
       - name: Checkout
         uses: actions/checkout@v3

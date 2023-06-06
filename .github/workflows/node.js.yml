@@ -15,11 +15,9 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: |
-          npm install yarn
-          yarn config set ignore-engines true
-          yarn install
+          npm install
       - name: Build
-        run: yarn build-test
+        run: npm run build-test
       # - uses: actions/checkout@master
       # - uses: borales/actions-yarn@v2.1.0
       # - name: checkout

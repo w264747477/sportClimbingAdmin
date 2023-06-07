@@ -33,7 +33,6 @@ jobs:
       # 打包镜像推送到阿里云容器镜像服务
       - name: Build the Docker image
         run: |
-          su root
           docker login ccr.ccs.tencentyun.com  --username=${{ secrets.DUSER }}  --password=${{ secrets.DPASSWORED }}
           docker build -t scrapbook:latest .
           docker tag scrapbook:latest ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest

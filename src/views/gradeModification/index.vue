@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import Service from './api/index'
 import { ElMessage } from 'element-plus'
 const value = ref('0')
@@ -195,6 +195,16 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
 
   return obj
 }
+const getInfo = async () => {
+  let data = {
+    type: 'S',
+    gender: 'M',
+    round: 'Q0',
+    age: 'U16'
+  }
+  let res = await Service.getScoreInfo(data)
+  console.log(res)
+}
 const modifyGrade = async () => {
   console.log('11')
   let url
@@ -243,6 +253,9 @@ const modifyGrade = async () => {
     })
   }
 }
+onMounted(() => {
+  getInfo()
+})
 </script>
 <style scoped lang="scss">
 .box {

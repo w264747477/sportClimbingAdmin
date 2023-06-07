@@ -1,5 +1,14 @@
-import request from '@/utils/request'
-
+export const ageList = () => {
+  let list = ['成年组']
+  for (let i = 5; i < 18; i++) {
+    let s = `U${i}`
+    list.push(s)
+  }
+  return list
+}
+export const gender = ['男', '女']
+export const gameType = ['难度赛', '攀石赛', '速度赛']
+export const round = ['预赛', '半决赛', '决赛']
 const loginApi = {
   speedModify: '/sportClimbingAdmin/api/score/speed/update',
   boulderingModify: '/sportClimbingAdmin/api/score/bouldering/update',

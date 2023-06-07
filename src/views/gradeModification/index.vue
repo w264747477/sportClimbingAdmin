@@ -56,13 +56,14 @@
       <el-table-column prop="score" label="有效成绩" min-width="120" />
       <el-table-column prop="ranking" label="排名" min-width="120" />
     </el-table>
-    <el-button type="primary" style="margin: 0 auto">修改</el-button>
+    <el-button type="primary" style="margin: 0 auto" @click="modifyGrade()">修改</el-button>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
-
+import Service from './api/index'
+import { ElMessage } from 'element-plus'
 const value = ref('0')
 // const gameType = ref('')
 // const gameTypeList = [
@@ -193,6 +194,54 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
   }
 
   return obj
+}
+const modifyGrade = async () => {
+  console.log('11')
+  let url
+  let data
+  console.log()
+  if (['0', '1', '2'].includes(value.value)) {
+    url = Service.api.difficultyModify
+    data = {}
+  } else if (['3', '4', '5'].includes(value.value)) {
+    url = Service.api.boulderingModify
+    let obj
+    tableData.B.map((item) => {
+      obj = {
+        id: '',
+        point1: item.point1, //单项和攀石 z,T
+        point2: item.point2, // 全能三位 z,Z,t
+        point3: item.point3,
+        point4: item.point4,
+        point5: item.point5
+      }
+      data.push(obj)
+    })
+  } else if (['6', '7', '8'].includes(value.value)) {
+    console.log('2')
+    url = Service.api.speedModify
+    console.log('3')
+    let obj
+    tableData.S.map((item) => {
+      obj = {
+        id: '',
+        scoreA: tableData.S.scoreA,
+        scoreB: tableData.S.scoreB
+      }
+      data.push(obj)
+    })
+  } else {
+    url = ''
+    return
+  }
+  console.log(data)
+  let res = await Service.postModify(url, data)
+  if (res) {
+    ElMessage({
+      type: 'success',
+      message: '成绩修改成功'
+    })
+  }
 }
 </script>
 <style scoped lang="scss">

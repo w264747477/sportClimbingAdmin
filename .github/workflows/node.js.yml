@@ -33,10 +33,10 @@ jobs:
       # 打包镜像推送到阿里云容器镜像服务
       - name: Build the Docker image
         run: |
-          docker login ccr.ccs.tencentyun.com  --username=${{ secrets.DUSER }}  --password=${{ secrets.DPASSWORED }}
-          docker build -t scrapbook:latest .
-          docker tag scrapbook:latest ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
-          docker push ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
+          sudo docker login ccr.ccs.tencentyun.com  --username=${{ secrets.DUSER }}  --password=${{ secrets.DPASSWORED }}
+          sudo docker build -t scrapbook:latest .
+          sudo docker tag scrapbook:latest ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
+          sudo docker push ccr.ccs.tencentyun.com/wqqahl/scrapbook:latest
 
       - name: ssh docker login # 使用appleboy/ssh-action@master登录服务器执行拉取镜像脚本，服务器ip、用户名、密码配置方式同容器镜像服务配置方式一样
         uses: garygrossgarten/github-action-ssh@release

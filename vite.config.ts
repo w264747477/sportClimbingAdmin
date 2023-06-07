@@ -31,7 +31,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       proxy: {
         // 设置代理
         "^/sportClimbingAdmin/api": {
-          target: "http://1.14.96.156:8082",
+          target: "1.14.96.156:58080",
           changeOrigin: true, // 是否跨域
           // pathRewrite: {
           //   '^.*/mallos/api': '' //需要rewrite重写的,

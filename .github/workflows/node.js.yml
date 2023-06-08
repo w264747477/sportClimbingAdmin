@@ -18,13 +18,13 @@ jobs:
           npm install
       - name: Build
         run: npm run build-test
-       - name: Deploy to Server
+      - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
         env:
-            SSH_PRIVATE_KEY: ${{ secrets.pem}}
-            ARGS: -rltgoDzvO --delete
-            SOURCE: ./sportClimbingAdmin
-            REMOTE_HOST: ${{ secrets.host }}
-            REMOTE_USER: ${{ secrets.user }}
-            TARGET: /root/sportAdmin/
-            EXCLUDE:
+          SSH_PRIVATE_KEY: ${{ secrets.pem}}
+          ARGS: -rltgoDzvO --delete
+          SOURCE: ./sportClimbingAdmin
+          REMOTE_HOST: ${{ secrets.host }}
+          REMOTE_USER: ${{ secrets.user }}
+          TARGET: /root/sportAdmin/
+          EXCLUDE:

@@ -27,7 +27,7 @@ const resizeHeight = () => {
   store.commit('settingsModule/setTableHeight', height) // 设置tableHeight
 }
 onMounted(() => {
-  store.dispatch('permissionModule/getPermissions')
+  // store.dispatch('permissionModule/getPermissions')
 })
 resizeHeight()
 </script>

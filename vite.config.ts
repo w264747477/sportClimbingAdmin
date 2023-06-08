@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import * as path from "path";
-import { Console } from "console";
+import { Console, debug } from "console";
 
 // https://vitejs.dev/config/
 
@@ -30,12 +30,12 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       // 设置 https 代理
       proxy: {
         // 设置代理
-        "^/sportClimbingAdmin/api": {
+        "/sportClimbingAdmin/api": {
           target: "http://1.14.96.156:8082",
           changeOrigin: true, // 是否跨域
-          pathRewrite: {
-            '^.*/sportClimbingAdmin/api': '' //需要rewrite重写的,
-          }
+          logLevel:'debug',
+          rewrite: (path) => path.replace(/^\/sportClimbingAdmin\/api/, ""),
+
         },
       },
     },

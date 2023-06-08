@@ -1,15 +1,78 @@
 export const ageList = () => {
-  let list = ['成年组']
+  let list = [{
+    value:'',
+    label:'成年组'
+  }]
   for (let i = 5; i < 18; i++) {
     let s = `U${i}`
-    list.push(s)
+    list.push({
+      value:s,
+      label:s
+    })
   }
   return list
 }
-export const gender = ['男', '女']
-export const gameType = ['难度赛', '攀石赛', '速度赛']
-export const round = ['预赛', '半决赛', '决赛']
-export const speedRound = ['预赛', '八分之一', '四分之一', '二分之一', '决赛']
+export const gender = [
+  {
+    value:'M',
+    label:'男'
+  },
+  {
+    value:'S',
+    label:'女'
+  }
+]
+export const gameType = [
+  {
+    value:'L',
+    label:'难度赛'
+  },
+  {
+    value:'B',
+    label:'攀石赛'
+  },
+  {
+    value:'S',
+    label:'速度赛'
+  }]
+export const round = 
+[
+  {
+    value:'Q0',
+    label:'预赛'
+  },
+  {
+    value:'F2',
+    label:'半决赛'
+  },
+  {
+    value:'F0',
+    label:'决赛'
+  }]
+
+export const speedRound = [
+  {
+    value:'Q0',
+    label:'预赛'
+  },
+  {
+    value:'F8',
+    label:'八分之一'
+  },
+  {
+    value:'F4',
+    label:'四分之一'
+  },
+  {
+    value:'F2',
+    label:'二分之一'
+  },
+  {
+    value:'F0',
+    label:'决赛'
+  }
+]
+
 const loginApi = {
   speedModify: '/sportClimbingAdmin/api/score/speed/update',
   boulderingModify: '/sportClimbingAdmin/api/score/bouldering/update',

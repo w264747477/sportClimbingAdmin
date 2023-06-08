@@ -4,17 +4,29 @@
       <el-form :inline="true" :label-width="'160px'" :model="searchForm">
         <el-form-item label="类型">
           <el-select v-model="info.type" style="width: 190px">
-            <el-option v-for="item in gameType" :key="item" :label="item" :value="item"></el-option>
+            <el-option v-for="item in gameType" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-select v-model="info.gender" style="width: 190px">
+            <el-option v-for="item in gender" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="年龄">
+          <el-select v-model="info.age" style="width: 190px">
+            <el-option v-for="item in ageList()" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="回合">
+          <el-select v-model="info.round" style="width: 190px">
+            <el-option v-for="item in gameType" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
 
-        <div style="float: right; margin-right: 30px">
-          <el-button type="primary" @click="doSearch">搜索</el-button>
-          <el-button type="primary" @click="restSearch">重置</el-button>
-        </div>
+       
       </el-form>
     </div>
-    <el-table v-if="['0', '1', '2'].includes(value)" ref="table" :data="tableData.L" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
+    <el-table v-if="info.type=='L'" ref="table" :data="tableData.L" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
       <el-table-column prop="idx" label="出场序号" min-width="120" />
       <el-table-column prop="number" label="选手编号" min-width="120" />
       <el-table-column prop="country" label="国家" min-width="120" />
@@ -28,8 +40,17 @@
       <el-table-column prop="timeB" label="B道时间" min-width="120" />
       <el-table-column prop="score" label="排名得分" min-width="120" />
       <el-table-column prop="ranking" label="排名" min-width="120" />
+      <el-table-column  label="操作" min-width="120" >
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            @click="modifyGrade(scope.row)"
+            >修改</el-button
+          >
+          </template>
+        </el-table-column>
     </el-table>
-    <el-table v-if="['3', '4', '5'].includes(value)" ref="table" :data="tableData.B" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
+    <el-table v-if="info.type=='B'" ref="table" :data="tableData.B" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
       <el-table-column prop="idx" label="出场序号" min-width="120" />
       <el-table-column prop="number" label="选手编号" min-width="120" />
       <el-table-column prop="country" label="国家" min-width="120" />
@@ -46,8 +67,17 @@
       <el-table-column prop="attz" label="attz" min-width="120" />
       <el-table-column prop="attT" label="attT" min-width="120" />
       <el-table-column prop="ranking" label="排名" min-width="120" />
+      <el-table-column  label="操作" min-width="120" >
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            @click="modifyGrade(scope.row)"
+            >修改</el-button
+          >
+        </template>
+        </el-table-column>
     </el-table>
-    <el-table v-if="['6', '7', '8'].includes(value)" ref="table" :data="tableData.S" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
+    <el-table v-if="info.type=='S'" ref="table" :data="tableData.S" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
       <el-table-column prop="idx" label="出场序号" min-width="120" />
       <el-table-column prop="number" label="选手编号" min-width="120" />
       <el-table-column prop="country" label="国家" min-width="120" />
@@ -60,8 +90,17 @@
 
       <el-table-column prop="score" label="有效成绩" min-width="120" />
       <el-table-column prop="ranking" label="排名" min-width="120" />
+      <el-table-column  label="操作" min-width="120" >
+        <template slot-scope="scope">
+          <el-button
+            type="text"
+            @click="modifyGrade(scope.row)"
+            >修改</el-button
+          >
+        </template>
+        </el-table-column>
     </el-table>
-    <el-button type="primary" style="margin: 0 auto" @click="modifyGrade()">修改</el-button>
+  
   </div>
 </template>
 
@@ -72,9 +111,9 @@ import Service from './api/index'
 import { ElMessage } from 'element-plus'
 const value = ref('0')
 let info = reactive({
-  type: '',
-  gender: '',
-  round: '',
+  type: 'S',
+  gender: 'W',
+  round: 'Q0',
   age: ''
 })
 // const gameType = ref('')
@@ -217,19 +256,14 @@ const getInfo = async () => {
   let res = await Service.getScoreInfo(data)
   console.log(res)
 }
-const modifyGrade = async () => {
-  console.log('11')
-  let url
-  let data
-  console.log()
-  if (['0', '1', '2'].includes(value.value)) {
+const modifyGrade = async (item) => {
+  let obj
+  if (info.type=='L') {
     url = Service.api.difficultyModify
-    data = {}
-  } else if (['3', '4', '5'].includes(value.value)) {
+  
+  } else if (info.type=='B') {
     url = Service.api.boulderingModify
-    let obj
-    tableData.B.map((item) => {
-      obj = {
+    obj = {
         id: '',
         point1: item.point1, //单项和攀石 z,T
         point2: item.point2, // 全能三位 z,Z,t
@@ -237,27 +271,24 @@ const modifyGrade = async () => {
         point4: item.point4,
         point5: item.point5
       }
-      data.push(obj)
-    })
-  } else if (['6', '7', '8'].includes(value.value)) {
-    console.log('2')
+  
+  } else if( info.type=='S') {
+
     url = Service.api.speedModify
-    console.log('3')
-    let obj
-    tableData.S.map((item) => {
-      obj = {
+
+    obj = {
         id: '',
-        scoreA: tableData.S.scoreA,
-        scoreB: tableData.S.scoreB
+        scoreA: item.scoreA,
+        scoreB: item.scoreB
       }
-      data.push(obj)
-    })
+ 
   } else {
     url = ''
+    obj={}
     return
   }
-  console.log(data)
-  let res = await Service.postModify(url, data)
+
+  let res = await Service.postModify(url, obj)
   if (res) {
     ElMessage({
       type: 'success',

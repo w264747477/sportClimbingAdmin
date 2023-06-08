@@ -18,7 +18,7 @@ class Service {
       json: true,
       data
     }).then((res) => {
-      if (res.status === 0) {
+      if (res.status === 200) {
         return Promise.resolve(res)
       }
       return Promise.reject(res)
@@ -29,7 +29,8 @@ class Service {
       url: loginApi.getScore,
       method: 'get',
       json: true,
-      data
+      params: data
+    
     }).then((res) => {
       if (res.status === 0) {
         return Promise.resolve(res)

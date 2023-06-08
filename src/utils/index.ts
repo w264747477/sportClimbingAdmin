@@ -1,5 +1,70 @@
 import { generateColors } from './color'
 import { writeNewStyle } from './writeNewStyle'
 import { getStyleTemplate } from './getStyleTemplate'
+/**
+ * @param {date} time 需要转换的时间
+ * @param {String} fmt 需要转换的格式 如 yyyy-MM-dd、yyyy-MM-dd HH:mm:ss
+ * @returns {String}
+ */
+import { ElMessage } from 'element-plus';
+export const formatTime = (
+  time: string | number | Date,
+  fmt: string
+): string => {
+  if (!time) return '';
+  const date = new Date(time);
+  const o = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'H+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds(),
+    'q+': Math.floor((date.getMonth() + 3) / 3),
+    S: date.getMilliseconds(),
+  };
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(
+      RegExp.$1,
+      (date.getFullYear() + '').substr(4 - RegExp.$1.length)
+    );
+  for (const k in o) {
+    if (new RegExp('(' + k + ')').test(fmt)) {
+      fmt = fmt.replace(
+        RegExp.$1,
+        // @ts-ignore: Unreachable code error
+        RegExp.$1.length === 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length)
+      );
+    }
+  }
+  return fmt;
+};
 
-export { generateColors, writeNewStyle, getStyleTemplate }
+let messageInstance = null;
+const resetMessage = options => {
+  if (messageInstance) messageInstance.close();
+  messageInstance = ElMessage(options);
+};
+['error', 'success', 'info', 'warning'].forEach(type => {
+  resetMessage[type] = options => {
+    if (typeof options === 'string') {
+      options = {
+        message: options,
+      };
+    }
+    options.type = type;
+    options.duration = 3 * 1000;
+    return resetMessage(options);
+  };
+});
+ const message = resetMessage;
+
+// export const message = (text, types) => {
+//   ElMessage({
+//     message: text,
+//     type: types,
+//     duration: 5000,
+//     appendTo: '.app',
+//   });
+// };
+
+export { generateColors, writeNewStyle, getStyleTemplate,message }

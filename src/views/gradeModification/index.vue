@@ -1,13 +1,18 @@
 <template>
   <div class="box">
-    <div class="slt">
-      <span>类别</span>
-      <!-- <el-select v-model="gameType" class="m-2" placeholder="请选择" size="mini">
-        <el-option v-for="item in gameTypeList" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select> -->
-      <el-select v-model="value" class="m-2" placeholder="请选择" size="mini" style="width: 240px">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
+    <div class="formbox">
+      <el-form :inline="true" :label-width="'160px'" :model="searchForm">
+        <el-form-item label="类型">
+          <el-select v-model="info.type" style="width: 190px">
+            <el-option v-for="item in gameType" :key="item" :label="item" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+
+        <div style="float: right; margin-right: 30px">
+          <el-button type="primary" @click="doSearch">搜索</el-button>
+          <el-button type="primary" @click="restSearch">重置</el-button>
+        </div>
+      </el-form>
     </div>
     <el-table v-if="['0', '1', '2'].includes(value)" ref="table" :data="tableData.L" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
       <el-table-column prop="idx" label="出场序号" min-width="120" />
@@ -62,9 +67,16 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
+import { ageList, gender, gameType, round, speedRound } from '@/constant/index'
 import Service from './api/index'
 import { ElMessage } from 'element-plus'
 const value = ref('0')
+let info = reactive({
+  type: '',
+  gender: '',
+  round: '',
+  age: ''
+})
 // const gameType = ref('')
 // const gameTypeList = [
 //   {

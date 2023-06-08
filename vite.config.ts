@@ -31,11 +31,11 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       proxy: {
         // 设置代理
         "^/sportClimbingAdmin/api": {
-          target: "1.14.96.156:58080",
+          target: "http://1.14.96.156:8082",
           changeOrigin: true, // 是否跨域
-          // pathRewrite: {
-          //   '^.*/mallos/api': '' //需要rewrite重写的,
-          // }
+          pathRewrite: {
+            '^.*/sportClimbingAdmin/api': '' //需要rewrite重写的,
+          }
         },
       },
     },

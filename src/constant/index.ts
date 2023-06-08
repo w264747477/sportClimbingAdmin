@@ -9,6 +9,7 @@ export const ageList = () => {
 export const gender = ['男', '女']
 export const gameType = ['难度赛', '攀石赛', '速度赛']
 export const round = ['预赛', '半决赛', '决赛']
+export const speedRound = ['预赛', '八分之一', '四分之一', '二分之一', '决赛']
 const loginApi = {
   speedModify: '/sportClimbingAdmin/api/score/speed/update',
   boulderingModify: '/sportClimbingAdmin/api/score/bouldering/update',

@@ -19,21 +19,12 @@ jobs:
       - name: Build
         run: npm run build-test
       - name: TranslateFile
-              # uses: wangyucode/sftp-upload-action@24f8bb83383dc39bed201ee5da01475e6c38c568
-              uses: wangyucode/sftp-upload-action@v1.1
-              with:
-                  host: ${{ secrets.host }} #你的nginx服务器公网ip
-
-                  username: ${{ secrets.user }} #你的nginx服务器用户名
-                  privateKey: ${{ secrets.pem }}
-                  localDir: "sportClimbingAdmin" #你vue项目build好的文件的路径,每次服务器上会自动删除对应的文件夹后重新覆盖
-                  remoteDir: /root/sportAdmin/ #你要把你build好的文件夹放到nginx服务器上的什么位置，一般都是nginx配置的站点路径
-      # - name: ssh docker login # 使用appleboy/ssh-action@master登录服务器执行拉取镜像脚本，服务器ip、用户名、密码配置方式同容器镜像服务配置方式一样
-      #   uses: garygrossgarten/github-action-ssh@release
-      #   with:
-      #     command: cd ~ && sh flow-deployAdmin.sh ${{ secrets.DUSER }} ${{ secrets.DPASSWORED }}
-      #     host: ${{ secrets.host }}
-      #     username: ${{ secrets.user }}
-      #     # port: 9969
-      #     privateKey: ${{ secrets.pem }}
+        # uses: wangyucode/sftp-upload-action@24f8bb83383dc39bed201ee5da01475e6c38c568
+        uses: wangyucode/sftp-upload-action@v1.1
+        with:
+          host: ${{ secrets.host }} #你的nginx服务器公网ip
+          username: ${{ secrets.user }} #你的nginx服务器用户名
+          privateKey: ${{ secrets.pem }}
+          localDir: 'sportClimbingAdmin' #你vue项目build好的文件的路径,每次服务器上会自动删除对应的文件夹后重新覆盖
+          remoteDir: /root/sportAdmin/ #你要把你build好的文件夹放到nginx服务器上的什么位置，一般都是nginx配置的站点路径
 

@@ -3,170 +3,96 @@
     <div class="formbox">
       <el-form :inline="true" :label-width="'160px'" :model="searchForm">
         <el-form-item label="类型">
-          <el-select v-model="info.type" style="width: 190px">
+          <el-select v-model="info.type" style="width: 190px" @change="change('type')">
             <el-option v-for="item in gameType" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="性别">
-          <el-select v-model="info.gender" style="width: 190px">
-            <el-option v-for="item in gender" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="info.gender" style="width: 190px" @change="change('gender')">
+            <el-option v-for="item in genderList" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="年龄">
-          <el-select v-model="info.age" style="width: 190px">
+          <el-select v-model="info.age" style="width: 190px" @change="change('age')">
             <el-option v-for="item in ageList()" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="回合">
-          <el-select v-model="info.round" style="width: 190px">
-            <el-option v-for="item in gameType" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-if="info.type == 'S'" v-model="info.round" style="width: 190px" @change="change('round')">
+            <el-option v-for="item in sround" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+          <el-select v-else v-model="info.round" style="width: 190px" @change="change('round')">
+            <el-option v-for="item in round" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
-
-       
       </el-form>
     </div>
-    <el-table v-if="info.type=='L'" ref="table" :data="tableData.L" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
-      <el-table-column prop="idx" label="出场序号" min-width="120" />
-      <el-table-column prop="number" label="选手编号" min-width="120" />
-      <el-table-column prop="country" label="国家" min-width="120" />
-      <el-table-column prop="name" label="姓名" min-width="120" />
-      <el-table-column prop="sex" label="性别" min-width="120" />
-      <el-table-column prop="round" label="比赛轮次" min-width="120" />
-      <el-table-column prop="group" label="组别" min-width="120" />
-      <el-table-column prop="scoreA" label="A道成绩" min-width="120" />
-      <el-table-column prop="scoreB" label="B道成绩" min-width="120" />
-      <el-table-column prop="timeA" label="A道时间" min-width="120" />
-      <el-table-column prop="timeB" label="B道时间" min-width="120" />
-      <el-table-column prop="score" label="排名得分" min-width="120" />
-      <el-table-column prop="ranking" label="排名" min-width="120" />
-      <el-table-column  label="操作" min-width="120" >
-        <template slot-scope="scope">
-          <el-button
-            type="text"
-            @click="modifyGrade(scope.row)"
-            >修改</el-button
-          >
-          </template>
-        </el-table-column>
-    </el-table>
-    <el-table v-if="info.type=='B'" ref="table" :data="tableData.B" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
-      <el-table-column prop="idx" label="出场序号" min-width="120" />
-      <el-table-column prop="number" label="选手编号" min-width="120" />
-      <el-table-column prop="country" label="国家" min-width="120" />
-      <el-table-column prop="name" label="姓名" min-width="120" />
-      <el-table-column prop="sex" label="性别" min-width="120" />
-      <el-table-column prop="round" label="比赛轮次" min-width="120" />
-      <el-table-column prop="group" label="组别" min-width="120" />
-      <el-table-column prop="point1" label="一线路  分1&分2&成绩" min-width="120" />
-      <el-table-column prop="point2" label="二线路  分1&分2&成绩" min-width="120" />
-      <el-table-column prop="point3" label="三线路  分1&分2&成绩" min-width="120" />
-      <el-table-column prop="point4" label="四线路  分1&分2&成绩" min-width="120" />
-      <el-table-column prop="point5" label="五线路  分1&分2&成绩" min-width="120" />
-      <el-table-column prop="score" label="成绩" min-width="120" />
-      <el-table-column prop="attz" label="attz" min-width="120" />
-      <el-table-column prop="attT" label="attT" min-width="120" />
-      <el-table-column prop="ranking" label="排名" min-width="120" />
-      <el-table-column  label="操作" min-width="120" >
-        <template slot-scope="scope">
-          <el-button
-            type="text"
-            @click="modifyGrade(scope.row)"
-            >修改</el-button
-          >
-        </template>
-        </el-table-column>
-    </el-table>
-    <el-table v-if="info.type=='S'" ref="table" :data="tableData.S" border style="width: 50%; margin-bottom: 2rem; min-width: 1440px; width: 100%">
-      <el-table-column prop="idx" label="出场序号" min-width="120" />
-      <el-table-column prop="number" label="选手编号" min-width="120" />
-      <el-table-column prop="country" label="国家" min-width="120" />
-      <el-table-column prop="name" label="姓名" min-width="120" />
-      <el-table-column prop="sex" label="性别" min-width="120" />
-      <el-table-column prop="round" label="比赛轮次" min-width="120" />
-      <el-table-column prop="group" label="组别" min-width="120" />
-      <el-table-column prop="scoreA" label="A道成绩" min-width="120" />
-      <el-table-column prop="scoreB" label="B道成绩" min-width="120" />
 
-      <el-table-column prop="score" label="有效成绩" min-width="120" />
-      <el-table-column prop="ranking" label="排名" min-width="120" />
-      <el-table-column  label="操作" min-width="120" >
-        <template slot-scope="scope">
-          <el-button
-            type="text"
-            @click="modifyGrade(scope.row)"
-            >修改</el-button
-          >
-        </template>
-        </el-table-column>
-    </el-table>
-  
+    <tableB :info="tableData.B" v-if="info.type == 'B'"></tableB>
+    <tableL :info="tableData.L" v-if="info.type == 'L'"></tableL>
+    <tableS :info="tableData.S" v-if="info.type == 'S'"></tableS>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
-import { ageList, gender, gameType, round, speedRound } from '@/constant/index'
+import { ageList, gender, gameType, speedRound } from '@/constant/index'
 import Service from './api/index'
 import { ElMessage } from 'element-plus'
+import tableS from './components/tableS/index.vue'
+import tableB from './components/tableB/index.vue'
+import tableL from './components/tableL/index.vue'
 const value = ref('0')
 let info = reactive({
   type: 'S',
-  gender: 'W',
+  gender: 'M',
   round: 'Q0',
   age: ''
 })
-// const gameType = ref('')
-// const gameTypeList = [
-//   {
-//     value: '0',
-//     label: '难度赛'
-//   },
-//   {
-//     value: '1',
-//     label: '攀石赛'
-//   },
-//   {
-//     value: '2',
-//     label: '速度赛'
-//   }
-// ]
-const options = [
+const round = [
   {
-    value: '0',
-    label: '成年组_男子_难度赛_预赛'
+    value: 'Q0',
+    label: '预赛'
   },
   {
-    value: '1',
-    label: '成年组_男子_难度赛_半决赛'
+    value: 'F2',
+    label: '半决赛'
   },
   {
-    value: '2',
-    label: '成年组_男子_难度赛_决赛'
+    value: 'F0',
+    label: '决赛'
+  }
+]
+const genderList = [
+  {
+    value: 'M',
+    label: '男'
   },
   {
-    value: '3',
-    label: '成年组_男子_攀石赛_预赛'
+    value: 'W',
+    label: '女'
+  }
+]
+const sround = [
+  {
+    value: 'Q0',
+    label: '预赛'
   },
   {
-    value: '4',
-    label: '成年组_男子_攀石赛_半决赛'
+    value: 'F8',
+    label: '八分之一'
   },
   {
-    value: '5',
-    label: '成年组_男子_攀石赛_决赛'
+    value: 'F4',
+    label: '四分之一'
   },
   {
-    value: '6',
-    label: '成年组_男子_速度赛_预赛'
+    value: 'F2',
+    label: '二分之一'
   },
   {
-    value: '7',
-    label: '成年组_男子_速度赛_半决赛'
-  },
-  {
-    value: '8',
-    label: '成年组_男子_速度赛_决赛'
+    value: 'F0',
+    label: '决赛'
   }
 ]
 const props = defineProps<{ info: object }>()
@@ -208,23 +134,14 @@ const tableData = reactive({
       ranking: 1
     }
   ],
-  S: [
-    {
-      idx: 1,
-      number: 1,
-      country: '中国',
-      name: '章三',
-      sex: '女',
-      round: 'Q0',
-      group: 'A',
-      scoreA: 78,
-      scoreB: 34,
-      score: 88,
-      ranking: 1
-    }
-  ]
+  S: []
 })
-
+const change = async (val) => {
+  if (info.type != 'S' && ['F8', 'F4'].includes(info.round)) {
+    info.round = 'Q0'
+  }
+  getInfo()
+}
 const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   const obj = {
     borderTop: '1px solid #eaeef5',
@@ -247,55 +164,17 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
   return obj
 }
 const getInfo = async () => {
-  let data = {
-    type: 'S',
-    gender: 'M',
-    round: 'Q0',
-    age: 'U16'
-  }
-  let res = await Service.getScoreInfo(data)
-  console.log(res)
-}
-const modifyGrade = async (item) => {
-  let obj
-  if (info.type=='L') {
-    url = Service.api.difficultyModify
-  
-  } else if (info.type=='B') {
-    url = Service.api.boulderingModify
-    obj = {
-        id: '',
-        point1: item.point1, //单项和攀石 z,T
-        point2: item.point2, // 全能三位 z,Z,t
-        point3: item.point3,
-        point4: item.point4,
-        point5: item.point5
-      }
-  
-  } else if( info.type=='S') {
+  console.log(info)
+  let res = await Service.getScoreInfo(info)
 
-    url = Service.api.speedModify
-
-    obj = {
-        id: '',
-        scoreA: item.scoreA,
-        scoreB: item.scoreB
-      }
- 
+  if (res != undefined) {
+    tableData[info.type] = JSON.parse(JSON.stringify(res))
+    console.log(tableData.S)
   } else {
-    url = ''
-    obj={}
-    return
-  }
-
-  let res = await Service.postModify(url, obj)
-  if (res) {
-    ElMessage({
-      type: 'success',
-      message: '成绩修改成功'
-    })
+    ElMessage({ type: 'error', message: res.msg })
   }
 }
+
 onMounted(() => {
   getInfo()
 })
@@ -306,9 +185,14 @@ onMounted(() => {
   flex-direction: column;
   padding: 0 1rem;
   align-items: flex-start;
+  justify-content: flex-start;
   width: 95%;
   height: 100%;
   margin: 0 auto;
+  .formbox {
+    height: 100%;
+    width: 100%;
+  }
   .slt {
     margin-bottom: 2rem;
     span {
@@ -328,15 +212,15 @@ onMounted(() => {
   justify-content: space-between;
   margin-bottom: 20px;
 }
-:deep .el-table__body {
-  //-webkit-border-horizontal-spacing: 13px;  // 水平间距
-  -webkit-border-vertical-spacing: 10px; // 垂直间距
-  border: none;
-}
-:deep .el-table__body {
-  -webkit-border-vertical-spacing: 0px !important;
-}
-:deep .el-scrollbar__view {
-  height: 40px;
-}
+// :deep .el-table__body {
+//   //-webkit-border-horizontal-spacing: 13px;  // 水平间距
+//   -webkit-border-vertical-spacing: 10px; // 垂直间距
+//   border: none;
+// }
+// :deep .el-table__body {
+//   -webkit-border-vertical-spacing: 0px !important;
+// }
+// :deep .el-scrollbar__view {
+//   height: 40px;
+// }
 </style>

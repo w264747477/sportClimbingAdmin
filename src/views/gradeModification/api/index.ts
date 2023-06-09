@@ -30,13 +30,9 @@ class Service {
       method: 'get',
       json: true,
       params: data
-    
-    }).then((res) => {
-      if (res.status === 0) {
-        return Promise.resolve(res)
-      }
-      return Promise.reject(res)
+
     })
+
   }
   static api = loginApi
 

@@ -32,7 +32,8 @@
       <el-table-column prop="ranking" label="排名" min-width="120" />
       <el-table-column label="操作" min-width="120">
         <template #default="scope">
-          <el-button type="text" @click="modifyGrade(scope.row)">修改</el-button>
+          <updateGrate :info="scope.row" @sucess="updateInfo"></updateGrate>
+
         </template>
       </el-table-column>
     </el-table>
@@ -44,6 +45,9 @@ import { reactive, ref, watch } from 'vue'
 import { ageList, gender, genderObj, gameType, round, speedRound } from '@/constant/index'
 import Service from '../../api/index'
 import { ElMessage } from 'element-plus'
+import { defineEmits } from 'vue'
+import updateGrate from "./components/updateGrate/index.vue"
+const emit = defineEmits(["sucess"])
 const props = defineProps<{ info: object }>()
 let infoDetail = reactive({
   data: []
@@ -59,6 +63,9 @@ const modifyGrade = async (item) => {
       message: '成绩修改成功'
     })
   }
+}
+const updateInfo = async () => {
+  emit("sucess")
 }
 watch(
   () => props.info,
@@ -76,11 +83,13 @@ watch(
   font-size: 15px;
   font-weight: 700;
 }
+
 .iptS {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
 :deep .el-table__body {
   //-webkit-border-horizontal-spacing: 13px;  // 水平间距
   -webkit-border-vertical-spacing: 10px; // 垂直间距

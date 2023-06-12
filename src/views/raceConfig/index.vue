@@ -1,22 +1,22 @@
 <template>
   <div>
     <div style="margin-bottom: 20px; margin-left: 10px">
-      <h2>成年组测试2</h2>
+      <h2>成年组</h2>
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="男子" name="first">
-          <ConfigTable :info="info.adultMen.grownTableData" style="margin-bottom: 70px"></ConfigTable>
-          <ConfigTable :info="info.adultMen.allRoundTableData" style="margin-bottom: 20px"></ConfigTable>
-          <YearPanal :info="info.adultMen.yearConfig1"></YearPanal>
+          <ConfigTable :info="info.M.grownTableData" style="margin-bottom: 70px"></ConfigTable>
+          <ConfigTable :info="info.M.allRoundTableData" style="margin-bottom: 20px"></ConfigTable>
+          <YearPanal :info="info.M.yearConfig1"></YearPanal>
 
           <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto" @click="saveGrown">保存</el-button>
         </el-tab-pane>
         <el-tab-pane label="女子" name="second">
-          <ConfigTable :info="info.adultWomen.grownTableData" style="margin-bottom: 70px"></ConfigTable>
-          <ConfigTable :info="info.adultWomen.allRoundTableData" style="margin-bottom: 20px"></ConfigTable>
-          <YearPanal :info="info.adultWomen.yearConfig1"></YearPanal>
+          <ConfigTable :info="info.F.grownTableData" style="margin-bottom: 70px"></ConfigTable>
+          <ConfigTable :info="info.F.allRoundTableData" style="margin-bottom: 20px"></ConfigTable>
+          <YearPanal :info="info.F.yearConfig1"></YearPanal>
 
-          <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto" @click="saveGrown">保存</el-button></el-tab-pane
-        >
+          <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto" @click="saveGrown">保存</el-button>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <div style="margin-left: 10px">
@@ -29,13 +29,14 @@
         </el-tab-pane>
       </el-tabs>
 
-      <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto; margin-bottom: 2rem" @click="saveGrown">保存</el-button>
+      <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto; margin-bottom: 2rem"
+        @click="saveGrown">保存</el-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { ElMessage, TabsPaneContext } from 'element-plus'
 import { color } from 'echarts/core'
 import ConfigTable from './components/configTable/index.vue'
@@ -44,7 +45,7 @@ import YearPanal from './components/yearPanal/index.vue'
 
 const info = reactive({
   // 成年组男子
-  adultMen: {
+  M: {
     grownTableData: {
       title: '单项',
       tableData: [
@@ -91,7 +92,7 @@ const info = reactive({
     }
   },
   // 成年组女子
-  adultWomen: {
+  F: {
     grownTableData: {
       title: '单项',
       tableData: [
@@ -1030,6 +1031,19 @@ const saveU = async () => {
     })
   }
 }
+const getInfo = async () => {
+
+  let res = await Service.getGameConfig()
+
+  if (res != undefined) {
+    console.log(res)
+  } else {
+    ElMessage({ type: 'error', message: res.msg })
+  }
+}
+onMounted(() => {
+  getInfo()
+})
 const options = [
   {
     value: true,
@@ -1062,11 +1076,13 @@ const tableData = [
 .yearConfig {
   display: flex;
   flex-direction: column;
+
   .title {
     font-weight: 700;
     margin-bottom: 1rem;
   }
 }
+
 :deep .el-table__body {
   //-webkit-border-horizontal-spacing: 13px;  // 水平间距
   -webkit-border-vertical-spacing: 10px; // 垂直间距

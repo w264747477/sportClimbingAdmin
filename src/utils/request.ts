@@ -71,10 +71,9 @@ instance.interceptors.response.use(
       return Promise.resolve(res);
     } else if (res.status === 200) {
       if (res.data?.code === 200) {
-        // return res.data.data == undefined
-        //     ? Promise.resolve(1)
-        //     : Promise.resolve(res.data.data);
-        return Promise.resolve(res.data.data);
+        return (res.data.data??'') == ''
+            ? Promise.resolve(1)
+            : Promise.resolve(res.data.data);
       } else {
         message({ message: res.data?.msg, type: 'error' });
         return Promise.reject(res);

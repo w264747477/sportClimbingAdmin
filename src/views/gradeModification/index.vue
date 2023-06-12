@@ -30,7 +30,7 @@
 
     <tableB :info="tableData.B" v-if="info.type == 'B'"></tableB>
     <tableL :info="tableData.L" v-if="info.type == 'L'"></tableL>
-    <tableS :info="tableData.S" v-if="info.type == 'S'"></tableS>
+    <tableS :info="tableData.S" v-if="info.type == 'S'" @sucess="getInfo"></tableS>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ import tableB from './components/tableB/index.vue'
 import tableL from './components/tableL/index.vue'
 const value = ref('0')
 let info = reactive({
-  type: 'S',
+  type: 'B',
   gender: 'M',
   round: 'Q0',
   age: ''
@@ -103,24 +103,25 @@ const tableData = reactive({
       number: 1,
       country: '中国',
       name: '章三',
-      sex: '女',
+      gender: '女',
       round: 'Q0',
       group: 'A',
       scoreA: 78,
       scoreB: 34,
-      timeA: '2018-12-23',
-      timeB: '2018-12-23',
+      timeA: '2:21',
+      timeB: '4:11',
       score: 88,
-      ranking: 1
+      ranking: 1,
+      raceType: '1'
     }
   ],
   B: [
     {
-      idx: 1,
+      id: 1,
       number: 1,
       country: '中国',
       name: '章三',
-      sex: '女',
+      gender: '女',
       round: 'Q0',
       group: 'A',
       point1: 78,
@@ -168,7 +169,8 @@ const getInfo = async () => {
   let res = await Service.getScoreInfo(info)
 
   if (res != undefined) {
-    tableData[info.type] = JSON.parse(JSON.stringify(res))
+    tableData[info.type] = res == 1 ? [] : JSON.parse(JSON.stringify(res))
+    // tableData[info.type] = JSON.parse(JSON.stringify(res))
     console.log(tableData.S)
   } else {
     ElMessage({ type: 'error', message: res.msg })
@@ -189,12 +191,16 @@ onMounted(() => {
   width: 95%;
   height: 100%;
   margin: 0 auto;
+  overflow: scroll;
+
   .formbox {
     height: 100%;
     width: 100%;
   }
+
   .slt {
     margin-bottom: 2rem;
+
     span {
       font-size: 1rem;
       font-weight: 700;
@@ -202,16 +208,19 @@ onMounted(() => {
     }
   }
 }
+
 .txt {
   color: #2c3e50;
   font-size: 15px;
   font-weight: 700;
 }
+
 .iptS {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
 // :deep .el-table__body {
 //   //-webkit-border-horizontal-spacing: 13px;  // 水平间距
 //   -webkit-border-vertical-spacing: 10px; // 垂直间距

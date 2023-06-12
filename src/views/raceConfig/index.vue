@@ -30,7 +30,7 @@
       </el-tabs>
 
       <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto; margin-bottom: 2rem"
-        @click="saveGrown">保存</el-button>
+        @click="saveU">保存</el-button>
     </div>
   </div>
 </template>
@@ -42,6 +42,7 @@ import { color } from 'echarts/core'
 import ConfigTable from './components/configTable/index.vue'
 import Service from './api/index'
 import YearPanal from './components/yearPanal/index.vue'
+import { matchObj } from '@/constant'
 
 const info = reactive({
   // 成年组男子
@@ -51,14 +52,14 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 26,
           finalNum: 8
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -98,14 +99,14 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 26,
           finalNum: 8
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -145,7 +146,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -153,7 +154,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -165,7 +166,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -173,7 +174,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -196,7 +197,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -204,7 +205,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -216,7 +217,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -224,7 +225,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -247,7 +248,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -255,7 +256,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -267,7 +268,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -275,7 +276,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -298,7 +299,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -306,7 +307,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -318,7 +319,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -326,7 +327,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -349,7 +350,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -357,7 +358,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -369,7 +370,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -377,7 +378,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -400,7 +401,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -408,7 +409,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -420,7 +421,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -428,7 +429,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -451,7 +452,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -459,7 +460,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -471,7 +472,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -479,7 +480,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -502,7 +503,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -510,7 +511,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -522,7 +523,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -530,7 +531,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -553,7 +554,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -561,7 +562,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -573,7 +574,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -581,7 +582,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -604,7 +605,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -612,7 +613,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -624,7 +625,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -632,7 +633,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -655,7 +656,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -663,7 +664,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -675,7 +676,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -683,7 +684,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -706,7 +707,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -714,7 +715,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -726,7 +727,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -734,7 +735,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -757,7 +758,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -765,7 +766,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -777,7 +778,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -785,7 +786,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -808,7 +809,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -816,7 +817,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -828,7 +829,7 @@ const info = reactive({
       tableData: [
         {
           type: '难度赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
 
           semifinalsNum: 26,
@@ -836,7 +837,7 @@ const info = reactive({
         },
         {
           type: '攀石赛',
-          numOfCt: '',
+          numOfCt: 0,
           hasSemifinals: true,
           semifinalsNum: 20,
           finalNum: 6
@@ -862,14 +863,14 @@ const grownTableData = reactive({
     tableData: [
       {
         type: '难度赛',
-        numOfCt: '',
+        numOfCt: 0,
         hasSemifinals: true,
         semifinalsNum: 26,
         finalNum: 8
       },
       {
         type: '攀石赛',
-        numOfCt: '',
+        numOfCt: 0,
         hasSemifinals: true,
         semifinalsNum: 20,
         finalNum: 6
@@ -901,14 +902,14 @@ const grownTableDataWomen = reactive({
     tableData: [
       {
         type: '难度赛',
-        numOfCt: '',
+        numOfCt: 0,
         hasSemifinals: true,
         semifinalsNum: 26,
         finalNum: 8
       },
       {
         type: '攀石赛',
-        numOfCt: '',
+        numOfCt: 0,
         hasSemifinals: true,
         semifinalsNum: 20,
         finalNum: 6
@@ -941,15 +942,14 @@ const uGrownTableDataMen = reactive({
     tableData: [
       {
         type: '难度赛',
-        numOfCt: '',
+        numOfCt: 0,
         hasSemifinals: true,
-
         semifinalsNum: 26,
         finalNum: 8
       },
       {
         type: '攀石赛',
-        numOfCt: '',
+        numOfCt: 0,
         hasSemifinals: true,
         semifinalsNum: 20,
         finalNum: 6
@@ -963,7 +963,7 @@ const uGrownTableDataWomen = reactive({
     tableData: [
       {
         type: '难度赛',
-        numOfCt: '',
+        numOfCt: 0,
         hasSemifinals: true,
 
         semifinalsNum: 26,
@@ -971,7 +971,7 @@ const uGrownTableDataWomen = reactive({
       },
       {
         type: '攀石赛',
-        numOfCt: '',
+        numOfCt: 0,
         hasSemifinals: true,
         semifinalsNum: 20,
         finalNum: 6
@@ -1004,39 +1004,174 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
   return obj
 }
 const saveGrown = async () => {
-  const res = await Service.setGrown(Object.assign(grownTableData.val, allRoundTableData.val))
+  let obj;
+
+  let genderObj = {
+    'first': 'M',
+    'second': 'F'
+  }
+  obj = {
+    "match": "M",
+    "dftSigQ0RtNum": info[genderObj[activeName.value]].grownTableData.tableData[0].numOfCt,
+    "dftSigHasF2": info[genderObj[activeName.value]].grownTableData.tableData[0].hasSemifinals,
+    "dftSigF2PromNum": info[genderObj[activeName.value]].grownTableData.tableData[0].semifinalsNum,
+    "dftSigF0PromNum": info[genderObj[activeName.value]].grownTableData.tableData[0].finalNum,
+    "dftFullQ0HandNum": info[genderObj[activeName.value]].allRoundTableData.tableData[0].preliminariesCount,
+    "dftFullF2HandNum": info[genderObj[activeName.value]].allRoundTableData.tableData[0].semifinalsCount,
+    "dftFullF0HandNum": info[genderObj[activeName.value]].allRoundTableData.tableData[0].finalCount,
+    "bldSigHasF2": info[genderObj[activeName.value]].grownTableData.tableData[1].hasSemifinals,
+    "bldSigF2PromNum": info[genderObj[activeName.value]].grownTableData.tableData[1].semifinalsNum,
+    "bldSigF0PromNum": info[genderObj[activeName.value]].grownTableData.tableData[1].finalNum,
+    "fullHasF2": info[genderObj[activeName.value]].allRoundTableData.iptSec.hasSemifinals,
+    "fullF2PromNum": info[genderObj[activeName.value]].allRoundTableData.iptSec.semifinalsNum,
+    "fullF0PromNum": info[genderObj[activeName.value]].allRoundTableData.iptSec.finalNum
+  }
+
+  const res = await Service.setGameConfig(obj)
   if (res) {
     ElMessage({
       type: 'success',
       message: '配置成功'
-    })
-  } else {
-    ElMessage({
-      type: 'warning',
-      message: res.message
     })
   }
 }
 const saveU = async () => {
-  const res = await Service.setU(Object.assign(uGrownTableDataMen.val, uGrownTableDataWomen.val))
+  let obj;
+  let genderObj = {}
+  for (let i = 5; i < 18; i++) {
+    let s = `U${i}`
+    genderObj[s] = `u${i}`
+
+  }
+
+  obj = {
+    "match": "M",
+    "dftSigQ0RtNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].numOfCt,
+    "dftSigHasF2": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].hasSemifinals,
+    "dftSigF2PromNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].semifinalsNum,
+    "dftSigF0PromNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].finalNum,
+    "dftFullQ0HandNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.tableData[0].preliminariesCount,
+    "dftFullF2HandNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.tableData[0].semifinalsCount,
+    "dftFullF0HandNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.tableData[0].finalCount,
+    "bldSigHasF2": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[1].hasSemifinals,
+    "bldSigF2PromNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[1].semifinalsNum,
+    "bldSigF0PromNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[1].finalNum,
+    "fullHasF2": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.iptSec.hasSemifinals,
+    "fullF2PromNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.iptSec.semifinalsNum,
+    "fullF0PromNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.iptSec.finalNum
+  }
+
+  const res = await Service.setGameConfig(obj)
   if (res) {
     ElMessage({
       type: 'success',
       message: '配置成功'
     })
-  } else {
-    ElMessage({
-      type: 'warning',
-      message: res.message
-    })
   }
+}
+const handleAdult = (val: matchObj) => {
+
+  let obj = {
+    'M': 'M',
+    'F': 'F'
+  }
+
+  info[obj[val.match]].grownTableData.tableData[0] = {
+    type: '难度赛',
+    numOfCt: val.dftSigQ0RtNum,
+    hasSemifinals: val.dftSigHasF2 == 0 ? true : false,
+    semifinalsNum: val.dftSigF2PromNum,
+    finalNum: val.dftSigF0PromNum
+  }
+  info[obj[val.match]].grownTableData.tableData[1] = {
+    type: '攀石赛',
+    hasSemifinals: val.bldSigHasF2 == 0 ? true : false,
+    semifinalsNum: val.bldSigF2PromNum,
+    finalNum: val.bldSigF0PromNum
+  }
+  info[obj[val.match]].allRoundTableData.iptSec = {
+    hasSemifinals: val.fullHasF2 == 0 ? true : false,
+    semifinalsNum: val.fullF2PromNum,
+    finalNum: val.fullF0PromNum
+  }
+  info[obj[val.match]].allRoundTableData.tableData = [{
+    type: '难度赛',
+    preliminariesCount: val.dftFullQ0HandNum,
+    semifinalsCount: val.dftFullF2HandNum,
+    finalCount: val.dftFullF0HandNum
+  }]
+
+}
+const handleU = (val: matchObj) => {
+  let uObj = {}
+  for (let i = 5; i < 18; i++) {
+    let s = `U${i}`
+    uObj[s] = `u${i}`
+
+  }
+  let genderObj = {
+    'M': 'uGrownTableDataMen',
+    'F': 'uGrownTableDataWomen'
+  }
+  let gender = val.match.slice(-1)
+  let u = val.match.slice(0, val.match.length - 1)
+  let obj = {
+    'M': 'M',
+    'F': 'F'
+  }
+
+  if (gender == 'M' && info[uObj[u]]) {
+    info[uObj[u]].uGrownTableDataMen.tableData[0] = {
+      type: '难度赛',
+      numOfCt: val.dftSigQ0RtNum,
+      hasSemifinals: val.dftSigHasF2 == 0 ? true : false,
+      semifinalsNum: val.dftSigF2PromNum,
+      finalNum: val.dftSigF0PromNum
+    }
+    info[uObj[u]].uGrownTableDataMen.tableData[1] = {
+      type: '攀石赛',
+      hasSemifinals: val.bldSigHasF2 == 0 ? true : false,
+      semifinalsNum: val.bldSigF2PromNum,
+      finalNum: val.bldSigF0PromNum
+    }
+  } else if (gender == 'F' && info[uObj[u]]) {
+    info[uObj[u]].uGrownTableDataWomen.tableData[0] = {
+      type: '难度赛',
+      numOfCt: val.dftSigQ0RtNum,
+      hasSemifinals: val.dftSigHasF2 == 0 ? true : false,
+      semifinalsNum: val.dftSigF2PromNum,
+      finalNum: val.dftSigF0PromNum
+    }
+    info[uObj[u]].uGrownTableDataWomen.tableData[1] = {
+      type: '攀石赛',
+      hasSemifinals: val.bldSigHasF2 == 0 ? true : false,
+      semifinalsNum: val.bldSigF2PromNum,
+      finalNum: val.bldSigF0PromNum
+    }
+  }
+
+
+  if (['U6M', 'U6F'].includes(val.match)) {
+    console.log(info[uObj[u]])
+  }
+
+
+
 }
 const getInfo = async () => {
 
   let res = await Service.getGameConfig()
 
   if (res != undefined) {
-    console.log(res)
+    res.map(item => {
+      if (['M', 'F'].includes(item.match)) {
+        handleAdult(item)
+      } else {
+        handleU(item)
+      }
+    })
+
+
   } else {
     ElMessage({ type: 'error', message: res.msg })
   }
@@ -1057,7 +1192,7 @@ const options = [
 const tableData = [
   {
     type: '难度赛',
-    numOfCt: '',
+    numOfCt: 0,
     hasSemifinals: true,
 
     semifinalsNum: 0,
@@ -1065,7 +1200,7 @@ const tableData = [
   },
   {
     type: '攀石赛',
-    numOfCt: '',
+    numOfCt: 0,
     hasSemifinals: true,
     semifinalsNum: 0,
     finalNum: 0

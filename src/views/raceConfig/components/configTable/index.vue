@@ -23,7 +23,8 @@
             </el-select>
           </div>
         </div>
-        <el-table :data="tableData.val" style="width: 100%; --el-table-border-color: none" :cell-style="changeCellStyle" :header-cell-style="headerRowStyle">
+        <el-table :data="tableData.val" style="width: 100%; --el-table-border-color: none" :cell-style="changeCellStyle"
+          :header-cell-style="headerRowStyle">
           <el-table-column prop="type" label="" align="center" />
           <el-table-column prop="preliminariesCount" label="预赛手点数" align="center">
             <template #default="scope">
@@ -44,7 +45,8 @@
       </div>
 
       <div v-else>
-        <el-table :data="tableData.val" style="width: 100%; --el-table-border-color: none" :cell-style="changeCellStyle" :header-cell-style="headerRowStyle">
+        <el-table :data="tableData.val" style="width: 100%; --el-table-border-color: none" :cell-style="changeCellStyle"
+          :header-cell-style="headerRowStyle">
           <el-table-column prop="type" label="" align="center" />
           <el-table-column prop="numOfCt" label="预赛攀爬道路数量" align="center">
             <template #default="scope">
@@ -138,14 +140,18 @@ const options = [
 watch(
   () => props.info,
   (newVal) => {
+
     if ((newVal ?? '') != '') {
       title.value = newVal.title
       tableData.val = newVal.tableData
       if ((newVal.iptSec ?? '') != '') {
         iptSec.val = newVal.iptSec
       }
+
+
     }
   },
+  { deep: true },
   { immediate: true }
 )
 </script>
@@ -155,11 +161,13 @@ watch(
   font-size: 15px;
   font-weight: 700;
 }
+
 .iptS {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
 :deep .el-table__body {
   //-webkit-border-horizontal-spacing: 13px;  // 水平间距
   -webkit-border-vertical-spacing: 10px; // 垂直间距

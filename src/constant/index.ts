@@ -74,7 +74,22 @@ export const speedRound =
       label: '决赛'
     }
   ]
-
+export type matchObj = {
+  "match": string,
+  "dftSigQ0RtNum": number,
+  "dftSigHasF2": number,
+  "dftSigF2PromNum": number,
+  "dftSigF0PromNum": number,
+  "dftFullQ0HandNum": number,
+  "dftFullF2HandNum": number,
+  "dftFullF0HandNum": number,
+  "bldSigHasF2": number,
+  "bldSigF2PromNum": number,
+  "bldSigF0PromNum": number,
+  "fullHasF2": number,
+  "fullF2PromNum": number,
+  "fullF0PromNum": number
+}
 const loginApi = {
   speedModify: '/sportClimbingAdmin/api/score/speed/update',
   boulderingModify: '/sportClimbingAdmin/api/score/bouldering/update',

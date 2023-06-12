@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 const raceConfigApi = {
   getGameConfig: '/sportClimbingAdmin/api/score/config/match',
-  setGameConfig: '/sportClimbingAdmin/api/score/match',
+  setGameConfig: '/sportClimbingAdmin/api/score/config/match',
 
 }
 
@@ -15,7 +15,17 @@ class Service {
       url: raceConfigApi.getGameConfig,
       method: 'get',
       json: true,
-   
+
+
+    })
+
+  }
+  static setGameConfig(data) {
+    return request({
+      url: raceConfigApi.setGameConfig,
+      method: 'post',
+      json: true,
+      data
 
     })
 

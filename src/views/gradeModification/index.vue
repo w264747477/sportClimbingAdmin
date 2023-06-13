@@ -98,42 +98,42 @@ const sround = [
 const props = defineProps<{ info: object }>()
 const tableData = reactive({
   L: [
-    {
-      idx: 1,
-      number: 1,
-      country: '中国',
-      name: '章三',
-      gender: '女',
-      round: 'Q0',
-      group: 'A',
-      scoreA: 78,
-      scoreB: 34,
-      timeA: '2:21',
-      timeB: '4:11',
-      score: 88,
-      ranking: 1,
-      raceType: '1'
-    }
+    // {
+    //   idx: 1,
+    //   number: 1,
+    //   country: '中国',
+    //   name: '章三',
+    //   gender: '女',
+    //   round: 'Q0',
+    //   group: 'A',
+    //   scoreA: 78,
+    //   scoreB: 34,
+    //   timeA: '2:21',
+    //   timeB: '4:11',
+    //   score: 88,
+    //   ranking: 1,
+    //   raceType: '1'
+    // }
   ],
   B: [
-    {
-      id: 1,
-      number: 1,
-      country: '中国',
-      name: '章三',
-      gender: '女',
-      round: 'Q0',
-      group: 'A',
-      point1: 78,
-      point2: 78,
-      point3: 78,
-      point4: 78,
-      point5: 78,
-      score: 55,
-      attz: 1,
-      attT: 2,
-      ranking: 1
-    }
+    // {
+    //   id: 1,
+    //   number: 1,
+    //   country: '中国',
+    //   name: '章三',
+    //   gender: '女',
+    //   round: 'Q0',
+    //   group: 'A',
+    //   point1: 78,
+    //   point2: 78,
+    //   point3: 78,
+    //   point4: 78,
+    //   point5: 78,
+    //   score: 55,
+    //   attz: 1,
+    //   attT: 2,
+    //   ranking: 1
+    // }
   ],
   S: []
 })

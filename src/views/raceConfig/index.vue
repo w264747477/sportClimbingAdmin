@@ -1038,7 +1038,7 @@ const saveGrown = async () => {
 const saveU = async () => {
   let obj;
 
-  obj = {
+  objM = {
     "match": "M",
     "dftSigQ0RtNum": info[`u${uActiveName.value}`].grownTableData.tableData[0].numOfCt,
     "dftSigHasF2": info[`u${uActiveName.value}`].grownTableData.tableData[0].hasSemifinals == true ? 1 : 0,

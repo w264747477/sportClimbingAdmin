@@ -101,7 +101,7 @@ watch(
 
 :deep .el-table__body {
   //-webkit-border-horizontal-spacing: 13px;  // 水平间距
-  -webkit-border-vertical-spacing: 10px; // 垂直间距
+  //-webkit-border-vertical-spacing: 10px; // 垂直间距
   border: none;
 }
 </style>

@@ -12,27 +12,12 @@
         <el-table-column prop="remark" label="备注" align="center" min-width="120" show-overflow-tooltip> </el-table-column>
         <el-table-column prop="" label="操作" align="center" min-width="120" show-overflow-tooltip>
           <template #default="scope">
-            <!-- <el-button
-            v-if="showInfo(scope.row)"
-            type="text"
-            @click="orderInfo(scope.row)"
-            >备货信息</el-button
-          > -->
-            <el-upload
-              class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :before-remove="beforeRemove"
-              multiple
-              :limit="3"
-              :file-list="fileList"
-              accept=".jpg"
-              :on-success="commercialContractSucess"
-              :before-upload="beforeAvatarUpload"
-              :on-error="handleImageError"
-              :on-exceed="handleExceed"
-            >
-              <el-button size="small" type="text">更新</el-button>
-              <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+
+            <el-upload class="upload-demo" action="/sportClimbingAdmin/api/static/uploadImage"
+              :before-remove="beforeRemove" :limit="3" :file-list="info.fileList" accept=".jpg" :on-success="uploadSucess"
+              :before-upload="beforeAvatarUpload" :on-error="handleImageError" :on-exceed="handleExceed">
+              <el-button size="small" type="text" @click="updateTag(scope.row.value)">更新</el-button>
+
             </el-upload>
           </template>
         </el-table-column>
@@ -40,7 +25,7 @@
     </div>
     <div class="box_item">
       <span>速度赛对阵图</span>
-      <el-table :data="tableData.val" border>
+      <el-table :data="tableData.speedVal" border>
         <el-table-column prop="type" label="类别" align="center" min-width="120" show-overflow-tooltip> </el-table-column>
         <el-table-column prop="img" label="当前图片" align="center" min-width="120" show-overflow-tooltip>
           <template #default="scope">
@@ -50,27 +35,12 @@
         <el-table-column prop="remark" label="备注" align="center" min-width="120" show-overflow-tooltip> </el-table-column>
         <el-table-column prop="" label="操作" align="center" min-width="120" show-overflow-tooltip>
           <template #default="scope">
-            <!-- <el-button
-            v-if="showInfo(scope.row)"
-            type="text"
-            @click="orderInfo(scope.row)"
-            >备货信息</el-button
-          > -->
-            <el-upload
-              class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :before-remove="beforeRemove"
-              multiple
-              :limit="3"
-              :file-list="fileList"
-              accept=".jpg"
-              :on-success="commercialContractSucess"
-              :before-upload="beforeAvatarUpload"
-              :on-error="handleImageError"
-              :on-exceed="handleExceed"
-            >
-              <el-button size="small" type="text">更新</el-button>
-              <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+
+            <el-upload class="upload-demo" action="/sportClimbingAdmin/api/static/uploadImage"
+              :before-remove="beforeRemove" :limit="3" :file-list="info.fileList" accept=".jpg" :on-success="uploadSucess"
+              :before-upload="beforeAvatarUpload" :on-error="handleImageError" :on-exceed="handleExceed">
+              <el-button size="small" type="text" @click="updateTag(scope.row.value)">更新</el-button>
+
             </el-upload>
           </template>
         </el-table-column>
@@ -80,42 +50,78 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import draggable from 'vuedraggable'
 import { CircleCloseFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { ReadJPG, ReadJPGBase64 } from '@/utils/imageDimension.js'
-
+import Service from '../../api'
 const props = defineProps<{ info: object }>()
 const tableData = reactive({
   val: [
     {
+      value: 0,
       type: '赛事名称条',
       img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     },
     {
+      value: 1,
       type: '赛事项目条',
       img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     },
     {
+      value: 2,
       type: '滚动条',
       img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     },
     {
+      value: 3,
+      type: 'logo',
+      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
+    }
+  ],
+  speedVal: [
+    {
+      value: 4,
+      type: '赛事名称条',
+      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
+    },
+    {
+      value: 5,
+      type: '赛事项目条',
+      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
+    },
+    {
+      value: 6,
+      type: '滚动条',
+      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
+    },
+    {
+      value: 7,
       type: 'logo',
       img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     }
   ]
 })
+let state = reactive({
+  currentItem: ''
+})
+const updateTag = (val) => {
+  state.currentItem = val
+}
 const beforeAvatarUpload = (file) => {
   const extension = file.size / 1024 / 1024 <= 20
   const testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
   if (!extension) {
-    ElMessage.error('文件大小超过20M!')
+    ElMessage.error('图片大小超过20M!')
     return false
   }
   const img = new Image()
@@ -128,21 +134,39 @@ const beforeAvatarUpload = (file) => {
   }
   // 判断图片的大小
 }
-const commercialContractSucess = (response, file, fileList) => {
+const uploadSucess = async (response, file, fileList) => {
   console.log(response)
-  if (response.stateCode == '00000') {
-    this.businessList.commercialContract = response.data
-    const arr = this.deepClone(this.$store.state.osModule.fileList)
-    arr.push(response.data.fileKey)
-    this.$store.commit('osModule/setFileList', arr)
-  } else {
-    this.$message.error(response.message)
+  if (response.code == 200) {
+
+    if (state.currentItem > 3) {
+      let tem = JSON.parse(JSON.stringify(tableData.speedVal))
+      tem[state.currentItem - 4].img = response.data.url
+      let res = await setImg(tem)
+      if (res) {
+        tableData.speedVal[state.currentItem - 4].img = response.data.url
+        info.fileList = []
+        ElMessage.success('图片更新成功')
+      }
+    } else {
+      let tem = JSON.parse(JSON.stringify(tableData.val))
+      tem[state.currentItem].img = response.data.url
+      let res = await setImg(tem)
+      if (res) {
+        tableData.val[state.currentItem].img = response.data.url
+        info.fileList = []
+        ElMessage.success('图片更新成功')
+      }
+    }
+
+
   }
 }
 const handleImageError = () => {
-  this.$message.error('上传文件失败')
+  ElMessage.error('图片更新失败!')
 }
-const fileList = []
+let info = reactive({
+  fileList: []
+})
 const pageInfo = {
   page: 1,
   size: 5,
@@ -192,28 +216,35 @@ const handleExceed = (files, fileList) => {
   ElMessage.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
 }
 const beforeRemove = (file, fileList) => ElMessage.warning(`确定移除 ${file.name}？`)
-watch(
-  () => props.info,
-  (newVal) => {
-    if ((newVal ?? '') != '') {
-      title.value = newVal.title
-      tableData.val = newVal.tableData
-      if ((newVal.iptSec ?? '') != '') {
-        iptSec.val = newVal.iptSec
-      }
-    }
-  },
-  { immediate: true }
-)
+const getInfo = async () => {
+
+  let res = await Service.getBackgroundImgConfig()
+  if (res) {
+    tableData.val = res[0]
+    tableData.speedVal = res[1]
+  }
+
+}
+const setImg = async (data) => {
+
+  let res = await Service.setBackgroundImg(data)
+  return res
+
+}
+onMounted(() => {
+  // getInfo()
+})
 </script>
 <style scoped lang="scss">
 .box {
   width: 95%;
   margin: 0 auto;
   height: 100%;
+
   .box_item {
     margin-bottom: 2rem;
-    & > span {
+
+    &>span {
       white-space: nowrap;
       display: block;
       margin-bottom: 1rem;
@@ -222,12 +253,14 @@ watch(
     }
   }
 }
+
 .tsv {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
+
 .img {
   width: 100px;
   height: 100px;

@@ -90,6 +90,22 @@ export type matchObj = {
   "fullF2PromNum": number,
   "fullF0PromNum": number
 }
+export type exportList = {
+  type: string,
+  gender: string,
+  round: string,
+  age: string,
+  name: string,
+  time: string,
+  address: string,
+  project: string,
+  logo: Array,
+  chiefJudge: string,
+  deputyReferee: string,
+  routejudge: string,
+  gradeHandlingJudge: string,
+  announcementTime: any
+}
 const loginApi = {
   speedModify: '/sportClimbingAdmin/api/score/speed/update',
   boulderingModify: '/sportClimbingAdmin/api/score/bouldering/update',

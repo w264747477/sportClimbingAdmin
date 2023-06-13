@@ -43,7 +43,9 @@ import ConfigTable from './components/configTable/index.vue'
 import Service from './api/index'
 import YearPanal from './components/yearPanal/index.vue'
 import { matchObj } from '@/constant'
-
+let getInfoData = reactive({
+  val: []
+})
 const info = reactive({
   // 成年组男子
   M: {
@@ -1013,16 +1015,16 @@ const saveGrown = async () => {
   obj = {
     "match": "M",
     "dftSigQ0RtNum": info[genderObj[activeName.value]].grownTableData.tableData[0].numOfCt,
-    "dftSigHasF2": info[genderObj[activeName.value]].grownTableData.tableData[0].hasSemifinals,
+    "dftSigHasF2": info[genderObj[activeName.value]].grownTableData.tableData[0].hasSemifinals == true ? 1 : 0,
     "dftSigF2PromNum": info[genderObj[activeName.value]].grownTableData.tableData[0].semifinalsNum,
     "dftSigF0PromNum": info[genderObj[activeName.value]].grownTableData.tableData[0].finalNum,
     "dftFullQ0HandNum": info[genderObj[activeName.value]].allRoundTableData.tableData[0].preliminariesCount,
     "dftFullF2HandNum": info[genderObj[activeName.value]].allRoundTableData.tableData[0].semifinalsCount,
     "dftFullF0HandNum": info[genderObj[activeName.value]].allRoundTableData.tableData[0].finalCount,
-    "bldSigHasF2": info[genderObj[activeName.value]].grownTableData.tableData[1].hasSemifinals,
+    "bldSigHasF2": info[genderObj[activeName.value]].grownTableData.tableData[1].hasSemifinals == true ? 1 : 0,
     "bldSigF2PromNum": info[genderObj[activeName.value]].grownTableData.tableData[1].semifinalsNum,
     "bldSigF0PromNum": info[genderObj[activeName.value]].grownTableData.tableData[1].finalNum,
-    "fullHasF2": info[genderObj[activeName.value]].allRoundTableData.iptSec.hasSemifinals,
+    "fullHasF2": info[genderObj[activeName.value]].allRoundTableData.iptSec.hasSemifinals == true ? 1 : 0,
     "fullF2PromNum": info[genderObj[activeName.value]].allRoundTableData.iptSec.semifinalsNum,
     "fullF0PromNum": info[genderObj[activeName.value]].allRoundTableData.iptSec.finalNum
   }
@@ -1037,31 +1039,42 @@ const saveGrown = async () => {
 }
 const saveU = async () => {
   let objM, objW;
-  let genderObj = {}
-  for (let i = 5; i < 18; i++) {
-    let s = `U${i}`
-    genderObj[s] = `u${i}`
-
-  }
-
   objM = {
-    "match": "M",
-    "dftSigQ0RtNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].numOfCt,
-    "dftSigHasF2": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].hasSemifinals,
-    "dftSigF2PromNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].semifinalsNum,
-    "dftSigF0PromNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].finalNum,
-    "dftFullQ0HandNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.tableData[0].preliminariesCount,
-    "dftFullF2HandNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.tableData[0].semifinalsCount,
-    "dftFullF0HandNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.tableData[0].finalCount,
-    "bldSigHasF2": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[1].hasSemifinals,
-    "bldSigF2PromNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[1].semifinalsNum,
-    "bldSigF0PromNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[1].finalNum,
-    "fullHasF2": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.iptSec.hasSemifinals,
-    "fullF2PromNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.iptSec.semifinalsNum,
-    "fullF0PromNum": info[genderObj[`u${uActiveName.value}`]].allRoundTableData.iptSec.finalNum
+    "match": `U${uActiveName.value}M`,
+    "dftSigQ0RtNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[0].numOfCt,
+    "dftSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[0].hasSemifinals == true ? 1 : 0,
+    "dftSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[0].semifinalsNum,
+    "dftSigF0PromNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[0].finalNum,
+    "dftFullQ0HandNum": null,
+    "dftFullF2HandNum": null,
+    "dftFullF0HandNum": null,
+    "bldSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[1].hasSemifinals == true ? 1 : 0,
+    "bldSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[1].semifinalsNum,
+    "bldSigF0PromNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[1].finalNum,
+    "fullHasF2": null,
+    "fullF2PromNum": null,
+    "fullF0PromNum": null
+  }
+  objW = {
+    "match": `U${uActiveName.value}W`,
+    "dftSigQ0RtNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].numOfCt,
+    "dftSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].hasSemifinals == true ? 1 : 0,
+    "dftSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].semifinalsNum,
+    "dftSigF0PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].finalNum,
+    "dftFullQ0HandNum": null,
+    "dftFullF2HandNum": null,
+    "dftFullF0HandNum": null,
+    "bldSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[1].hasSemifinals == true ? 1 : 0,
+    "bldSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[1].semifinalsNum,
+    "bldSigF0PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[1].finalNum,
+    "fullHasF2": null,
+    "fullF2PromNum": null,
+    "fullF0PromNum": null
   }
 
-  const res = await Service.setGameConfig(obj)
+  let list = [objM, objW]
+
+  const res = await Service.setGameConfig(list)
   if (res) {
     ElMessage({
       type: 'success',
@@ -1079,18 +1092,18 @@ const handleAdult = (val: matchObj) => {
   info[obj[val.match]].grownTableData.tableData[0] = {
     type: '难度赛',
     numOfCt: val.dftSigQ0RtNum,
-    hasSemifinals: val.dftSigHasF2 == 0 ? true : false,
+    hasSemifinals: val.dftSigHasF2 == 0 ? false : true,
     semifinalsNum: val.dftSigF2PromNum,
     finalNum: val.dftSigF0PromNum
   }
   info[obj[val.match]].grownTableData.tableData[1] = {
     type: '攀石赛',
-    hasSemifinals: val.bldSigHasF2 == 0 ? true : false,
+    hasSemifinals: val.bldSigHasF2 == 0 ? false : true,
     semifinalsNum: val.bldSigF2PromNum,
     finalNum: val.bldSigF0PromNum
   }
   info[obj[val.match]].allRoundTableData.iptSec = {
-    hasSemifinals: val.fullHasF2 == 0 ? true : false,
+    hasSemifinals: val.fullHasF2 == 0 ? false : true,
     semifinalsNum: val.fullF2PromNum,
     finalNum: val.fullF0PromNum
   }
@@ -1124,13 +1137,13 @@ const handleU = (val: matchObj) => {
     info[uObj[u]].uGrownTableDataMen.tableData[0] = {
       type: '难度赛',
       numOfCt: val.dftSigQ0RtNum,
-      hasSemifinals: val.dftSigHasF2 == 0 ? true : false,
+      hasSemifinals: val.dftSigHasF2 == 0 ? false : true,
       semifinalsNum: val.dftSigF2PromNum,
       finalNum: val.dftSigF0PromNum
     }
     info[uObj[u]].uGrownTableDataMen.tableData[1] = {
       type: '攀石赛',
-      hasSemifinals: val.bldSigHasF2 == 0 ? true : false,
+      hasSemifinals: val.bldSigHasF2 == 0 ? false : true,
       semifinalsNum: val.bldSigF2PromNum,
       finalNum: val.bldSigF0PromNum
     }
@@ -1138,30 +1151,23 @@ const handleU = (val: matchObj) => {
     info[uObj[u]].uGrownTableDataWomen.tableData[0] = {
       type: '难度赛',
       numOfCt: val.dftSigQ0RtNum,
-      hasSemifinals: val.dftSigHasF2 == 0 ? true : false,
+      hasSemifinals: val.dftSigHasF2 == 0 ? false : true,
       semifinalsNum: val.dftSigF2PromNum,
       finalNum: val.dftSigF0PromNum
     }
     info[uObj[u]].uGrownTableDataWomen.tableData[1] = {
       type: '攀石赛',
-      hasSemifinals: val.bldSigHasF2 == 0 ? true : false,
+      hasSemifinals: val.bldSigHasF2 == 0 ? false : true,
       semifinalsNum: val.bldSigF2PromNum,
       finalNum: val.bldSigF0PromNum
     }
   }
 
-
-  if (['U6M', 'U6F'].includes(val.match)) {
-    console.log(info[uObj[u]])
-  }
-
-
-
 }
 const getInfo = async () => {
 
   let res = await Service.getGameConfig()
-
+  // getInfoData.val = JSON.parse(JSON.stringify(res))
   if (res != undefined) {
     res.map(item => {
       if (['M', 'F'].includes(item.match)) {

@@ -1036,7 +1036,7 @@ const saveGrown = async () => {
   }
 }
 const saveU = async () => {
-  let obj;
+  let objM, objW;
   let genderObj = {}
   for (let i = 5; i < 18; i++) {
     let s = `U${i}`
@@ -1044,7 +1044,7 @@ const saveU = async () => {
 
   }
 
-  obj = {
+  objM = {
     "match": "M",
     "dftSigQ0RtNum": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].numOfCt,
     "dftSigHasF2": info[genderObj[`u${uActiveName.value}`]].grownTableData.tableData[0].hasSemifinals,

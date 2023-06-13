@@ -1013,7 +1013,7 @@ const saveGrown = async () => {
     'second': 'F'
   }
   obj = {
-    "match": "M",
+    "match": genderObj[activeName.value],
     "dftSigQ0RtNum": info[genderObj[activeName.value]].grownTableData.tableData[0].numOfCt,
     "dftSigHasF2": info[genderObj[activeName.value]].grownTableData.tableData[0].hasSemifinals == true ? 1 : 0,
     "dftSigF2PromNum": info[genderObj[activeName.value]].grownTableData.tableData[0].semifinalsNum,
@@ -1029,7 +1029,7 @@ const saveGrown = async () => {
     "fullF0PromNum": info[genderObj[activeName.value]].allRoundTableData.iptSec.finalNum
   }
 
-  const res = await Service.setGameConfig(obj)
+  const res = await Service.setGameConfig([obj])
   if (res) {
     ElMessage({
       type: 'success',
@@ -1056,7 +1056,7 @@ const saveU = async () => {
     "fullF0PromNum": null
   }
   objW = {
-    "match": `U${uActiveName.value}W`,
+    "match": `U${uActiveName.value}F`,
     "dftSigQ0RtNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].numOfCt,
     "dftSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].hasSemifinals == true ? 1 : 0,
     "dftSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].semifinalsNum,

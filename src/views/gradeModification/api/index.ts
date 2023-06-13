@@ -19,12 +19,12 @@ class Service {
       data
     })
   }
-  static getGameConfig() {
+  static getScoreInfo(data: any){
     return request({
-      url: raceConfigApi.getGameConfig,
+      url: loginApi.getScore,
       method: 'get',
       json: true,
-
+      params: data
 
     })
 

@@ -1,21 +1,13 @@
 <template>
   <div class="box">
-    <el-form ref="formRef" :label-position="labelPosition" :model="infoDetail.data" style="max-width: 80%" :inline="true"
-      :label-width="'100px'">
-      <el-form-item label="类型" :prop="infoDetail.data.type" :rules="[{
-        required: true,
-        message: '请选择类型',
-        trigger: 'blur',
-      }]">
+    <el-form ref="formRef" :rules="rules" :label-position="labelPosition" :model="infoDetail.data" style="max-width: 80%"
+      :inline="true" :label-width="'100px'">
+      <el-form-item label="类型" prop="type">
         <el-select v-model="infoDetail.data.type" style="width: 300px" @change="change('type')">
           <el-option v-for="item in gameType" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="性别" :prop="infoDetail.data.gender" :rules="[{
-        required: true,
-        message: '请选择性别',
-        trigger: 'blur',
-      }]">
+      <el-form-item label="性别" prop="gender">
         <el-select v-model="infoDetail.data.gender" style="width: 300px" @change="change('gender')">
           <el-option v-for="item in genderList" :label="item.label" :value="item.value"></el-option>
         </el-select>
@@ -35,34 +27,18 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="赛事名称" :prop="infoDetail.data.name" :rules="[{
-        required: true,
-        message: '请输入赛事名称',
-        trigger: 'blur',
-      }]">
+      <el-form-item label="赛事名称" prop="name">
         <el-input v-model="infoDetail.data.name" style="width: 300px" />
       </el-form-item>
-      <el-form-item label="时间" :prop="infoDetail.data.time" :rules="[{
-        required: true,
-        message: '请选择时间',
-        trigger: 'blur',
-      }]">
+      <el-form-item label="时间" prop="time">
         <el-date-picker v-model="infoDetail.data.time" type="date" placeholder="选择时间" style="width: 300px" />
 
       </el-form-item>
-      <el-form-item label="地点" :prop="infoDetail.data.address" :rules="{
-        required: true,
-        message: '请输入地点',
-        trigger: 'blur',
-      }">
+      <el-form-item label="地点" prop="address">
         <el-input v-model="infoDetail.data.address" style="width: 300px" />
 
       </el-form-item>
-      <el-form-item label="项目" :prop="infoDetail.data.project" :rules="{
-        required: true,
-        message: '请输入项目',
-        trigger: 'blur',
-      }">
+      <el-form-item label="项目" prop="project">
         <el-input v-model="infoDetail.data.project" style="width: 300px" />
 
       </el-form-item>
@@ -104,7 +80,7 @@ import { onMounted, reactive, ref, watch } from 'vue'
 import { ageList, gender, gameType, speedRound } from '@/constant/index'
 import dayjs from 'dayjs'
 import { Service, exportList } from '../../api/index.ts'
-import { FormInstance } from 'element-plus'
+import { FormInstance, FormRules } from 'element-plus'
 const props = defineProps<{ info: number }>()
 const infoDetail = reactive({
   data: <exportList>{
@@ -189,6 +165,59 @@ const change = async (val) => {
   }
 
 }
+const rules = reactive<FormRules>({
+  round: [],
+  age: [],
+  logo: [],
+  chiefJudge: [],
+  deputyReferee: [],
+  routejudge: [],
+  gradeHandlingJudge: [],
+  announcementTime: [],
+  type: [
+    {
+
+      required: true,
+      message: '请选择类型',
+      trigger: 'blur',
+    },
+  ],
+  gender: [
+    {
+
+      required: true,
+      message: '请选择性别',
+      trigger: 'blur',
+    },
+  ],
+  name: [
+    { required: true, message: '请输入赛事名称', trigger: 'blur' },
+
+  ],
+  time: [
+    {
+      required: true,
+      message: '请选择时间',
+      trigger: 'blur',
+    },
+  ],
+  address: [
+    {
+      required: true,
+      message: '请输入地点',
+      trigger: 'blur',
+    },
+  ],
+  project: [
+    {
+
+      required: true,
+      message: '请输入项目',
+      trigger: 'blur',
+    },
+  ],
+
+})
 const exportInfo = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate(async (valid) => {
@@ -211,6 +240,7 @@ const exportInfo = async (formEl: FormInstance | undefined) => {
       }
       let url = props.info == 1 ? exportList.exportScores : exportList.promotionList
       const res = await Service.postExport(url, obj)
+      console.log(res)
       if (res) {
         toDownloadFile(response);
       }
@@ -237,8 +267,8 @@ watch(
       console.log(newVal)
     }
   },
-  { deep: true },
-  { immediate: true }
+  { deep: true, immediate: true },
+
 
 )
 </script>

@@ -43,7 +43,9 @@ import ConfigTable from './components/configTable/index.vue'
 import Service from './api/index'
 import YearPanal from './components/yearPanal/index.vue'
 import { matchObj } from '@/constant'
-
+let getInfoData = reactive({
+  val: []
+})
 const info = reactive({
   // 成年组男子
   M: {
@@ -1036,26 +1038,43 @@ const saveGrown = async () => {
   }
 }
 const saveU = async () => {
-  let obj;
-
+  let objM, objW;
   objM = {
-    "match": "M",
-    "dftSigQ0RtNum": info[`u${uActiveName.value}`].grownTableData.tableData[0].numOfCt,
-    "dftSigHasF2": info[`u${uActiveName.value}`].grownTableData.tableData[0].hasSemifinals == true ? 1 : 0,
-    "dftSigF2PromNum": info[`u${uActiveName.value}`].grownTableData.tableData[0].semifinalsNum,
-    "dftSigF0PromNum": info[`u${uActiveName.value}`].grownTableData.tableData[0].finalNum,
-    "dftFullQ0HandNum": info[`u${uActiveName.value}`].allRoundTableData.tableData[0].preliminariesCount,
-    "dftFullF2HandNum": info[`u${uActiveName.value}`].allRoundTableData.tableData[0].semifinalsCount,
-    "dftFullF0HandNum": info[`u${uActiveName.value}`].allRoundTableData.tableData[0].finalCount,
-    "bldSigHasF2": info[`u${uActiveName.value}`].grownTableData.tableData[1].hasSemifinals == true ? 1 : 0,
-    "bldSigF2PromNum": info[`u${uActiveName.value}`].grownTableData.tableData[1].semifinalsNum,
-    "bldSigF0PromNum": info[`u${uActiveName.value}`].grownTableData.tableData[1].finalNum,
-    "fullHasF2": info[`u${uActiveName.value}`].allRoundTableData.iptSec.hasSemifinals == true ? 1 : 0,
-    "fullF2PromNum": info[`u${uActiveName.value}`].allRoundTableData.iptSec.semifinalsNum,
-    "fullF0PromNum": info[`u${uActiveName.value}`].allRoundTableData.iptSec.finalNum
+    "match": `U${uActiveName.value}M`,
+    "dftSigQ0RtNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[0].numOfCt,
+    "dftSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[0].hasSemifinals == true ? 1 : 0,
+    "dftSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[0].semifinalsNum,
+    "dftSigF0PromNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[0].finalNum,
+    "dftFullQ0HandNum": null,
+    "dftFullF2HandNum": null,
+    "dftFullF0HandNum": null,
+    "bldSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[1].hasSemifinals == true ? 1 : 0,
+    "bldSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[1].semifinalsNum,
+    "bldSigF0PromNum": info[`u${uActiveName.value}`].uGrownTableDataMen.tableData[1].finalNum,
+    "fullHasF2": null,
+    "fullF2PromNum": null,
+    "fullF0PromNum": null
+  }
+  objW = {
+    "match": `U${uActiveName.value}W`,
+    "dftSigQ0RtNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].numOfCt,
+    "dftSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].hasSemifinals == true ? 1 : 0,
+    "dftSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].semifinalsNum,
+    "dftSigF0PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].finalNum,
+    "dftFullQ0HandNum": null,
+    "dftFullF2HandNum": null,
+    "dftFullF0HandNum": null,
+    "bldSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[1].hasSemifinals == true ? 1 : 0,
+    "bldSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[1].semifinalsNum,
+    "bldSigF0PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[1].finalNum,
+    "fullHasF2": null,
+    "fullF2PromNum": null,
+    "fullF0PromNum": null
   }
 
-  const res = await Service.setGameConfig(obj)
+  let list = [objM, objW]
+
+  const res = await Service.setGameConfig(list)
   if (res) {
     ElMessage({
       type: 'success',
@@ -1144,18 +1163,11 @@ const handleU = (val: matchObj) => {
     }
   }
 
-
-  if (['U6M', 'U6F'].includes(val.match)) {
-    console.log(info[uObj[u]])
-  }
-
-
-
 }
 const getInfo = async () => {
 
   let res = await Service.getGameConfig()
-
+  // getInfoData.val = JSON.parse(JSON.stringify(res))
   if (res != undefined) {
     res.map(item => {
       if (['M', 'F'].includes(item.match)) {

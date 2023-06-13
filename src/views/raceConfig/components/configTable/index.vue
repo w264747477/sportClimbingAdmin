@@ -12,15 +12,13 @@
           </div>
           <div>
             <span class="txt" style="margin-right: 15px; color: #666">半决赛晋级人数</span>
-            <el-select v-model="iptSec.val.semifinalsNum">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
+            <el-input-number v-model="iptSec.val.semifinalsNum" clearable />
+
           </div>
           <div>
             <span class="txt" style="margin-right: 15px; color: #666">决赛晋级人数</span>
-            <el-select v-model="iptSec.val.finalNum">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
+            <el-input-number v-model="iptSec.val.finalNum" clearable />
+
           </div>
         </div>
         <el-table :data="tableData.val" style="width: 100%; --el-table-border-color: none" :cell-style="changeCellStyle"
@@ -50,7 +48,10 @@
           <el-table-column prop="type" label="" align="center" />
           <el-table-column prop="numOfCt" label="预赛攀爬道路数量" align="center">
             <template #default="scope">
-              <el-input-number v-model="scope.row.numOfCt" clearable />
+              <span v-if="scope.row.type == '攀石赛'">
+
+              </span>
+              <el-input-number v-model="scope.row.numOfCt" clearable v-else />
             </template>
           </el-table-column>
           <el-table-column prop="hasSemifinals" label="有无半决赛" align="center">
@@ -151,8 +152,8 @@ watch(
 
     }
   },
-  { deep: true },
-  { immediate: true }
+  { deep: true, immediate: true },
+
 )
 </script>
 <style scoped lang="scss">

@@ -1,43 +1,45 @@
 import request from '@/utils/request'
 
-const loginApi = {
-  setGrown: '/api/setGrown',
-  setU: '/api/setU',
-
+const largeConfig = {
+  getSliderConfig: '/sportClimbingAdmin/api/score/config/match',
+  setSliderConfig: '/sportClimbingAdmin/api/score/config/match',
+  getBackgroundImg: "/sportClimbingAdmin/api/score/config/match",
+  setBackgroundImg: "/sportClimbingAdmin/api/score/config/match"
 }
 
 class Service {
-  /**
-   * @description
-   */
-  static setGrown(data: any) {
+
+  static setSliderConfig(data: any) {
     return request({
-      url: loginApi.setGrown,
+      url: largeConfig.setSliderConfig,
       method: 'POST',
       json: true,
       data
-    }).then((res) => {
-      if (res.status === 0) {
-        return Promise.resolve(res)
-      }
-      return Promise.reject(res)
     })
   }
 
-  static setU(data: any) {
+  static getSliderConfig() {
     return request({
-      url: loginApi.setU,
+      url: largeConfig.getSliderConfig,
+      method: 'get',
+      json: true,
+    })
+  }
+  static getBackgroundImgConfig() {
+    return request({
+      url: largeConfig.getSliderConfig,
+      method: 'get',
+      json: true,
+    })
+  }
+  static setBackgroundImg(data: any) {
+    return request({
+      url: largeConfig.setBackgroundImg,
       method: 'POST',
       json: true,
       data
-    }).then((res) => {
-      if (res.status === 0) {
-        return Promise.resolve(res)
-      }
-      return Promise.reject(res)
     })
   }
-
 
 }
 export default Service

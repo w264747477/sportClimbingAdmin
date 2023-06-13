@@ -84,11 +84,13 @@ watch(
   font-size: 15px;
   font-weight: 700;
 }
+
 .iptS {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
 :deep .el-table__body {
   //-webkit-border-horizontal-spacing: 13px;  // 水平间距
   -webkit-border-vertical-spacing: 10px; // 垂直间距

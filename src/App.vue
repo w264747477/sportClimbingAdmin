@@ -27,6 +27,7 @@ const resizeHeight = () => {
   store.commit('settingsModule/setTableHeight', height) // 设置tableHeight
 }
 onMounted(() => {
+
   // store.dispatch('permissionModule/getPermissions')
 })
 resizeHeight()
@@ -42,19 +43,21 @@ resizeHeight()
   width: 100%;
   height: 100%;
 }
+
 .element-plus-logo {
   width: 50%;
 }
+
 //对话框按钮靠右显示
 .dialog-footer {
   display: flex;
   justify-content: flex-end;
   margin-right: 30px;
 }
+
 //按钮居中显示
 .middleBtn {
   display: flex;
   justify-content: center;
   margin: 0 auto;
-}
-</style>
+}</style>

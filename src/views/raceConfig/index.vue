@@ -6,14 +6,14 @@
         <el-tab-pane label="男子" name="first">
           <ConfigTable :info="info.M.grownTableData" style="margin-bottom: 70px"></ConfigTable>
           <ConfigTable :info="info.M.allRoundTableData" style="margin-bottom: 20px"></ConfigTable>
-          <YearPanal :info="info.M.yearConfig1"></YearPanal>
+          <!-- <YearPanal :info="info.M.yearConfig1"></YearPanal> -->
 
           <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto" @click="saveGrown">保存</el-button>
         </el-tab-pane>
         <el-tab-pane label="女子" name="second">
           <ConfigTable :info="info.F.grownTableData" style="margin-bottom: 70px"></ConfigTable>
           <ConfigTable :info="info.F.allRoundTableData" style="margin-bottom: 20px"></ConfigTable>
-          <YearPanal :info="info.F.yearConfig1"></YearPanal>
+          <!-- <YearPanal :info="info.F.yearConfig1"></YearPanal> -->
 
           <el-button type="primary" style="display: block; width: 5rem; margin: 0 auto" @click="saveGrown">保存</el-button>
         </el-tab-pane>
@@ -25,7 +25,7 @@
         <el-tab-pane v-for="item in uList" :label="`U${item}`" :name="item">
           <ConfigTable :info="info[`u${item}`].uGrownTableDataMen" style="margin-bottom: 70px"></ConfigTable>
           <ConfigTable :info="info[`u${item}`].uGrownTableDataWomen" style="margin-bottom: 20px"></ConfigTable>
-          <YearPanal :info="info[`u${item}`].yearConfig"></YearPanal>
+          <!-- <YearPanal :info="info[`u${item}`].yearConfig"></YearPanal> -->
         </el-tab-pane>
       </el-tabs>
 
@@ -1013,7 +1013,7 @@ const saveGrown = async () => {
     'second': 'F'
   }
   obj = {
-    "match": "M",
+    "match": genderObj[activeName.value],
     "dftSigQ0RtNum": info[genderObj[activeName.value]].grownTableData.tableData[0].numOfCt,
     "dftSigHasF2": info[genderObj[activeName.value]].grownTableData.tableData[0].hasSemifinals == true ? 1 : 0,
     "dftSigF2PromNum": info[genderObj[activeName.value]].grownTableData.tableData[0].semifinalsNum,
@@ -1029,7 +1029,7 @@ const saveGrown = async () => {
     "fullF0PromNum": info[genderObj[activeName.value]].allRoundTableData.iptSec.finalNum
   }
 
-  const res = await Service.setGameConfig(obj)
+  const res = await Service.setGameConfig([obj])
   if (res) {
     ElMessage({
       type: 'success',
@@ -1056,7 +1056,7 @@ const saveU = async () => {
     "fullF0PromNum": null
   }
   objW = {
-    "match": `U${uActiveName.value}W`,
+    "match": `U${uActiveName.value}F`,
     "dftSigQ0RtNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].numOfCt,
     "dftSigHasF2": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].hasSemifinals == true ? 1 : 0,
     "dftSigF2PromNum": info[`u${uActiveName.value}`].uGrownTableDataWomen.tableData[0].semifinalsNum,

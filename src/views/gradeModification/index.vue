@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="formbox">
-      <el-form :inline="true" :label-width="'160px'" :model="searchForm">
+      <el-form :inline="true" :label-width="'160px'" :model="info">
         <el-form-item label="类型">
           <el-select v-model="info.type" style="width: 190px" @change="change('type')">
             <el-option v-for="item in gameType" :key="item.value" :label="item.label" :value="item.value"></el-option>

@@ -106,6 +106,30 @@ export type exportList = {
   gradeHandlingJudge: string,
   announcementTime: any
 }
+export const familyOptions = [
+  {
+    value: '0',
+    label: '宋体'
+  },
+  {
+    value: '1',
+    label: '微软雅黑'
+  },
+  {
+    value: '2',
+    label: '黑体'
+  }
+]
+export const colorOptions = [
+  {
+    value: '0',
+    label: '黑'
+  },
+  {
+    value: '1',
+    label: '白'
+  }
+]
 const loginApi = {
   speedModify: '/sportClimbingAdmin/api/score/speed/update',
   boulderingModify: '/sportClimbingAdmin/api/score/bouldering/update',

@@ -5,6 +5,7 @@ const loginApi = {
   boulderingModify: '/sportClimbingAdmin/api/score/bouldering/update',
   difficultyModify: '/sportClimbingAdmin/api/score/bouldering/update',
   getScore: '/sportClimbingAdmin/api/score/rank',
+  clearData: '/sportClimbingAdmin/api/score/clearAll'
 }
 
 class Service {
@@ -21,16 +22,38 @@ class Service {
   }
   static getGameConfig() {
     return request({
-      url: raceConfigApi.getGameConfig,
+      url: loginApi.getGameConfig,
       method: 'get',
       json: true,
+    })
 
+  }
+  static clearDataBase() {
+    return request({
+      url: loginApi.clearData,
+      method: 'DELETE',
+      json: true,
+    })
+
+  }
+  static clearAll() {
+    return request({
+      url: loginApi.getGameConfig,
+      method: 'get',
+      json: true,
+    })
+
+  }
+  static getScoreInfo(data: any) {
+    return request({
+      url: loginApi.getScore,
+      method: 'get',
+      json: true,
+      params: data
 
     })
 
   }
-  static api = loginApi
-
 
 }
 export default Service

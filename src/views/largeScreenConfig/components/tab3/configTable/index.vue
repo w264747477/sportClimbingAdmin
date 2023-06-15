@@ -7,7 +7,8 @@
       </el-select>
     </div>
 
-    <el-table class="table" :data="info.tableData" style="width: 100%; --el-table-border-color: none" :cell-style="changeCellStyle" :header-cell-style="headerRowStyle">
+    <el-table class="table" :data="info.tableData" style="width: 100%; --el-table-border-color: none"
+      :cell-style="changeCellStyle" :header-cell-style="headerRowStyle">
       <el-table-column prop="title" label="" align="center" min-width="120" />
       <el-table-column prop="family" label="字体" align="center" min-width="170">
         <template #default="scope">
@@ -39,7 +40,12 @@
           <el-input v-model="scope.row.semifinalsNum" clearable />
         </template>
       </el-table-column>
+
     </el-table>
+    <div class="middleBtn" style="margin-top: 2rem;">
+      <el-button @click="handleClose">重置</el-button>
+      <el-button type="primary" @click="confirm">保存</el-button>
+    </div>
   </div>
 </template>
 
@@ -86,14 +92,17 @@ watch(
 .table {
   border: 1px solid #eaeef5;
 }
+
 .box_item {
   margin-bottom: 2rem;
+
   .title {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
   }
-  & > span {
+
+  &>span {
     white-space: nowrap;
     display: block;
     margin-bottom: 1rem;

@@ -31,8 +31,8 @@
       </el-form>
     </div>
 
-    <tableB :info="tableData.B" v-if="info.type == 'B'"></tableB>
-    <tableL :info="tableData.L" v-if="info.type == 'L'"></tableL>
+    <tableB :info="tableData.B" v-if="info.type == 'B'" @sucess="getInfo"></tableB>
+    <tableL :info="tableData.L" v-if="info.type == 'L'" @sucess="getInfo"></tableL>
     <tableS :info="tableData.S" v-if="info.type == 'S'" @sucess="getInfo"></tableS>
   </div>
 </template>
@@ -181,6 +181,7 @@ const clearDataAll = () => {
       let res = await Service.clearDataBase()
       if (res) {
         ElMessage.success('数据控清空成功')
+        getInfo()
       }
     })
     .catch((action: Action) => {

@@ -3,7 +3,7 @@ import request from '@/utils/request'
 export const loginApi = {
   speedModify: '/sportClimbingAdmin/api/score/speed/update',
   boulderingModify: '/sportClimbingAdmin/api/score/bouldering/update',
-  difficultyModify: '/sportClimbingAdmin/api/score/bouldering/update',
+  difficultyModify: '/sportClimbingAdmin/api/score/difficulty/update',
   getScore: '/sportClimbingAdmin/api/score/rank',
   clearData: '/sportClimbingAdmin/api/score/clearAll'
 }

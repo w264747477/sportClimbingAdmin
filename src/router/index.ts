@@ -31,56 +31,56 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     ]
   },
 
-  {
-    path: '/largeScreenConfig',
-    component: layout,
-    meta: {
-      title: {
-        '/zh-CN': '大屏配置',
-        '/en-US': 'Large Screen Config'
-      },
-      icon: 'iconfont icon-dapingpeizhi'
-    },
-    children: [
-      {
-        path: '/largeScreenConfig',
-        name: 'LargeScreenConfig',
-        component: () => import('@/views/largeScreenConfig/index.vue'),
-        meta: {
-          title: {
-            '/zh-CN': '大屏配置',
-            '/en-US': 'Large Screen Config'
-          },
-          icon: 'iconfont icon-dapingpeizhi'
-        },
-      },
-    ],
-  },
-  {
-    path: '/exportList',
-    component: layout,
-    meta: {
-      title: {
-        '/zh-CN': '导出名单',
-        '/en-US': 'Export List'
-      },
-      icon: 'iconfont icon-jurassic_export-form'
-    },
-    children: [
-      {
-        path: '/exportList',
-        name: 'ExportList',
-        component: () => import('@/views/exportList/index.vue'),
-        meta: {
-          title: {
-            '/zh-CN': '导出名单',
-            '/en-US': 'Export List'
-          },
-          icon: 'iconfont icon-jurassic_export-form'
-        },
-      },
-    ],
-  },
+  // {
+  //   path: '/largeScreenConfig',
+  //   component: layout,
+  //   meta: {
+  //     title: {
+  //       '/zh-CN': '大屏配置',
+  //       '/en-US': 'Large Screen Config'
+  //     },
+  //     icon: 'iconfont icon-dapingpeizhi'
+  //   },
+  //   children: [
+  //     {
+  //       path: '/largeScreenConfig',
+  //       name: 'LargeScreenConfig',
+  //       component: () => import('@/views/largeScreenConfig/index.vue'),
+  //       meta: {
+  //         title: {
+  //           '/zh-CN': '大屏配置',
+  //           '/en-US': 'Large Screen Config'
+  //         },
+  //         icon: 'iconfont icon-dapingpeizhi'
+  //       },
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: '/exportList',
+  //   component: layout,
+  //   meta: {
+  //     title: {
+  //       '/zh-CN': '导出名单',
+  //       '/en-US': 'Export List'
+  //     },
+  //     icon: 'iconfont icon-jurassic_export-form'
+  //   },
+  //   children: [
+  //     {
+  //       path: '/exportList',
+  //       name: 'ExportList',
+  //       component: () => import('@/views/exportList/index.vue'),
+  //       meta: {
+  //         title: {
+  //           '/zh-CN': '导出名单',
+  //           '/en-US': 'Export List'
+  //         },
+  //         icon: 'iconfont icon-jurassic_export-form'
+  //       },
+  //     },
+  //   ],
+  // },
   {
     path: '/gradeModification',
     component: layout,

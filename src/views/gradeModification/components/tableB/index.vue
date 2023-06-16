@@ -23,14 +23,44 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="group" label="组别" min-width="120" />
-      <el-table-column prop="point1" label="一线路  分1&分2&成绩" min-width="120" />
-      <el-table-column prop="point2" label="二线路  分1&分2&成绩" min-width="120" />
-      <el-table-column prop="point3" label="三线路  分1&分2&成绩" min-width="120" />
-      <el-table-column prop="point4" label="四线路  分1&分2&成绩" min-width="120" />
-      <el-table-column prop="point5" label="五线路  分1&分2&成绩" min-width="120" />
+      <el-table-column prop="age" label="组别" min-width="120" />
+      <el-table-column prop="point1" label="一线路  分1&分2&成绩" min-width="120">
+        <template #default="scope">
+          <span>{{
+            formatPoint(scope.row.point1)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="point2" label="二线路  分1&分2&成绩" min-width="120">
+        <template #default="scope">
+          <span>{{
+            formatPoint(scope.row.point2)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="point3" label="三线路  分1&分2&成绩" min-width="120">
+        <template #default="scope">
+          <span>{{
+            formatPoint(scope.row.point3)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="point4" label="四线路  分1&分2&成绩" min-width="120">
+        <template #default="scope">
+          <span>{{
+            formatPoint(scope.row.point4)
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="point5" label="五线路  分1&分2&成绩" min-width="120">
+        <template #default="scope">
+          <span>{{
+            formatPoint(scope.row.point5)
+          }}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="score" label="成绩" min-width="120" />
-      <el-table-column prop="attz" label="attz" min-width="120" />
+      <el-table-column prop="attZ" label="attZ" min-width="120" />
       <el-table-column prop="attT" label="attT" min-width="120" />
       <el-table-column prop="ranking" label="排名" min-width="120" />
       <el-table-column label="操作" min-width="120">
@@ -46,7 +76,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import { ageList, gender, genderObj, gameType, round, speedRound } from '@/constant/index'
-import Service from '../../api/index'
+import { Service } from '../../api/index'
 import { ElMessage } from 'element-plus'
 import { defineEmits } from 'vue'
 import updateGrate from "./components/updateGrate/index.vue"
@@ -75,6 +105,12 @@ const modifyGrade = async (item) => {
       message: '成绩修改成功'
     })
   }
+}
+const formatPoint = (val) => {
+
+  let l = val.split(',')
+  return `${l[0]}z${l[1]}T`
+
 }
 const updateInfo = async () => {
   emit("sucess")

@@ -40,7 +40,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
 import { ageList, gender, gameType, speedRound } from '@/constant/index'
-import Service from './api/index'
+import { Service } from './api/index'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import tableS from './components/tableS/index.vue'
 import tableB from './components/tableB/index.vue'
@@ -50,7 +50,7 @@ let info = reactive({
   type: 'B',
   gender: 'M',
   round: 'Q0',
-  age: ''
+  age: null
 })
 const round = [
   {
@@ -72,7 +72,7 @@ const genderList = [
     label: '男'
   },
   {
-    value: 'W',
+    value: 'F',
     label: '女'
   }
 ]
@@ -177,18 +177,18 @@ const clearDataAll = () => {
       cancelButtonText: '取消',
     }
   )
-    .then(() => {
-      ElMessage({
-        type: 'info',
-        message: 'Changes saved. Proceeding to a new route.',
-      })
+    .then(async () => {
+      let res = await Service.clearDataBase()
+      if (res) {
+        ElMessage.success('数据控清空成功')
+      }
     })
     .catch((action: Action) => {
       ElMessage({
         type: 'info',
         message:
           action === 'cancel'
-            ? 'Changes discarded. Proceeding to a new route.'
+            ? '已取消'
             : 'Stay in the current route',
       })
     })

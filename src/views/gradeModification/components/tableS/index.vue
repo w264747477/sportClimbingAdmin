@@ -42,7 +42,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import { ageList, gender, genderObj, gameType, round, speedRound } from '@/constant/index'
-import Service from '../../api/index'
+import { Service } from '../../api/index'
 import { ElMessage } from 'element-plus'
 import updateGrate from "./components/updateGrate/index.vue"
 import { defineEmits } from 'vue'

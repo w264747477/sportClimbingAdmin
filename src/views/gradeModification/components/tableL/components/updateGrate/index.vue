@@ -58,7 +58,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import { ageList, gender, gameType, round, speedRound } from '@/constant/index'
-import Service from '../../../../api/index'
+import { Service, loginApi } from '../../../../api/index'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import { defineEmits } from 'vue'
 
@@ -112,7 +112,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     }
   })
 }
-
+let backupData = ref({})
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.resetFields()
@@ -123,8 +123,8 @@ const resetForm = (formEl: FormInstance | undefined) => {
 const modifyGrade = async (item) => {
   let obj
 
-  let url = Service.api.difficultyModify
-
+  let url = loginApi.difficultyModify
+  console.log(item)
   obj = {
     id: item.id,
     scoreA: item.scoreA,
@@ -142,6 +142,8 @@ const modifyGrade = async (item) => {
     })
     emit("sucess")
     handleClose()
+  } else {
+    infoDetail.data = backupData
   }
 }
 const handleClose = () => {
@@ -155,7 +157,8 @@ watch(
   (newVal) => {
     console.log(newVal)
     if ((newVal ?? '') != '') {
-      infoDetail.data = newVal
+      backupData = JSON.parse(JSON.stringify(newVal))
+      infoDetail.data = JSON.parse(JSON.stringify(newVal))
 
     }
   },

@@ -5,21 +5,36 @@
     <el-dialog v-model="updateViseible" title="成绩修改" width="550px" :before-close="handleClose" append-to-body>
       <el-form ref="ruleFormRef" :model="infoDetail.data" :rules="rules" label-width="150px" :inline="true">
         <el-form-item label="赛道1成绩:" prop="point1">
-          <el-input v-model="infoDetail.data.point1" style="width: 300px" maxlength="50"></el-input>
+          <el-input v-model="infoDetail.data.point1.z" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-right: 50px;margin-left: 10px;">z</span>
+          <el-input v-model="infoDetail.data.point1.T" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-left: 10px;">T</span>
         </el-form-item>
 
         <el-form-item label="赛道2成绩:" prop="point2">
-          <el-input v-model="infoDetail.data.point2" style="width: 300px" maxlength="50"></el-input>
+          <el-input v-model="infoDetail.data.point2.z" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-right: 50px;margin-left: 10px;">z</span>
+          <el-input v-model="infoDetail.data.point2.T" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-left: 10px;">T</span>
         </el-form-item>
         <el-form-item label="赛道3成绩:" prop="point3">
-          <el-input v-model="infoDetail.data.point3" style="width: 300px" maxlength="50"></el-input>
+          <el-input v-model="infoDetail.data.point3.z" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-right: 50px;margin-left: 10px;">z</span>
+          <el-input v-model="infoDetail.data.point3.T" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-left: 10px;">T</span>
         </el-form-item>
 
         <el-form-item label="赛道4成绩:" prop="point4">
-          <el-input v-model="infoDetail.data.point4" style="width: 300px" maxlength="50"></el-input>
+          <el-input v-model="infoDetail.data.point4.z" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-right: 50px;margin-left: 10px;">z</span>
+          <el-input v-model="infoDetail.data.point4.T" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-left: 10px;">T</span>
         </el-form-item>
         <el-form-item label="赛道5成绩:" prop="point5">
-          <el-input v-model="infoDetail.data.point5" style="width: 300px" maxlength="50"></el-input>
+          <el-input v-model="infoDetail.data.point5.z" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-right: 50px;margin-left: 10px;">z</span>
+          <el-input v-model="infoDetail.data.point5.T" style="width: 50px" maxlength="50"></el-input>
+          <span style="margin-left: 10px;">T</span>
         </el-form-item>
 
 
@@ -56,14 +71,14 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import { ageList, gender, gameType, round, speedRound } from '@/constant/index'
-import Service from '../../../../api/index'
+import { Service, loginApi } from '../../../../api/index'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import { defineEmits } from 'vue'
 
 const emit = defineEmits(["sucess"])
 const props = defineProps<{ info: object }>()
 let infoDetail = reactive({
-  data: {}
+  data: {},
 })
 const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules>({
@@ -108,18 +123,19 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 
 }
+let backupData = ref({})
 const modifyGrade = async (item) => {
   let obj
 
-  let url = Service.api.boulderingModify
+  let url = loginApi.boulderingModify
 
   obj = {
     id: item.id,
-    point1: item.point1,
-    point2: item.point2,
-    point3: item.point3,
-    point4: item.point4,
-    point5: item.point5,
+    point1: `${item.point1.z},${item.point1.T}`,
+    point2: `${item.point2.z},${item.point2.T}`,
+    point3: `${item.point3.z},${item.point3.T}`,
+    point4: `${item.point4.z},${item.point4.T}`,
+    point5: `${item.point5.z},${item.point5.T}`,
   }
 
   let res = await Service.postModify(url, obj)
@@ -130,6 +146,8 @@ const modifyGrade = async (item) => {
     })
     emit("sucess")
     handleClose()
+  } else {
+    infoDetail.data = backupData
   }
 }
 const handleClose = () => {
@@ -138,13 +156,38 @@ const handleClose = () => {
   // this.$emit('closeDialog');
   //   this.$emit('update:visible', false);
 }
+const translateData = (val) => {
+  let obj = {}
+  for (let i = 1; i < 6; i++) {
+    console.log(val[`point${i}`])
+    if (val[`point${i}`] == null) {
+      obj[`point${i}`] = {
+        z: 0,
+        T: 0
+      }
+    }
+    let l = val[`point${i}`].split(',')
+
+
+    obj[`point${i}`] = {
+      z: l[0],
+      T: l[1]
+    }
+
+
+  }
+  console.log(obj)
+  return obj
+
+}
 watch(
   () => props.info,
   (newVal) => {
-    console.log(newVal)
-    if ((newVal ?? '') != '') {
-      infoDetail.data = newVal
 
+    if ((newVal ?? '') != '') {
+      backupData = JSON.parse(JSON.stringify(newVal))
+      infoDetail.data = translateData(JSON.parse(JSON.stringify(newVal)))
+      infoDetail.data.id = newVal.id
     }
   },
   { immediate: true }

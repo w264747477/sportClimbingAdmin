@@ -44,7 +44,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import { ageList, gender, gameType, round, speedRound } from '@/constant/index'
-import Service from '../../../../api/index'
+import { Service, loginApi } from '@/views/gradeModification/api/index.ts'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import { defineEmits } from 'vue'
 
@@ -87,7 +87,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 const modifyGrade = async (item) => {
   let obj
 
-  let url = Service.api.speedModify
+  let url = loginApi.speedModify
 
   obj = {
     id: item.id,
@@ -103,8 +103,11 @@ const modifyGrade = async (item) => {
     })
     emit("sucess")
     handleClose()
+  } else {
+    infoDetail.data = backupData
   }
 }
+let backupData = ref({})
 const handleClose = () => {
   resetForm(ruleFormRef.value)
 
@@ -116,8 +119,9 @@ watch(
   (newVal) => {
     console.log(newVal)
     if ((newVal ?? '') != '') {
-      infoDetail.data = newVal
 
+      backupData = JSON.parse(JSON.stringify(newVal))
+      infoDetail.data = JSON.parse(JSON.stringify(newVal))
     }
   },
   { immediate: true }

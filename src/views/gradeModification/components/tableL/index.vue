@@ -28,7 +28,7 @@
       <el-table-column prop="scoreB" label="B道成绩" min-width="120" />
       <el-table-column prop="timeA" label="A道时间" min-width="120" />
       <el-table-column prop="timeB" label="B道时间" min-width="120" />
-      <el-table-column prop="score" label="排名得分" min-width="120" />
+      <el-table-column prop="rankscore" label="排名得分" min-width="120" />
       <el-table-column prop="ranking" label="排名" min-width="120" />
       <el-table-column label="操作" min-width="120">
         <template #default="scope">
@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import { ageList, gender, genderObj, gameType, round, speedRound } from '@/constant/index'
-import Service from '../../api/index'
+import { Service } from '../../api/index'
 import { ElMessage } from 'element-plus'
 import { defineEmits } from 'vue'
 import updateGrate from "./components/updateGrate/index.vue"

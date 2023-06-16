@@ -41,16 +41,17 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import { ageList, gender, genderObj, gameType, round, speedRound } from '@/constant/index'
-import Service from '../../api/index'
+import { Service, loginApi } from '@/views/gradeModification/api/index.ts'
 import { ElMessage } from 'element-plus'
 const props = defineProps<{ info: object }>()
 let infoDetail = reactive({
   data: []
 })
+let backupData = ref({})
 const modifyGrade = async (item) => {
   let obj
 
-  let url = Service.api.speedModify
+  let url = loginApi.speedModify
 
   obj = {
     id: '',
@@ -71,8 +72,8 @@ watch(
   (newVal) => {
     console.log(newVal)
     if ((newVal ?? '') != '' || newVal.length == 0) {
-      infoDetail.data = newVal
-      console.log(newVal)
+      backupData = JSON.parse(JSON.stringify(newVal))
+      infoDetail.data = JSON.parse(JSON.stringify(newVal))
     }
   },
   { immediate: true }

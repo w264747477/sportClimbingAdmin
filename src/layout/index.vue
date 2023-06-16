@@ -36,7 +36,7 @@
       <!--AppMain-->
       <AppMain />
       <!--RightDrawer-->
-      <RightDrawer v-if="showSetting">
+      <!-- <RightDrawer v-if="showSetting">
         <div class="setting-item">
           <div class="setting-draw-title">主题风格</div>
 
@@ -48,7 +48,7 @@
           <content-area @change="handleHeaderChange" @fixedHeader="handleFixedHeaderChange" @sidebarLogo="handleSidebarLogoChange"></content-area>
           <div class="divider"></div>
         </div>
-      </RightDrawer>
+      </RightDrawer> -->
     </div>
   </div>
 </template>
@@ -165,17 +165,20 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/mixin.scss';
 @import '@/styles/variables.scss';
+
 .app-wrapper {
   @include clearfix;
   position: relative;
   height: 100%;
   width: 100%;
   overflow: scroll;
+
   &.mobile.openSidebar {
     position: fixed;
     top: 0;
   }
 }
+
 .drawer-bg {
   background: #000;
   opacity: 0.3;
@@ -185,18 +188,21 @@ export default defineComponent({
   position: absolute;
   z-index: 999;
 }
+
 .setting-item {
   margin-bottom: 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+
   .setting-draw-title {
     margin-bottom: 12px;
     color: rgba(0, 0, 0, 0.85);
     font-size: 14px;
     line-height: 22px;
   }
+
   .divider {
     width: 100%;
     display: flex;
@@ -213,9 +219,11 @@ export default defineComponent({
     line-height: 1.5715;
   }
 }
+
 .hide-header {
   display: none;
 }
+
 .fixed-header {
   position: fixed;
   top: 0;
@@ -231,5 +239,4 @@ export default defineComponent({
 
 .mobile .fixed-header {
   width: 100%;
-}
-</style>
+}</style>

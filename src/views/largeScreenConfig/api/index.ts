@@ -4,7 +4,9 @@ const largeConfig = {
   getSliderConfig: '/sportClimbingAdmin/api/score/config/match',
   setSliderConfig: '/sportClimbingAdmin/api/score/config/match',
   getBackgroundImg: "/sportClimbingAdmin/api/score/config/match",
-  setBackgroundImg: "/sportClimbingAdmin/api/score/config/match"
+  setBackgroundImg: "/sportClimbingAdmin/api/score/config/match",
+  getFontStyle: '/sportClimbingAdmin/api/score/config/match',
+  setFontStyle: '/sportClimbingAdmin/api/score/config/match',
 }
 
 class Service {
@@ -35,6 +37,21 @@ class Service {
   static setBackgroundImg(data: any) {
     return request({
       url: largeConfig.setBackgroundImg,
+      method: 'POST',
+      json: true,
+      data
+    })
+  }
+  static getFontStyle() {
+    return request({
+      url: largeConfig.getFontStyle,
+      method: 'get',
+      json: true,
+    })
+  }
+  static setFontStyle(data: any) {
+    return request({
+      url: largeConfig.setFontStyle,
       method: 'POST',
       json: true,
       data

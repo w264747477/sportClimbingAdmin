@@ -43,9 +43,21 @@
 
       </el-form-item>
       <el-form-item label="logo" style="width:100%">
-        <div v-for="item in infoDetail.data.logo">
-          <el-image style="width: 100px; height: 100px;margin-right: 20px;" :src="item" fit="cover" />
-        </div>
+        <el-upload class="upload-demo" action="/sportClimbingAdmin/api/static/uploadImage" :before-remove="beforeRemove"
+          :limit="3" :file-list="info.fileList" accept=".jpg" :on-success="uploadSucess" multiple
+          :before-upload="beforeAvatarUpload" :on-error="handleImageError" :on-exceed="handleExceed">
+          <div>
+            <div v-for="item in infoDetail.data.logo">
+              <el-image style="width: 100px; height: 100px;margin-right: 20px;" :src="item" fit="cover" />
+            </div>
+
+          </div>
+
+          <el-icon size="50" v-if="infoDetail.data.logo.length < 3">
+            <CirclePlus />
+          </el-icon>
+
+        </el-upload>
 
       </el-form-item>
       <el-form-item label="裁判长">
@@ -80,7 +92,7 @@ import { onMounted, reactive, ref, watch } from 'vue'
 import { ageList, gender, gameType, speedRound } from '@/constant/index'
 import dayjs from 'dayjs'
 import { Service, exportList } from '../../api/index.ts'
-import { FormInstance, FormRules } from 'element-plus'
+import { ElMessage, FormInstance, FormRules } from 'element-plus'
 const props = defineProps<{ info: number }>()
 const infoDetail = reactive({
   data: <exportList>{
@@ -92,7 +104,8 @@ const infoDetail = reactive({
     time: dayjs(new Date()).format('YYYY-MM-DD'),
     address: '',
     project: '',
-    logo: ['https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', 'https://t7.baidu.com/it/u=2604797219,1573897854&fm=193&f=GIF'],
+    logo: [],
+    // logo: ['https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', 'https://t7.baidu.com/it/u=2604797219,1573897854&fm=193&f=GIF', 'https://t7.baidu.com/it/u=2604797219,1573897854&fm=193&f=GIF'],
     chiefJudge: '',
     deputyReferee: '',
     routejudge: '',
@@ -148,6 +161,10 @@ const sround = [
   }
 ]
 const formRef = ref<FormInstance>()
+const updateTag = (val) => {
+  info.currentItem = val
+}
+const beforeRemove = (file, fileList) => ElMessage.warning(`确定移除 ${file.name}？`)
 const toDownloadFile = (response) => {
   const blob = new Blob([response.data]);
   let link = document.createElement('a');
@@ -159,12 +176,48 @@ const toDownloadFile = (response) => {
   URL.revokeObjectURL(link.href);
   document.body.removeChild(link);
 }
+const handleExceed = (files, fileList) => {
+  ElMessage.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+}
 const change = async (val) => {
   if (infoDetail.data.type != 'S' && ['F8', 'F4'].includes(infoDetail.data.round)) {
     infoDetail.data.round = 'Q0'
   }
 
 }
+const beforeAvatarUpload = (file) => {
+  const extension = file.size / 1024 / 1024 <= 20
+  const testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
+  if (!extension) {
+    ElMessage.error('图片大小超过20M!')
+    return false
+  }
+  return extension
+  // const img = new Image()
+  // const _URL = window.URL || window.webkitURL
+  // img.src = _URL.createObjectURL(file)
+  // img.onload = function () {
+  //   console.log(img.width, img.height)
+
+  //   return extension
+  // }
+  // 判断图片的大小
+}
+const uploadSucess = async (response, file, fileList) => {
+
+  if (response.code == 200) {
+    infoDetail.data.logo.push(response.data.url)
+
+  }
+}
+const handleImageError = () => {
+  ElMessage.error('图片更新失败!')
+}
+let info = reactive({
+  fileList: [],
+  currentItem: 0
+})
+
 const rules = reactive<FormRules>({
   round: [],
   age: [],
@@ -242,7 +295,7 @@ const exportInfo = async (formEl: FormInstance | undefined) => {
       const res = await Service.postExport(url, obj)
       console.log(res)
       if (res) {
-        toDownloadFile(response);
+        toDownloadFile(res);
       }
     } else {
       console.log('error submit!')

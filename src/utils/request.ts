@@ -67,35 +67,55 @@ instance.interceptors.request.use(
 );
 instance.interceptors.response.use(
   async (res: AxiosResponse) => {
-    if (res.headers['content-type'] === 'application/octet-stream') {
+    // if (res.headers['content-type'] === 'application/octet-stream') {
+    //   return Promise.resolve(res);
+    // } else if (res.status === 200) {
+    //   if (res.data?.code === 200) {
+    //     return (res.data.data??'') == ''
+    //         ? Promise.resolve(1)
+    //         : Promise.resolve(res.data.data);
+    //   } else {
+    //     message({ message: res.data?.msg, type: 'error' });
+    //     return Promise.reject(res);
+    //   }
+    // } else if (res.request.responseType === 'blob') {
+    //   if (res.headers['content-type'] === 'application/json') {
+    //     if (!res.headers.msg || res.headers.msg === '') {
+    //       message({
+    //         message: 'unknown exception, please contact administrator',
+    //         type: 'error',
+    //       });
+    //     } else {
+    //       message({
+    //         message: decodeURIComponent(res.headers.msg),
+    //         type: 'error',
+    //       });
+    //     }
+    //     return Promise.reject(res);
+    //   }
+    //   return Promise.resolve(res);
+    // } else {
+    //   console.log('gff');
+    //   message({
+    //     message: res.data?.msg || '接口请求出错',
+    //     type: 'error',
+    //   });
+    //   return Promise.reject(res);
+    // }
+    if (res.headers['content-type'].search('excel') != -1 || res.headers['content-type'].search('excel') != -1 || res.headers['content-type'].search('word') != -1) {
       return Promise.resolve(res);
     } else if (res.status === 200) {
       if (res.data?.code === 200) {
-        return (res.data.data??'') == ''
-            ? Promise.resolve(1)
-            : Promise.resolve(res.data.data);
+
+        return (res.data.data ?? '') == ''
+          ? Promise.resolve(1)
+          : Promise.resolve(res.data.data);
       } else {
         message({ message: res.data?.msg, type: 'error' });
         return Promise.reject(res);
       }
-    } else if (res.request.responseType === 'blob') {
-      if (res.headers['content-type'] === 'application/json') {
-        if (!res.headers.msg || res.headers.msg === '') {
-          message({
-            message: 'unknown exception, please contact administrator',
-            type: 'error',
-          });
-        } else {
-          message({
-            message: decodeURIComponent(res.headers.msg),
-            type: 'error',
-          });
-        }
-        return Promise.reject(res);
-      }
-      return Promise.resolve(res);
     } else {
-      console.log('gff');
+
       message({
         message: res.data?.msg || '接口请求出错',
         type: 'error',

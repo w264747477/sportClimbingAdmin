@@ -1,6 +1,6 @@
 export const ageList = () => {
   let list = [{
-    value: '',
+    value: null,
     label: '成年组'
   }]
   for (let i = 5; i < 18; i++) {

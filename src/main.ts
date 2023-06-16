@@ -17,7 +17,7 @@ import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/index.css'
 import 'dayjs/locale/zh-cn'
 import '@/styles/index.scss'
-
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // import '@/mock'
 
 // const roles = localStorage.getItem('role')
@@ -31,6 +31,9 @@ import '@/styles/index.scss'
 
 // 链式注册插件
 const app = createApp(App).use(store, key).use(router).use(ElementPlus, { locale })
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 // 挂载全局方法 isPermission
 // app.config.globalProperties.$isPermission = isPermission
 // 现在所有的导航都是异步的，等路由ready以后再进行挂载组件；

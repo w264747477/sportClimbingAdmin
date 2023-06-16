@@ -133,8 +133,9 @@
 
 <script lang="ts" setup>
 import { ageList, gender, gameType, speedRound } from '@/constant/index'
-import { reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { familyOptions, colorOptions } from '@/constant/index'
+import Service from '@/views/largeScreenConfig/api'
 // const props = defineProps<{ info: object }>()
 const round = [
   {
@@ -261,6 +262,79 @@ const change = async (val) => {
   }
 
 }
+const init = () => {
+  detailInfo.info = {
+    tableData: [
+      {
+        title: '赛事名称',
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6
+      },
+      {
+        title: '赛事项目',
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6
+      }
+    ],
+    title: '共性',
+    familyOptions,
+    colorOptions
+  }
+  detailInfo.projectInfo = {
+    tableData: [
+      {
+        title: '排名',
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6
+      },
+      {
+        title: '运动员号码',
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6
+      }
+    ],
+    title: '项目',
+    selInfo: {
+      type: 'B',
+      gender: 'M',
+      round: 'Q0',
+      age: ''
+
+    },
+
+    familyOptions,
+    colorOptions
+  }
+}
 const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   // const obj = {
   //   borderTop: '1px solid #eaeef5',
@@ -276,35 +350,17 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
 }
 const getInfo = async () => {
 
-  let res = await Service.getGameConfig()
+  let res = await Service.getFontStyle()
   // getInfoData.val = JSON.parse(JSON.stringify(res))
   if (res != undefined) {
-    res.map(item => {
-      if (['M', 'F'].includes(item.match)) {
-        handleAdult(item)
-      } else {
-        handleU(item)
-      }
-    })
+    detailInfo.info = res.info
+    detailInfo.projectInfo = res.projectInfo
 
-
-  } else {
-    ElMessage({ type: 'error', message: res.msg })
   }
 }
 onMounted(() => {
-  getInfo()
+  // getInfo()
 })
-// watch(
-//   () => props.info,
-//   (newVal) => {
-//     if ((newVal ?? '') != '') {
-//       detailInfo.info = newVal.info
-//       detailInfo.projectInfo = newVal.projectInfo
-//     }
-//   },
-//   { immediate: true }
-// )
 </script>
 <style scoped lang="scss">
 .table {

@@ -25,6 +25,9 @@
             <el-option v-for="item in round" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item style="float:right">
+          <el-button type="primary" @click="clearDataAll">清空数据库</el-button>
+        </el-form-item>
       </el-form>
     </div>
 
@@ -38,7 +41,7 @@
 import { onMounted, reactive, ref, watch } from 'vue'
 import { ageList, gender, gameType, speedRound } from '@/constant/index'
 import Service from './api/index'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import tableS from './components/tableS/index.vue'
 import tableB from './components/tableB/index.vue'
 import tableL from './components/tableL/index.vue'
@@ -164,6 +167,36 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
 
   return obj
 }
+const clearDataAll = () => {
+  ElMessageBox.confirm(
+    '清空数据库的操作不可逆，是否继续清空',
+    '提示',
+    {
+      type: 'warning',
+      confirmButtonText: '清空',
+      cancelButtonText: '取消',
+    }
+  )
+    .then(() => {
+      ElMessage({
+        type: 'info',
+        message: 'Changes saved. Proceeding to a new route.',
+      })
+    })
+    .catch((action: Action) => {
+      ElMessage({
+        type: 'info',
+        message:
+          action === 'cancel'
+            ? 'Changes discarded. Proceeding to a new route.'
+            : 'Stay in the current route',
+      })
+    })
+
+  // let res = await Service.clearDataBase()
+  // if (res) {
+  //    }
+}
 const getInfo = async () => {
   console.log(info)
   let res = await Service.getScoreInfo(info)
@@ -179,6 +212,12 @@ const getInfo = async () => {
 
 onMounted(() => {
   getInfo()
+  ElMessage({
+    message: '新比赛开始前注意清空数据库',
+    type: 'warning',
+
+  })
+
 })
 </script>
 <style scoped lang="scss">

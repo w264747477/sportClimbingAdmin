@@ -23,7 +23,7 @@
     ]
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^0.2.7",
+    "@element-plus/icons-vue": "^2.1.0",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/interaction": "^5.10.1",
     "@fullcalendar/timegrid": "^5.10.1",

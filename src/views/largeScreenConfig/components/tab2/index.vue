@@ -167,6 +167,7 @@ const handleImageError = () => {
 let info = reactive({
   fileList: []
 })
+
 const pageInfo = {
   page: 1,
   size: 5,

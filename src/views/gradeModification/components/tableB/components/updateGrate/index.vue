@@ -30,7 +30,7 @@
           <el-input v-model="infoDetail.data.point4.T" style="width: 50px" maxlength="50"></el-input>
           <span style="margin-left: 10px;">T</span>
         </el-form-item>
-        <el-form-item label="赛道5成绩:" prop="point5">
+        <el-form-item label="赛道5成绩:" prop="point5" v-if="infoDetail.data.point5 != null">
           <el-input v-model="infoDetail.data.point5.z" style="width: 50px" maxlength="50"></el-input>
           <span style="margin-right: 50px;margin-left: 10px;">z</span>
           <el-input v-model="infoDetail.data.point5.T" style="width: 50px" maxlength="50"></el-input>
@@ -135,7 +135,7 @@ const modifyGrade = async (item) => {
     point2: `${item.point2.z},${item.point2.T}`,
     point3: `${item.point3.z},${item.point3.T}`,
     point4: `${item.point4.z},${item.point4.T}`,
-    point5: `${item.point5.z},${item.point5.T}`,
+    point5: item.point5 == null ? null : `${item.point5.z},${item.point5.T}`,
   }
 
   let res = await Service.postModify(url, obj)
@@ -165,14 +165,14 @@ const translateData = (val) => {
         z: 0,
         T: 0
       }
+    } else {
+      let l = val[`point${i}`].split(',')
+      obj[`point${i}`] = {
+        z: l[0],
+        T: l[1]
+      }
     }
-    let l = val[`point${i}`].split(',')
 
-
-    obj[`point${i}`] = {
-      z: l[0],
-      T: l[1]
-    }
 
 
   }
@@ -187,6 +187,13 @@ watch(
     if ((newVal ?? '') != '') {
       backupData = JSON.parse(JSON.stringify(newVal))
       infoDetail.data = translateData(JSON.parse(JSON.stringify(newVal)))
+      // infoDetail.data = translateData({
+      //   point1: '1,1',
+      //   point2: '1,1',
+      //   point3: '1,1',
+      //   point4: '1,1',
+      //   point5: null,
+      // })
       infoDetail.data.id = newVal.id
     }
   },

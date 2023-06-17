@@ -55,7 +55,8 @@
       <el-table-column prop="point5" label="五线路  分1&分2&成绩" min-width="120">
         <template #default="scope">
           <span>{{
-            formatPoint(scope.row.point5)
+            scope.row.point5 == null ? '-' : formatPoint(scope.row.point5)
+
           }}</span>
         </template>
       </el-table-column>

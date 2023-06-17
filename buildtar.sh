@@ -1,3 +1,3 @@
- docker rmi sportclimbingAdmin:1.0.0
- docker build -t sportclimbingAdmin:1.0.0 .
- docker save -o sportclimbingAdmin.tar sportclimbingAdmin:1.0.0
+ docker rmi sportclimbingadmin:1.0.0
+ docker build -t sportclimbingadmin:1.0.0 .
+ docker save -o sportclimbingadmin.tar sportclimbingadmin:1.0.0

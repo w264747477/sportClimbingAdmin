@@ -147,7 +147,7 @@ const modifyGrade = async (item) => {
     emit("sucess")
     handleClose()
   } else {
-    infoDetail.data = backupData
+    infoDetail.data = translateData(backupData)
   }
 }
 const handleClose = () => {
@@ -161,10 +161,15 @@ const translateData = (val) => {
   for (let i = 1; i < 6; i++) {
     console.log(val[`point${i}`])
     if (val[`point${i}`] == null) {
-      obj[`point${i}`] = {
-        z: 0,
-        T: 0
+      if (i == 5) {
+        return
+      } else {
+        obj[`point${i}`] = {
+          z: 0,
+          T: 0
+        }
       }
+
     } else {
       let l = val[`point${i}`].split(',')
       obj[`point${i}`] = {
@@ -176,7 +181,6 @@ const translateData = (val) => {
 
 
   }
-  console.log(obj)
   return obj
 
 }

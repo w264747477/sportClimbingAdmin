@@ -108,9 +108,13 @@ const modifyGrade = async (item) => {
   }
 }
 const formatPoint = (val) => {
+  if (val == null) {
+    return '0z0T'
+  } else {
+    let l = val.split(',')
+    return `${l[0]}z${l[1]}T`
+  }
 
-  let l = val.split(',')
-  return `${l[0]}z${l[1]}T`
 
 }
 const updateInfo = async () => {

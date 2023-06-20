@@ -16,7 +16,7 @@
         <el-table-column prop="family" label="字体" align="center" min-width="170">
           <template #default="scope">
             <el-switch v-if="scope.row.title == '年度积分'" v-model="scope.row.switch" width="20" />
-            <el-select v-model="scope.row.hasSemifinals" min-width="150">
+            <el-select v-model="scope.row.family" min-width="150">
               <el-option v-for="item in detailInfo.info.familyOptions" :key="item.value" :label="item.label"
                 :value="item.value" />
             </el-select>
@@ -24,7 +24,7 @@
         </el-table-column>
         <el-table-column prop="color" label="颜色" align="center" min-width="150">
           <template #default="scope">
-            <el-select v-model="scope.row.hasSemifinals">
+            <el-select v-model="scope.row.color">
               <el-option v-for="item in detailInfo.info.colorOptions" :key="item.value" :label="item.label"
                 :value="item.value" />
             </el-select>
@@ -37,12 +37,12 @@
         </el-table-column>
         <el-table-column prop="x" label="横坐标" align="center" min-width="150">
           <template #default="scope">
-            <el-input v-model="scope.row.semifinalsNum" clearable />
+            <el-input v-model="scope.row.x" clearable />
           </template>
         </el-table-column>
         <el-table-column prop="y" label="纵坐标" align="center" min-width="150">
           <template #default="scope">
-            <el-input v-model="scope.row.semifinalsNum" clearable />
+            <el-input v-model="scope.row.y" clearable />
           </template>
         </el-table-column>
 
@@ -89,7 +89,7 @@
         <el-table-column prop="family" label="字体" align="center" min-width="170">
           <template #default="scope">
             <el-switch v-if="scope.row.title == '年度积分'" v-model="scope.row.switch" width="20" />
-            <el-select v-model="scope.row.hasSemifinals" min-width="150">
+            <el-select v-model="scope.row.family" min-width="150">
               <el-option v-for="item in detailInfo.projectInfo.familyOptions" :key="item.value" :label="item.label"
                 :value="item.value" />
             </el-select>
@@ -97,7 +97,7 @@
         </el-table-column>
         <el-table-column prop="color" label="颜色" align="center" min-width="150">
           <template #default="scope">
-            <el-select v-model="scope.row.hasSemifinals">
+            <el-select v-model="scope.row.color">
               <el-option v-for="item in detailInfo.projectInfo.colorOptions" :key="item.value" :label="item.label"
                 :value="item.value" />
             </el-select>
@@ -110,12 +110,12 @@
         </el-table-column>
         <el-table-column prop="x" label="横坐标" align="center" min-width="150">
           <template #default="scope">
-            <el-input v-model="scope.row.semifinalsNum" clearable />
+            <el-input v-model="scope.row.x" clearable />
           </template>
         </el-table-column>
         <el-table-column prop="y" label="纵坐标" align="center" min-width="150">
           <template #default="scope">
-            <el-input v-model="scope.row.semifinalsNum" clearable />
+            <el-input v-model="scope.row.y" clearable />
           </template>
         </el-table-column>
 
@@ -125,7 +125,7 @@
 
     </div>
     <div class="middleBtn" style="margin-top: 2rem;">
-      <el-button @click="handleClose">重置</el-button>
+      <el-button @click="init">重置</el-button>
       <el-button type="primary" @click="confirm">保存</el-button>
     </div>
   </div>
@@ -136,6 +136,7 @@ import { ageList, gender, gameType, speedRound } from '@/constant/index'
 import { onMounted, reactive, ref, watch } from 'vue'
 import { familyOptions, colorOptions } from '@/constant/index'
 import Service from '@/views/largeScreenConfig/api'
+import { ElMessage } from 'element-plus'
 // const props = defineProps<{ info: object }>()
 const round = [
   {
@@ -248,7 +249,7 @@ const detailInfo = reactive({
       type: 'B',
       gender: 'M',
       round: 'Q0',
-      age: ''
+      age: null
 
     },
 
@@ -327,7 +328,7 @@ const init = () => {
       type: 'B',
       gender: 'M',
       round: 'Q0',
-      age: ''
+      age: null
 
     },
 
@@ -355,6 +356,15 @@ const getInfo = async () => {
   if (res != undefined) {
     detailInfo.info = res.info
     detailInfo.projectInfo = res.projectInfo
+
+  }
+}
+const confirm = async () => {
+
+  let res = await Service.setFontStyle(detailInfo)
+  // getInfoData.val = JSON.parse(JSON.stringify(res))
+  if (res != undefined) {
+    ElMessage.success('字体配置成功')
 
   }
 }

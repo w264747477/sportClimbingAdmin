@@ -55,11 +55,7 @@
             <el-icon size="50" v-if="infoDetail.data.logo.length < 3">
               <CirclePlus />
             </el-icon>
-
           </div>
-
-
-
         </el-upload>
 
       </el-form-item>

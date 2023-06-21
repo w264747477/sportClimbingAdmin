@@ -109,15 +109,15 @@ export type exportList = {
 export const familyOptions = [
   {
     value: '0',
-    label: '宋体'
+    label: 'serif'
   },
   {
     value: '1',
-    label: '微软雅黑'
+    label: 'sans-serif'
   },
   {
     value: '2',
-    label: '黑体'
+    label: 'monospace'
   }
 ]
 export const colorOptions = [

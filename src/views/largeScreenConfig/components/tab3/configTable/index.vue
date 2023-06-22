@@ -13,14 +13,14 @@
       <el-table-column prop="family" label="字体" align="center" min-width="170">
         <template #default="scope">
           <el-switch v-if="scope.row.title == '年度积分'" v-model="scope.row.switch" width="20" />
-          <el-select v-model="scope.row.hasSemifinals" min-width="150">
+          <el-select v-model="scope.row.family" min-width="150">
             <el-option v-for="item in info.familyOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </template>
       </el-table-column>
       <el-table-column prop="color" label="颜色" align="center" min-width="150">
         <template #default="scope">
-          <el-select v-model="scope.row.hasSemifinals">
+          <el-select v-model="scope.row.color">
             <el-option v-for="item in info.colorOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </template>
@@ -32,18 +32,18 @@
       </el-table-column>
       <el-table-column prop="x" label="横坐标" align="center" min-width="150">
         <template #default="scope">
-          <el-input v-model="scope.row.semifinalsNum" clearable />
+          <el-input v-model="scope.row.x" clearable />
         </template>
       </el-table-column>
       <el-table-column prop="y" label="纵坐标" align="center" min-width="150">
         <template #default="scope">
-          <el-input v-model="scope.row.semifinalsNum" clearable />
+          <el-input v-model="scope.row.y" clearable />
         </template>
       </el-table-column>
 
     </el-table>
     <div class="middleBtn" style="margin-top: 2rem;">
-      <el-button @click="handleClose">重置</el-button>
+      <el-button @click="init">重置</el-button>
       <el-button type="primary" @click="confirm">保存</el-button>
     </div>
   </div>
@@ -51,7 +51,8 @@
 
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
-
+import Service from '@/views/largeScreenConfig/api'
+import { ElMessage } from 'element-plus'
 const props = defineProps<{ info: object }>()
 const info = reactive({
   tableData: [],
@@ -60,12 +61,32 @@ const info = reactive({
   title: '',
   selInfo: {}
 })
+let backupData = ref({})
+const init = () => {
+  resetData(backupData.value)
+}
 const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   // const obj = {
   //   borderTop: '1px solid #eaeef5',
   //   borderBottom: '1px solid #eaeef5'
   // }
   // return obj
+}
+const resetData = (newVal) => {
+  info.tableData = newVal.tableData
+  info.familyOptions = newVal.familyOptions
+  info.colorOptions = newVal.colorOptions
+  info.selInfo = newVal.selInfo
+  info.title = newVal.title
+}
+const confirm = async () => {
+
+  let res = await Service.setFontStyle(info)
+  // getInfoData.val = JSON.parse(JSON.stringify(res))
+  if (res != undefined) {
+    ElMessage.success('字体配置成功')
+
+  }
 }
 const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
   const obj = {
@@ -78,11 +99,13 @@ watch(
   () => props.info,
   (newVal) => {
     if ((newVal ?? '') != '') {
-      info.tableData = newVal.tableData
-      info.familyOptions = newVal.familyOptions
-      info.colorOptions = newVal.colorOptions
-      info.selInfo = newVal.selInfo
-      info.title = newVal.title
+      backupData.value = JSON.parse(JSON.stringify(newVal))
+      resetData(newVal)
+      // info.tableData = newVal.tableData
+      // info.familyOptions = newVal.familyOptions
+      // info.colorOptions = newVal.colorOptions
+      // info.selInfo = newVal.selInfo
+      // info.title = newVal.title
     }
   },
   { immediate: true }

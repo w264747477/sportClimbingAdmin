@@ -44,19 +44,18 @@
       </el-form-item>
       <el-form-item label="logo" style="width:100%">
         <el-upload class="upload-demo" action="/sportClimbingAdmin/api/static/uploadImage" :before-remove="beforeRemove"
-          :limit="3" :file-list="info.fileList" accept=".jpg" :on-success="uploadSucess" multiple
+          :limit="3" :file-list="info.fileList" accept=".jpg,.png" :on-success="uploadSucess" multiple
           :before-upload="beforeAvatarUpload" :on-error="handleImageError" :on-exceed="handleExceed">
-          <div>
-            <div v-for="item in infoDetail.data.logo">
-              <el-image style="width: 100px; height: 100px;margin-right: 20px;" :src="item" fit="cover" />
+          <div class="logoBox">
+            <div class="logo_img">
+              <div v-for="item in infoDetail.data.logo">
+                <el-image style="width: 100px; height: 100px;margin-right: 20px;" :src="item" fit="cover" />
+              </div>
             </div>
-
+            <el-icon size="50" v-if="infoDetail.data.logo.length < 3">
+              <CirclePlus />
+            </el-icon>
           </div>
-
-          <el-icon size="50" v-if="infoDetail.data.logo.length < 3">
-            <CirclePlus />
-          </el-icon>
-
         </el-upload>
 
       </el-form-item>
@@ -92,6 +91,7 @@ import { onMounted, reactive, ref, watch } from 'vue'
 import { ageList, gender, gameType, speedRound } from '@/constant/index'
 import dayjs from 'dayjs'
 import { Service, exportList } from '../../api/index.ts'
+import { toDownloadFile } from '@/utils/tools'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 const props = defineProps<{ info: number }>()
 const infoDetail = reactive({
@@ -99,7 +99,7 @@ const infoDetail = reactive({
     type: 'B',
     gender: 'M',
     round: 'Q0',
-    age: '',
+    age: null,
     name: '',
     time: dayjs(new Date()).format('YYYY-MM-DD'),
     address: '',
@@ -164,18 +164,24 @@ const formRef = ref<FormInstance>()
 const updateTag = (val) => {
   info.currentItem = val
 }
-const beforeRemove = (file, fileList) => ElMessage.warning(`确定移除 ${file.name}？`)
-const toDownloadFile = (response) => {
-  const blob = new Blob([response.data]);
-  let link = document.createElement('a');
-  link.href = window.URL.createObjectURL(blob);
-  let name = 'scoresList-' + dayjs().format('YYYYMMDDHHmmss') + '.xlsx';
-  link.download = name;
-  document.body.appendChild(link);
-  link.click();
-  URL.revokeObjectURL(link.href);
-  document.body.removeChild(link);
+const beforeRemove = (file, fileList) => {
+
+  infoDetail.data.logo = infoDetail.data.logo.filter(item => {
+    return item != file.response.data.url
+  })
+
 }
+// const toDownloadFile = (response) => {
+//   const blob = new Blob([response.data]);
+//   let link = document.createElement('a');
+//   link.href = window.URL.createObjectURL(blob);
+//   let name = 'scoresList-' + dayjs().format('YYYYMMDDHHmmss') + '.xlsx';
+//   link.download = name;
+//   document.body.appendChild(link);
+//   link.click();
+//   URL.revokeObjectURL(link.href);
+//   document.body.removeChild(link);
+// }
 const handleExceed = (files, fileList) => {
   ElMessage.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
 }
@@ -336,6 +342,15 @@ watch(
   align-items: flex-start;
 }
 
+.logoBox {
+  display: flex;
+  flex-direction: column;
+
+  .logo_img {
+    display: flex;
+
+  }
+}
 
 // 表格
 </style>

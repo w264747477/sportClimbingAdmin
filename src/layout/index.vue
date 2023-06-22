@@ -239,4 +239,5 @@ export default defineComponent({
 
 .mobile .fixed-header {
   width: 100%;
-}</style>
+}
+</style>

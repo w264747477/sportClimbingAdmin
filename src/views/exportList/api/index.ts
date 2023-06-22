@@ -14,12 +14,8 @@ export class Service {
     return request({
       url: url,
       method: 'POST',
-      json: true,
       data,
-      headers:
-      {
-        responseType: 'blob',
-      }
+      responseType: 'blob',
     })
   }
 }

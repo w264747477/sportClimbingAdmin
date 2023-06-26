@@ -105,17 +105,29 @@
         </el-table-column>
         <el-table-column prop="size" label="大小" align="center" min-width="150">
           <template #default="scope">
-            <el-input-number v-model="scope.row.size" :min="1" :max="20" />
+
+            <el-input-number v-model="scope.row.size" :min="1" :max="20" v-if="scope.row.size != undefined" />
+            <span v-else> 不支持字体大小修改</span>
           </template>
         </el-table-column>
         <el-table-column prop="x" label="横坐标" align="center" min-width="150">
           <template #default="scope">
-            <el-input v-model="scope.row.x" clearable />
+            <el-input style="width: 160px;" v-model="scope.row.x" clearable
+              v-if="scope.row.x != undefined && scope.row.title == '年度积分'" />
+            <span v-if="scope.row.title == '赛道'"> 不支持横坐标修改</span>
+            <el-select style="width: 160px;" v-model="scope.row.x" v-if="!['年度积分', '赛道'].includes(scope.row.title)">
+              <el-option v-for="item in tableColoumOptions" :key="item.value" :label="item.label" :value="item.value" />
+            </el-select>
+
+
           </template>
         </el-table-column>
         <el-table-column prop="y" label="纵坐标" align="center" min-width="150">
           <template #default="scope">
-            <el-input v-model="scope.row.y" clearable />
+
+            <el-input v-model="scope.row.y" clearable v-if="scope.row.y != undefined" />
+            <span v-else> 不支持纵坐标修改</span>
+
           </template>
         </el-table-column>
 
@@ -132,11 +144,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ageList, gender, gameType, speedRound } from '@/constant/index'
+import { ageList, gender, gameType, speedRound, projectData, tableColoumOptions } from '@/constant/index'
 import { onMounted, reactive, ref, watch } from 'vue'
 import { familyOptions, colorOptions } from '@/constant/index'
 import Service from '@/views/largeScreenConfig/api'
 import { ElMessage } from 'element-plus'
+
 // const props = defineProps<{ info: object }>()
 const round = [
   {
@@ -209,41 +222,7 @@ const detailInfo = reactive({
     colorOptions
   },
   projectInfo: {
-    tableData: [
-      {
-        title: '排名',
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      },
-      {
-        title: '运动员号码',
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      },
-      {
-        title: '代表队',
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      },
-      {
-        title: '年度积分',
-        switch: true,
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      }
-    ],
+    tableData: projectData['B'],
     title: '项目',
     selInfo: {
       type: 'B',
@@ -261,7 +240,7 @@ const change = async (val) => {
   if (detailInfo.projectInfo.selInfo.type != 'S' && ['F8', 'F4'].includes(detailInfo.projectInfo.selInfo.round)) {
     detailInfo.projectInfo.selInfo.round = 'Q0'
   }
-
+  detailInfo.projectInfo.tableData = projectData[detailInfo.projectInfo.selInfo.type]
 }
 const init = () => {
   detailInfo.info = {

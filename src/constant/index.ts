@@ -120,6 +120,20 @@ export const familyOptions = [
     label: 'monospace'
   }
 ]
+export const tableColoumOptions = [
+  {
+    value: '0',
+    label: 'left'
+  },
+  {
+    value: '1',
+    label: 'center'
+  },
+  {
+    value: '2',
+    label: 'right'
+  }
+]
 export const colorOptions = [
   {
     value: '0',
@@ -130,6 +144,87 @@ export const colorOptions = [
     label: '白'
   }
 ]
+export const projectData = {
+  'B': [
+    {
+      title: '排名',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 'center',
+    },
+    {
+      title: '号码',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 'center',
+    },
+    {
+      title: '代表队',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 'center',
+    },
+    {
+      title: '运动员姓名',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 'center',
+    },
+
+    {
+      title: '赛道',
+      family: '0',
+      color: '0',
+
+    },
+    // {
+    //   title: '赛道2',
+    //   family: '0',
+    //   color: '0',
+
+    // },
+    // {
+    //   title: '赛道3',
+    //   family: '0',
+    //   color: '0',
+
+    // },
+    // {
+    //   title: '赛道4',
+    //   family: '0',
+    //   color: '0',
+
+    // },
+    // {
+    //   title: '赛道5',
+    //   family: '0',
+    //   color: '0',
+
+    // },
+    {
+      title: '成绩',
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 'center',
+    },
+    {
+      title: '年度积分',
+      switch: true,
+      family: '0',
+      color: '0',
+      size: 2,
+      x: 5,
+      y: 6
+    }
+  ],
+
+}
+
 const loginApi = {
   speedModify: '/sportClimbingAdmin/api/score/speed/update',
   boulderingModify: '/sportClimbingAdmin/api/score/bouldering/update',

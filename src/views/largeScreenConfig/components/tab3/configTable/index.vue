@@ -39,12 +39,15 @@
       </el-table-column>
       <el-table-column prop="x" label="横坐标" align="center" width="240">
         <template #default="scope">
-          <el-input v-model="scope.row.x" clearable />
+          <el-input v-model="scope.row.x" clearable v-if="scope.row.x != undefined" />
+          <span v-else> 不支持横坐标修改</span>
         </template>
       </el-table-column>
       <el-table-column prop="y" label="纵坐标" align="center" width="240">
         <template #default="scope">
-          <el-input v-model="scope.row.y" clearable />
+          <el-input v-model="scope.row.y" clearable v-if="scope.row.y != undefined" />
+          <span v-else> 不支持纵坐标修改</span>
+
         </template>
       </el-table-column>
 

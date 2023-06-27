@@ -28,48 +28,42 @@ const speedInfo = reactive({
       family: '0',
       color: '0',
       size: 2,
-      x: 5,
-      y: 6
+
     },
     {
       title: '赛事项目',
       family: '0',
       color: '0',
       size: 2,
-      x: 5,
-      y: 6
+
     },
     {
       title: '运动员号码',
       family: '0',
       color: '0',
       size: 2,
-      x: 5,
-      y: 6
+
     },
     {
       title: '代表队',
       family: '0',
       color: '0',
       size: 2,
-      x: 5,
-      y: 6
+
     },
     {
       title: '姓名',
       family: '0',
       color: '0',
       size: 2,
-      x: 5,
-      y: 6
+
     },
     {
       title: '成绩',
       family: '0',
       color: '0',
       size: 2,
-      x: 5,
-      y: 6
+
     }
   ],
   title: '速度赛对阵图',

@@ -12,8 +12,8 @@
 
       <el-table class="table" :data="detailInfo.info.tableData" style="width: 100%; --el-table-border-color: none"
         :cell-style="changeCellStyle" :header-cell-style="headerRowStyle">
-        <el-table-column prop="title" label="" align="center" min-width="120" />
-        <el-table-column prop="family" label="字体" align="center" min-width="170">
+        <el-table-column prop="title" label="" align="center" width="240" />
+        <el-table-column prop="family" label="字体" align="center" width="240">
           <template #default="scope">
             <el-switch v-if="scope.row.title == '年度积分'" v-model="scope.row.switch" width="20" />
             <el-select v-model="scope.row.family" min-width="150">
@@ -22,7 +22,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column prop="color" label="颜色" align="center" min-width="150">
+        <el-table-column prop="color" label="颜色" align="center" width="240">
           <template #default="scope">
             <el-select v-model="scope.row.color">
               <el-option v-for="item in detailInfo.info.colorOptions" :key="item.value" :label="item.label"
@@ -30,17 +30,17 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column prop="size" label="大小" align="center" min-width="150">
+        <el-table-column prop="size" label="大小" align="center" width="240">
           <template #default="scope">
             <el-input-number v-model="scope.row.size" :min="1" :max="20" />
           </template>
         </el-table-column>
-        <el-table-column prop="x" label="横坐标" align="center" min-width="150">
+        <el-table-column prop="x" label="横坐标" align="center" width="240">
           <template #default="scope">
             <el-input v-model="scope.row.x" clearable />
           </template>
         </el-table-column>
-        <el-table-column prop="y" label="纵坐标" align="center" min-width="150">
+        <el-table-column prop="y" label="纵坐标" align="center" width="240">
           <template #default="scope">
             <el-input v-model="scope.row.y" clearable />
           </template>
@@ -57,7 +57,8 @@
         <el-form :inline="true" :label-width="'50px'" :model="detailInfo.projectInfo.selInfo">
           <el-form-item label="类型">
             <el-select v-model="detailInfo.projectInfo.selInfo.type" style="width: 190px" @change="change('type')">
-              <el-option v-for="item in gameType" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              <el-option v-for="item in gameTypeAll" :key="item.value" :label="item.label"
+                :value="item.value"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="性别">
@@ -85,17 +86,26 @@
 
       <el-table class="table" :data="detailInfo.projectInfo.tableData" style="width: 100%; --el-table-border-color: none"
         :cell-style="changeCellStyle" :header-cell-style="headerRowStyle">
-        <el-table-column prop="title" label="" align="center" min-width="120" />
-        <el-table-column prop="family" label="字体" align="center" min-width="170">
+        <el-table-column prop="title" label="" align="center" width="240" />
+        <el-table-column prop="family" label="字体" align="center" width="240">
           <template #default="scope">
-            <el-switch v-if="scope.row.title == '年度积分'" v-model="scope.row.switch" width="20" />
-            <el-select v-model="scope.row.family" min-width="150">
-              <el-option v-for="item in detailInfo.projectInfo.familyOptions" :key="item.value" :label="item.label"
-                :value="item.value" />
-            </el-select>
+            <div v-if="scope.row.title == '年度积分'" style="display: flex;">
+              <el-switch v-model="scope.row.switch" style="margin-right: 10px;" />
+              <el-select v-model="scope.row.family">
+                <el-option v-for="item in detailInfo.projectInfo.familyOptions" :key="item.value" :label="item.label"
+                  :value="item.value" />
+              </el-select>
+            </div>
+            <div v-else>
+              <el-select v-model="scope.row.family">
+                <el-option v-for="item in detailInfo.projectInfo.familyOptions" :key="item.value" :label="item.label"
+                  :value="item.value" />
+              </el-select>
+            </div>
+
           </template>
         </el-table-column>
-        <el-table-column prop="color" label="颜色" align="center" min-width="150">
+        <el-table-column prop="color" label="颜色" align="center" width="240">
           <template #default="scope">
             <el-select v-model="scope.row.color">
               <el-option v-for="item in detailInfo.projectInfo.colorOptions" :key="item.value" :label="item.label"
@@ -103,26 +113,26 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column prop="size" label="大小" align="center" min-width="150">
+        <el-table-column prop="size" label="大小" align="center" width="240">
           <template #default="scope">
 
             <el-input-number v-model="scope.row.size" :min="1" :max="20" v-if="scope.row.size != undefined" />
             <span v-else> 不支持字体大小修改</span>
           </template>
         </el-table-column>
-        <el-table-column prop="x" label="横坐标" align="center" min-width="150">
+        <el-table-column prop="x" label="横坐标" align="center" width="240">
           <template #default="scope">
-            <el-input style="width: 160px;" v-model="scope.row.x" clearable
+            <!-- <el-input style="width: 160px;" v-model="scope.row.x" clearable
               v-if="scope.row.x != undefined && scope.row.title == '年度积分'" />
             <span v-if="scope.row.title == '赛道'"> 不支持横坐标修改</span>
             <el-select style="width: 160px;" v-model="scope.row.x" v-if="!['年度积分', '赛道'].includes(scope.row.title)">
               <el-option v-for="item in tableColoumOptions" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-
+            </el-select> -->
+            <el-input v-model="scope.row.x" clearable />
 
           </template>
         </el-table-column>
-        <el-table-column prop="y" label="纵坐标" align="center" min-width="150">
+        <el-table-column prop="y" label="纵坐标" align="center" width="240">
           <template #default="scope">
 
             <el-input v-model="scope.row.y" clearable v-if="scope.row.y != undefined" />
@@ -144,7 +154,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ageList, gender, gameType, speedRound, projectData, tableColoumOptions } from '@/constant/index'
+import { ageList, gender, gameTypeAll, speedRound, projectData } from '@/constant/index'
 import { onMounted, reactive, ref, watch } from 'vue'
 import { familyOptions, colorOptions } from '@/constant/index'
 import Service from '@/views/largeScreenConfig/api'
@@ -222,10 +232,10 @@ const detailInfo = reactive({
     colorOptions
   },
   projectInfo: {
-    tableData: projectData['B'],
+    tableData: JSON.parse(JSON.stringify(projectData['B'])),
     title: '项目',
     selInfo: {
-      type: 'B',
+      type: 'L',
       gender: 'M',
       round: 'Q0',
       age: null
@@ -267,44 +277,10 @@ const init = () => {
     colorOptions
   }
   detailInfo.projectInfo = {
-    tableData: [
-      {
-        title: '排名',
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      },
-      {
-        title: '运动员号码',
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      },
-      {
-        title: '代表队',
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      },
-      {
-        title: '年度积分',
-        switch: true,
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      }
-    ],
+    tableData: JSON.parse(JSON.stringify(projectData['B'])),
     title: '项目',
     selInfo: {
-      type: 'B',
+      type: 'L',
       gender: 'M',
       round: 'Q0',
       age: null

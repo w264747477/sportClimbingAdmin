@@ -4,7 +4,7 @@
       :inline="true" :label-width="'100px'">
       <el-form-item label="类型" prop="type">
         <el-select v-model="infoDetail.data.type" style="width: 300px" @change="change('type')">
-          <el-option v-for="item in gameType" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-option v-for="item in gameTypeAll" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="性别" prop="gender">
@@ -88,7 +88,7 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
-import { ageList, gender, gameType, speedRound } from '@/constant/index'
+import { ageList, gender, gameTypeAll, speedRound } from '@/constant/index'
 import dayjs from 'dayjs'
 import { Service, exportList } from '../../api/index.ts'
 import { toDownloadFile } from '@/utils/tools'

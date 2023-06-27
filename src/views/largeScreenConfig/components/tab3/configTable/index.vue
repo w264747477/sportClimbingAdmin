@@ -9,33 +9,40 @@
 
     <el-table class="table" :data="info.tableData" style="width: 100%; --el-table-border-color: none"
       :cell-style="changeCellStyle" :header-cell-style="headerRowStyle">
-      <el-table-column prop="title" label="" align="center" min-width="120" />
-      <el-table-column prop="family" label="字体" align="center" min-width="170">
+      <el-table-column prop="title" label="" align="center" width="240" />
+      <el-table-column prop="family" label="字体" align="center" width="240">
         <template #default="scope">
-          <el-switch v-if="scope.row.title == '年度积分'" v-model="scope.row.switch" width="20" />
-          <el-select v-model="scope.row.family" min-width="150">
-            <el-option v-for="item in info.familyOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
+          <div v-if="scope.row.title == '年度积分'" style="display: flex;">
+            <el-switch v-model="scope.row.switch" style="margin-right: 10px;" />
+            <el-select v-model="scope.row.family">
+              <el-option v-for="item in info.familyOptions" :key="item.value" :label="item.label" :value="item.value" />
+            </el-select>
+          </div>
+          <div v-else>
+            <el-select v-model="scope.row.family">
+              <el-option v-for="item in info.familyOptions" :key="item.value" :label="item.label" :value="item.value" />
+            </el-select>
+          </div>
         </template>
       </el-table-column>
-      <el-table-column prop="color" label="颜色" align="center" min-width="150">
+      <el-table-column prop="color" label="颜色" align="center" width="240">
         <template #default="scope">
           <el-select v-model="scope.row.color">
             <el-option v-for="item in info.colorOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="size" label="大小" align="center" min-width="150">
+      <el-table-column prop="size" label="大小" align="center" width="240">
         <template #default="scope">
           <el-input-number v-model="scope.row.size" :min="1" :max="20" />
         </template>
       </el-table-column>
-      <el-table-column prop="x" label="横坐标" align="center" min-width="150">
+      <el-table-column prop="x" label="横坐标" align="center" width="240">
         <template #default="scope">
           <el-input v-model="scope.row.x" clearable />
         </template>
       </el-table-column>
-      <el-table-column prop="y" label="纵坐标" align="center" min-width="150">
+      <el-table-column prop="y" label="纵坐标" align="center" width="240">
         <template #default="scope">
           <el-input v-model="scope.row.y" clearable />
         </template>

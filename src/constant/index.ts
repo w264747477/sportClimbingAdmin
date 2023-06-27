@@ -35,6 +35,24 @@ export const gameType = [
     value: 'S',
     label: '速度赛'
   }]
+export const gameTypeMid = [
+  {
+    value: 'L',
+    label: '难度赛'
+  },
+  {
+    value: 'B',
+    label: '攀石赛'
+  },
+  {
+    value: 'S',
+    label: '速度赛'
+  },
+  {
+    value: 'A',
+    label: '全能'
+  }
+]
 export const gameTypeAll = [
   {
     value: 'L',

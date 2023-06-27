@@ -1,10 +1,10 @@
 <template>
   <div class="box">
     <el-form ref="formRef" :rules="rules" :label-position="labelPosition" :model="infoDetail.data" style="max-width: 80%"
-      :inline="true" :label-width="'100px'">
+      :inline="true" :label-width="'120px'">
       <el-form-item label="类型" prop="type">
         <el-select v-model="infoDetail.data.type" style="width: 300px" @change="change('type')">
-          <el-option v-for="item in gameTypeAll" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-option v-for="item in gameTypeMid" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="性别" prop="gender">
@@ -18,13 +18,26 @@
         </el-select>
       </el-form-item>
       <el-form-item label="回合">
-        <el-select v-if="infoDetail.data.type == 'S'" v-model="infoDetail.data.round" style="width: 300px"
-          @change="change('round')">
-          <el-option v-for="item in sround" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-        <el-select v-else v-model="infoDetail.data.round" style="width: 300px" @change="change('round')">
-          <el-option v-for="item in round" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        <div v-if="exportType == 1">
+          <el-select v-if="infoDetail.data.type == 'S'" v-model="infoDetail.data.round" style="width: 300px"
+            @change="change('round')">
+            <el-option v-for="item in sround" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+          <el-select v-else v-model="infoDetail.data.round" style="width: 300px" @change="change('round')">
+            <el-option v-for="item in round" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </div>
+        <div v-else>
+          <el-select v-if="infoDetail.data.type == 'S'" v-model="infoDetail.data.round" style="width: 300px"
+            @change="change('round')">
+            <el-option v-for="item in sroundPromotion" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+          <el-select v-else v-model="infoDetail.data.round" style="width: 300px" @change="change('round')">
+            <el-option v-for="item in roundPromotion" :key="item.value" :label="item.label"
+              :value="item.value"></el-option>
+          </el-select>
+        </div>
+
       </el-form-item>
 
       <el-form-item label="赛事名称" prop="name">
@@ -67,12 +80,16 @@
         <el-input v-model="infoDetail.data.deputyReferee" style="width: 300px" />
 
       </el-form-item>
-      <el-form-item label="路线裁判">
+      <el-form-item label="路线裁判" v-if="['L', 'B'].includes(infoDetail.data.type)">
         <el-input v-model="infoDetail.data.routejudge" style="width: 300px" />
 
       </el-form-item>
       <el-form-item label="成绩处理裁判">
         <el-input v-model="infoDetail.data.gradeHandlingJudge" style="width: 300px" />
+
+      </el-form-item>
+      <el-form-item label="计时器技术支持" v-if="['S'].includes(infoDetail.data.type)">
+        <el-input v-model="infoDetail.data.timerSupport" style="width: 300px" />
 
       </el-form-item>
       <el-form-item label="公布时间">
@@ -88,17 +105,18 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
-import { ageList, gender, gameTypeAll, speedRound } from '@/constant/index'
+import { ageList, gender, gameTypeMid, speedRound } from '@/constant/index'
 import dayjs from 'dayjs'
 import { Service, exportList } from '../../api/index.ts'
 import { toDownloadFile } from '@/utils/tools'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 const props = defineProps<{ info: number }>()
+let exportType = ref(1)
 const infoDetail = reactive({
   data: <exportList>{
-    type: 'B',
+    type: 'L',
     gender: 'M',
-    round: 'Q0',
+    round: 'F2',
     age: null,
     name: '',
     time: dayjs(new Date()).format('YYYY-MM-DD'),
@@ -110,10 +128,11 @@ const infoDetail = reactive({
     deputyReferee: '',
     routejudge: '',
     gradeHandlingJudge: '',
+    timerSupport: '',
     announcementTime: dayjs(new Date())
   }
 })
-const labelPosition = ref('left')
+const labelPosition = ref('right')
 const round = [
   {
     value: 'Q0',
@@ -127,6 +146,13 @@ const round = [
     value: 'F0',
     label: '决赛'
   }
+]
+const roundPromotion = [
+  {
+    value: 'F2',
+    label: '半决赛'
+  },
+
 ]
 const genderList = [
   {
@@ -160,6 +186,22 @@ const sround = [
     label: '决赛'
   }
 ]
+const sroundPromotion = [
+  {
+    value: 'F8',
+    label: '八分之一'
+  },
+  {
+    value: 'F4',
+    label: '四分之一'
+  },
+  {
+    value: 'F2',
+    label: '二分之一'
+  }
+
+]
+
 const formRef = ref<FormInstance>()
 const updateTag = (val) => {
   info.currentItem = val
@@ -323,7 +365,7 @@ watch(
   (newVal) => {
     console.log(newVal)
     if ((newVal ?? '') != '') {
-      console.log(newVal)
+      exportType.value = newVal
     }
   },
   { deep: true, immediate: true },

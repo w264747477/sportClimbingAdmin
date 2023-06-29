@@ -3,6 +3,7 @@
     <div class="box_item">
       <div class="title">
         <span>{{ detailInfo.info.title }}</span>
+        <span style="color: rgb(221, 219, 215);">(横众坐标为百分比)</span>
         <el-select v-if="(detailInfo.info.selInfo ?? '') != ''" v-model="detailInfo.info.selInfo.value"
           style="margin-left: 2rem">
           <el-option v-for="item in detailInfo.info.selInfo.selOptions" :key="item.value" :label="item.label"
@@ -54,6 +55,7 @@
     <div class="box_item">
       <div class="formbox">
         <span>{{ detailInfo.projectInfo.title }}</span>
+        <span style="color: rgb(221, 219, 215);"> (横众坐标为表格每列的宽度)</span>
         <el-form :inline="true" :label-width="'50px'" :model="detailInfo.projectInfo.selInfo">
           <el-form-item label="类型">
             <el-select v-model="detailInfo.projectInfo.selInfo.type" style="width: 190px" @change="change('type')">
@@ -61,7 +63,7 @@
                 :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="性别">
+          <!-- <el-form-item label="性别">
             <el-select v-model="detailInfo.projectInfo.selInfo.gender" style="width: 190px">
               <el-option v-for="item in genderList" :label="item.label" :value="item.value"></el-option>
             </el-select>
@@ -79,7 +81,7 @@
             <el-select v-else v-model="detailInfo.projectInfo.selInfo.round" style="width: 190px">
               <el-option v-for="item in round" :key="item.value" :label="item.label" :value="item.value"></el-option>
             </el-select>
-          </el-form-item>
+          </el-form-item> -->
 
         </el-form>
       </div>
@@ -136,7 +138,10 @@
           <template #default="scope">
 
             <el-input v-model="scope.row.y" clearable v-if="scope.row.y != undefined" />
-            <span v-else> 不支持纵坐标修改</span>
+
+            <span v-else>
+              {{ getWarnTxt(scope.row) }}
+            </span>
 
           </template>
         </el-table-column>
@@ -190,22 +195,22 @@ const sround = [
     value: 'Q0',
     label: '预赛'
   },
-  {
-    value: 'F8',
-    label: '八分之一'
-  },
-  {
-    value: 'F4',
-    label: '四分之一'
-  },
-  {
-    value: 'F2',
-    label: '二分之一'
-  },
-  {
-    value: 'F0',
-    label: '决赛'
-  }
+  // {
+  //   value: 'F8',
+  //   label: '八分之一'
+  // },
+  // {
+  //   value: 'F4',
+  //   label: '四分之一'
+  // },
+  // {
+  //   value: 'F2',
+  //   label: '二分之一'
+  // },
+  // {
+  //   value: 'F0',
+  //   label: '决赛'
+  // }
 ]
 const detailInfo = reactive({
   info: {
@@ -232,7 +237,7 @@ const detailInfo = reactive({
     colorOptions
   },
   projectInfo: {
-    tableData: JSON.parse(JSON.stringify(projectData['B'])),
+    tableData: JSON.parse(JSON.stringify(projectData['L'])),
     title: '项目',
     selInfo: {
       type: 'L',
@@ -251,6 +256,40 @@ const change = async (val) => {
     detailInfo.projectInfo.selInfo.round = 'Q0'
   }
   detailInfo.projectInfo.tableData = projectData[detailInfo.projectInfo.selInfo.type]
+}
+const getWarnTxt = (val) => {
+  if (detailInfo.projectInfo.selInfo.type == 'L') {
+    if (val.title == '时间') {
+      return '不支持纵坐标修改。横坐标,在不显示时间的情况下，增加到代表队横坐标'
+    } else if (val.title == '上一轮名次') {
+      return '不支持纵坐标修改。横坐标，预赛,增加到QP横坐标'
+    }
+
+    else {
+      return '不支持纵坐标修改'
+    }
+  } else if (detailInfo.projectInfo.selInfo.type == 'B') {
+    if (val.title == '上一轮名次') {
+      return '不支持纵坐标修改。横坐标，预赛,增加到成绩横坐标'
+    } else {
+      return '不支持纵坐标修改'
+    }
+  } else if (detailInfo.projectInfo.selInfo.type == 'A') {
+    if (val.title == '上一轮名次') {
+      return '不支持纵坐标修改。横坐标，预赛,增加到TP横坐标'
+    } else {
+      return '不支持纵坐标修改'
+    }
+  } else if (detailInfo.projectInfo.selInfo.type == 'AU') {
+    if (val.title == '上一轮名次') {
+      return '不支持纵坐标修改。横坐标，预赛,增加到总分横坐标'
+    } else {
+      return '不支持纵坐标修改'
+    }
+  }
+  else {
+    return '不支持纵坐标修改'
+  }
 }
 const init = () => {
   detailInfo.info = {

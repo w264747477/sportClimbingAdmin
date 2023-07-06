@@ -345,7 +345,7 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
 }
 const getInfo = async () => {
 
-  let res = await Service.getFontStyle()
+  let res = await Service.getFontStyleCom()
   // getInfoData.val = JSON.parse(JSON.stringify(res))
   if (res != undefined) {
     detailInfo.info = res.info
@@ -355,7 +355,9 @@ const getInfo = async () => {
 }
 const confirm = async () => {
 
-  let res = await Service.setFontStyle(detailInfo)
+  let res = await Service.setFontStyleCom({
+    com: detailInfo
+  })
   // getInfoData.val = JSON.parse(JSON.stringify(res))
   if (res != undefined) {
     ElMessage.success('字体配置成功')

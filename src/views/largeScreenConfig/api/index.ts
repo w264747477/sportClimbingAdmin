@@ -5,8 +5,9 @@ const largeConfig = {
   setSliderConfig: '/sportClimbingAdmin/api/score/config/match',
   getBackgroundImg: "/sportClimbingAdmin/api/score/config/match",
   setBackgroundImg: "/sportClimbingAdmin/api/score/config/match",
-  getFontStyle: '/sportClimbingAdmin/api/score/config/match',
-  setFontStyle: '/sportClimbingAdmin/api/score/config/match',
+
+  fontStyleCom: '/sportClimbingAdmin/api/score/config/font/com',
+  fontStyleSpd: '/sportClimbingAdmin/api/score/config/font/speed',
 }
 
 class Service {
@@ -42,21 +43,35 @@ class Service {
       data
     })
   }
-  static getFontStyle() {
+  static getFontStyleCom() {
     return request({
-      url: largeConfig.getFontStyle,
+      url: largeConfig.fontStyleCom,
       method: 'get',
       json: true,
     })
   }
-  static setFontStyle(data: any) {
+  static setFontStyleCom(data: any) {
     return request({
-      url: largeConfig.setFontStyle,
+      url: largeConfig.fontStyleCom,
       method: 'POST',
       json: true,
       data
     })
   }
-
+  static getFontStyleSpeed() {
+    return request({
+      url: largeConfig.fontStyleSpd,
+      method: 'get',
+      json: true,
+    })
+  }
+  static setFontStyleSpeed(data: any) {
+    return request({
+      url: largeConfig.fontStyleSpd,
+      method: 'POST',
+      json: true,
+      data
+    })
+  }
 }
 export default Service

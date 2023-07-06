@@ -13,11 +13,12 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import ConfigTable from './configTable/index.vue'
 import DouConfigTable from './douConfigTable/index.vue'
 const props = defineProps<{ info: object }>()
 import { familyOptions, colorOptions } from '@/constant/index'
+import Service from '@/views/largeScreenConfig/api'
 
 
 // 速度赛对阵图
@@ -77,6 +78,19 @@ const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   //   borderBottom: '1px solid #eaeef5'
   // }
   // return obj
+}
+onMounted(() => {
+  getInfo()
+})
+const getInfo = async () => {
+
+  let res = await Service.getFontStyleSpeed()
+  // getInfoData.val = JSON.parse(JSON.stringify(res))
+  if (res != undefined) {
+    detailInfo.info = res.info
+    detailInfo.projectInfo = res.projectInfo
+
+  }
 }
 const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
   const obj = {

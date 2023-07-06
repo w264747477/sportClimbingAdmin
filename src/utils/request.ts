@@ -102,6 +102,7 @@ instance.interceptors.response.use(
     //   });
     //   return Promise.reject(res);
     // }
+    console.log(res)
     if (res.headers['content-type'].search('excel') != -1 || res.headers['content-type'].search('excel') != -1 || res.headers['content-type'].search('word') != -1) {
       return Promise.resolve(res);
     } else if (res.status === 200) {

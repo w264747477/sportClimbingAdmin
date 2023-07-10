@@ -139,18 +139,23 @@ const uploadSucess = async (response, file, fileList) => {
   if (response.code == 200) {
 
     if (state.currentItem > 3) {
-      let tem = JSON.parse(JSON.stringify(tableData.speedVal))
-      tem[state.currentItem - 4].img = response.data.url
-      let res = await setImg(tem)
+      // let tem = JSON.parse(JSON.stringify(tableData.speedVal))
+      // tem[state.currentItem - 4].img = response.data.url
+      tableData.speedVal[state.currentItem - 4].img = response.data.url
+      let res = await setImg({
+        com: tableData.val,
+        speed: tableData
+      })
       if (res) {
         tableData.speedVal[state.currentItem - 4].img = response.data.url
         info.fileList = []
         ElMessage.success('图片更新成功')
       }
     } else {
-      let tem = JSON.parse(JSON.stringify(tableData.val))
-      tem[state.currentItem].img = response.data.url
-      let res = await setImg(tem)
+      // let tem = JSON.parse(JSON.stringify(tableData.val))
+      // tem[state.currentItem].img = response.data.url
+      tableData.val[state.currentItem].img = response.data.url
+      let res = await setImg(tableData)
       if (res) {
         tableData.val[state.currentItem].img = response.data.url
         info.fileList = []

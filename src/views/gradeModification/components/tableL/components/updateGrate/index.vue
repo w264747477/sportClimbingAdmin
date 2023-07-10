@@ -79,26 +79,26 @@ const options = [
 ]
 const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules>({
-  scoreA: [
-    { required: true, message: '请输入A道成绩', trigger: 'blur' },
+  // scoreA: [
+  //   { required: true, message: '请输入A道成绩', trigger: 'blur' },
 
-  ],
-  timeA: [
-    { required: true, message: '请输入A道时间', trigger: 'blur' },
+  // ],
+  // timeA: [
+  //   { required: true, message: '请输入A道时间', trigger: 'blur' },
 
-  ],
-  scoreB: [
-    { required: true, message: '请输入B道成绩', trigger: 'blur' },
+  // ],
+  // scoreB: [
+  //   { required: true, message: '请输入B道成绩', trigger: 'blur' },
 
-  ],
-  timeB: [
-    { required: true, message: '请输入B道时间', trigger: 'blur' },
+  // ],
+  // timeB: [
+  //   { required: true, message: '请输入B道时间', trigger: 'blur' },
 
-  ],
-  raceType: [
-    { required: true, message: '请输入比赛类型', trigger: 'blur' },
+  // ],
+  // raceType: [
+  //   { required: true, message: '请输入比赛类型', trigger: 'blur' },
 
-  ],
+  // ],
 
 })
 let updateViseible = ref(false)

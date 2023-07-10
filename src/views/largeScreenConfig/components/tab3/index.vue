@@ -79,7 +79,7 @@ const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   // }
   // return obj
 }
-src / views / largeScreenConfig / components / tab3 / douConfigTable / index.vueonMounted(() => {
+onMounted(() => {
   getInfo()
 })
 const getInfo = async () => {

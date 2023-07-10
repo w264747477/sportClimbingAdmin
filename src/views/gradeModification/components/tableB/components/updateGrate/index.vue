@@ -82,26 +82,26 @@ let infoDetail = reactive({
 })
 const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules>({
-  point1: [
-    { required: true, message: '请输入赛道1成绩', trigger: 'blur' },
+  // point1: [
+  //   { required: true, message: '请输入赛道1成绩', trigger: 'blur' },
 
-  ],
-  point2: [
-    { required: true, message: '请输入赛道2成绩', trigger: 'blur' },
+  // ],
+  // point2: [
+  //   { required: true, message: '请输入赛道2成绩', trigger: 'blur' },
 
-  ],
-  point3: [
-    { required: true, message: '请输入赛道3成绩', trigger: 'blur' },
+  // ],
+  // point3: [
+  //   { required: true, message: '请输入赛道3成绩', trigger: 'blur' },
 
-  ],
-  point4: [
-    { required: true, message: '请输入赛道4成绩', trigger: 'blur' },
+  // ],
+  // point4: [
+  //   { required: true, message: '请输入赛道4成绩', trigger: 'blur' },
 
-  ],
-  point5: [
-    { required: true, message: '请输入赛道5成绩', trigger: 'blur' },
+  // ],
+  // point5: [
+  //   { required: true, message: '请输入赛道5成绩', trigger: 'blur' },
 
-  ],
+  // ],
 
 })
 let updateViseible = ref(false)

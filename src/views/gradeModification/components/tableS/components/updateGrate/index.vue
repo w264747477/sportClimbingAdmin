@@ -55,14 +55,14 @@ let infoDetail = reactive({
 })
 const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules>({
-  scoreA: [
-    { required: true, message: '请输入赛道A成绩A', trigger: 'blur' },
+  // scoreA: [
+  //   { required: true, message: '请输入赛道A成绩A', trigger: 'blur' },
 
-  ],
-  scoreB: [
-    { required: true, message: '请输入赛道B成绩', trigger: 'blur' },
+  // ],
+  // scoreB: [
+  //   { required: true, message: '请输入赛道B成绩', trigger: 'blur' },
 
-  ],
+  // ],
 
 })
 let updateViseible = ref(false)

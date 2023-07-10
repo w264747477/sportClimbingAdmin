@@ -91,7 +91,7 @@ const resetData = (newVal) => {
 }
 const confirm = async () => {
 
-  let res = await Service.setFontStyleSpeed(info)
+  let res = await Service.setFontStyleSpeed({ speed: info.tableData })
   // getInfoData.val = JSON.parse(JSON.stringify(res))
   if (res != undefined) {
     ElMessage.success('字体配置成功')

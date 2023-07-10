@@ -212,6 +212,761 @@ const sround = [
   //   label: '决赛'
   // }
 ]
+let allProjectInfo = reactive({
+  data: {
+    B: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 210,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '赛道',
+        family: '0',
+        color: '1',
+        x: 25,
+      },
+      {
+        title: '成绩',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '上一轮名次',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '1',
+        size: 2,
+        x: 5,
+        y: 6,
+      },
+    ],
+    S: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 260,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '赛道A',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      {
+        title: '赛道B',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      {
+        title: '成绩',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6,
+      },
+    ],
+    L: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 180,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      //预赛 Q0
+      {
+        title: '高度1',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      //预赛 Q0
+      {
+        title: '高度2',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      //非预赛 !Q0
+      {
+        title: '高度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+
+      {
+        title: '时间',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      //预赛 Q0
+      {
+        title: 'QP',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      //非预赛 !Q0
+      {
+        title: '成绩',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      //决赛，半决赛'F4', 'F0'
+      {
+        title: '上一轮名次',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 5,
+        y: 4,
+      },
+    ],
+    A: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 30,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 30,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+
+      {
+        title: '赛道',
+        family: '0',
+        color: '1',
+        x: 22,
+      },
+      {
+        title: '线路得分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      {
+        title: '攀石得分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '高度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '难度得分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: 'TP',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      //非预赛!q0
+      {
+        title: '上一轮名次',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 73,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '0',
+        size: 4,
+        x: 5,
+        y: 6,
+      },
+    ],
+    AU: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 200,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      {
+        title: '难度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '攀石',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '总分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      //非预赛!q0
+      {
+        title: '上一轮名次',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6,
+      },
+    ],
+  }
+})
+let backupllProjectInfo = reactive({
+  data: {
+    B: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 210,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '赛道',
+        family: '0',
+        color: '1',
+        x: 25,
+      },
+      {
+        title: '成绩',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '上一轮名次',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '1',
+        size: 2,
+        x: 5,
+        y: 6,
+      },
+    ],
+    S: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 260,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '赛道A',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      {
+        title: '赛道B',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      {
+        title: '成绩',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6,
+      },
+    ],
+    L: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 180,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      //预赛 Q0
+      {
+        title: '高度1',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      //预赛 Q0
+      {
+        title: '高度2',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      //非预赛 !Q0
+      {
+        title: '高度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+
+      {
+        title: '时间',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      //预赛 Q0
+      {
+        title: 'QP',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      //非预赛 !Q0
+      {
+        title: '成绩',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      //决赛，半决赛'F4', 'F0'
+      {
+        title: '上一轮名次',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 5,
+        y: 4,
+      },
+    ],
+    A: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 30,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 30,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+
+      {
+        title: '赛道',
+        family: '0',
+        color: '1',
+        x: 22,
+      },
+      {
+        title: '线路得分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      {
+        title: '攀石得分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '高度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '难度得分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: 'TP',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      //非预赛!q0
+      {
+        title: '上一轮名次',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 73,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '0',
+        size: 4,
+        x: 5,
+        y: 6,
+      },
+    ],
+    AU: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 200,
+      },
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+      {
+        title: '难度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '攀石',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+      {
+        title: '总分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      //非预赛!q0
+      {
+        title: '上一轮名次',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 100,
+      },
+      {
+        title: '年度积分',
+        switch: true,
+        family: '0',
+        color: '0',
+        size: 2,
+        x: 5,
+        y: 6,
+      },
+    ],
+  }
+})
+
 const detailInfo = reactive({
   info: {
     tableData: [
@@ -219,25 +974,25 @@ const detailInfo = reactive({
         title: '赛事名称',
         family: '0',
         color: '0',
-        size: 2,
+        size: 8,
         x: 5,
-        y: 6
+        y: 6,
       },
       {
         title: '赛事项目',
         family: '0',
         color: '0',
-        size: 2,
+        size: 5,
         x: 5,
-        y: 6
-      }
+        y: 6,
+      },
     ],
     title: '共性',
     familyOptions,
     colorOptions
   },
   projectInfo: {
-    tableData: JSON.parse(JSON.stringify(projectData['L'])),
+    tableData: allProjectInfo.data['L'],
     title: '项目',
     selInfo: {
       type: 'L',
@@ -255,7 +1010,7 @@ const change = async (val) => {
   if (detailInfo.projectInfo.selInfo.type != 'S' && ['F8', 'F4'].includes(detailInfo.projectInfo.selInfo.round)) {
     detailInfo.projectInfo.selInfo.round = 'Q0'
   }
-  detailInfo.projectInfo.tableData = projectData[detailInfo.projectInfo.selInfo.type]
+  detailInfo.projectInfo.tableData = allProjectInfo.data[detailInfo.projectInfo.selInfo.type]
 }
 const getWarnTxt = (val) => {
   if (detailInfo.projectInfo.selInfo.type == 'L') {
@@ -292,6 +1047,7 @@ const getWarnTxt = (val) => {
   }
 }
 const init = () => {
+  allProjectInfo.data = JSON.parse(JSON.stringify(backupllProjectInfo.data))
   detailInfo.info = {
     tableData: [
       {
@@ -316,7 +1072,7 @@ const init = () => {
     colorOptions
   }
   detailInfo.projectInfo = {
-    tableData: JSON.parse(JSON.stringify(projectData['B'])),
+    tableData: allProjectInfo.data['L'],
     title: '项目',
     selInfo: {
       type: 'L',
@@ -347,17 +1103,38 @@ const getInfo = async () => {
 
   let res = await Service.getFontStyleCom()
   // getInfoData.val = JSON.parse(JSON.stringify(res))
+  console.log(res)
   if (res != undefined) {
     detailInfo.info = res.info
-    detailInfo.projectInfo = res.projectInfo
+    let tem = {
+      A: res.projectInfo.a,
+      B: res.projectInfo.b,
+      L: res.projectInfo.l,
+      S: res.projectInfo.s,
+      AU: res.projectInfo.au
+    }
+    allProjectInfo = tem
+
+    backupllProjectInfo = JSON.parse(JSON.stringify(tem))
 
   }
 }
 const confirm = async () => {
 
-  let res = await Service.setFontStyleCom({
-    com: detailInfo
-  })
+  let res = await Service.setFontStyleCom(
+    {
+
+      info: detailInfo.info.tableData,
+      projectInfo: {
+        b: allProjectInfo.data.B,
+        s: allProjectInfo.data.S,
+        l: allProjectInfo.data.L,
+        a: allProjectInfo.data.A,
+        au: allProjectInfo.data.AU
+      }
+    }
+
+  )
   // getInfoData.val = JSON.parse(JSON.stringify(res))
   if (res != undefined) {
     ElMessage.success('字体配置成功')
@@ -365,7 +1142,7 @@ const confirm = async () => {
   }
 }
 onMounted(() => {
-  // getInfo()
+  getInfo()
 })
 </script>
 <style scoped lang="scss">

@@ -79,7 +79,7 @@ const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   // }
   // return obj
 }
-onMounted(() => {
+src / views / largeScreenConfig / components / tab3 / douConfigTable / index.vueonMounted(() => {
   getInfo()
 })
 const getInfo = async () => {
@@ -87,8 +87,8 @@ const getInfo = async () => {
   let res = await Service.getFontStyleSpeed()
   // getInfoData.val = JSON.parse(JSON.stringify(res))
   if (res != undefined) {
-    detailInfo.info = res.info
-    detailInfo.projectInfo = res.projectInfo
+    speedInfo.info = res.info
+
 
   }
 }

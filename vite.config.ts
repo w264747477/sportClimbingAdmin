@@ -31,9 +31,10 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       proxy: {
         // 设置代理
         "/sportClimbingAdmin/api": {
-          target: "http://1.14.96.156:8082",
+          // target: "http://1.14.96.156:8082",
+          target: 'http://192.168.229.114:8082',
           changeOrigin: true, // 是否跨域
-          logLevel:'debug',
+          logLevel: 'debug',
           rewrite: (path) => path.replace(/^\/sportClimbingAdmin\/api/, ""),
 
         },

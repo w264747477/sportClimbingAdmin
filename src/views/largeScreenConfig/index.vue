@@ -3,13 +3,13 @@
     <div style="margin-bottom: 20px; margin-left: 10px">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="轮播任务" name="0">
-          <tab1></tab1>
+          <tab1 v-if="activeName == '0'"></tab1>
         </el-tab-pane>
         <el-tab-pane label="背景设置" name="1">
-          <tab2></tab2>
+          <tab2 v-if="activeName == '1'"></tab2>
         </el-tab-pane>
         <el-tab-pane label="字体设置" name="2">
-          <tab3></tab3>
+          <tab3 v-if="activeName == '2'"></tab3>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -38,6 +38,7 @@ const activeName = ref('0')
   -webkit-border-vertical-spacing: 10px; // 垂直间距
   border: none;
 }
+
 .box {
   font-size: 14px;
 }

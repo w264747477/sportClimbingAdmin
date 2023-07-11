@@ -160,7 +160,7 @@ const genderList = [
     label: '男'
   },
   {
-    value: 'W',
+    value: 'F',
     label: '女'
   }
 ]

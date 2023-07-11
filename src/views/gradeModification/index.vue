@@ -199,13 +199,14 @@ const clearDataAll = () => {
   //    }
 }
 const getInfo = async () => {
-  console.log(info)
+
   let res = await Service.getScoreInfo(info)
 
   if (res != undefined) {
+
     tableData[info.type] = res == 1 ? [] : JSON.parse(JSON.stringify(res))
     // tableData[info.type] = JSON.parse(JSON.stringify(res))
-    console.log(tableData.S)
+
   } else {
     ElMessage({ type: 'error', message: res.msg })
   }

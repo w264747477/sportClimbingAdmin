@@ -87,7 +87,7 @@ const getInfo = async () => {
   let res = await Service.getFontStyleSpeed()
   // getInfoData.val = JSON.parse(JSON.stringify(res))
   if (res != undefined) {
-    speedInfo.info = res.info
+    speedInfo.tableData = res.speed
 
 
   }

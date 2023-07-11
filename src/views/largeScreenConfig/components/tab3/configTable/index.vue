@@ -64,7 +64,7 @@ import { reactive, ref, watch } from 'vue'
 import Service from '@/views/largeScreenConfig/api'
 import { ElMessage } from 'element-plus'
 const props = defineProps<{ info: object }>()
-const info = reactive({
+let info = reactive({
   tableData: [],
   familyOptions: [],
   colorOptions: [],
@@ -73,7 +73,7 @@ const info = reactive({
 })
 let backupData = ref({})
 const init = () => {
-  resetData(backupData.value)
+  info = backupData.value
 }
 const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   // const obj = {
@@ -83,11 +83,14 @@ const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   // return obj
 }
 const resetData = (newVal) => {
-  info.tableData = newVal.tableData
-  info.familyOptions = newVal.familyOptions
-  info.colorOptions = newVal.colorOptions
-  info.selInfo = newVal.selInfo
-  info.title = newVal.title
+  info = newVal
+  // console.log(newVal)
+  // info.tableData = newVal.tableData
+  // info.familyOptions = newVal.familyOptions
+  // info.colorOptions = newVal.colorOptions
+  // info.selInfo = newVal.selInfo
+  // info.title = newVal.title
+  // console.log(info.tableData)
 }
 const confirm = async () => {
 
@@ -108,6 +111,7 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
 watch(
   () => props.info,
   (newVal) => {
+    console.log(newVal)
     if ((newVal ?? '') != '') {
       backupData.value = JSON.parse(JSON.stringify(newVal))
       resetData(newVal)

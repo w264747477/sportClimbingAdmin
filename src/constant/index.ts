@@ -74,6 +74,18 @@ export const gameTypeAll = [
     value: 'AU',
     label: 'U系列'
   },
+  {
+    value: 'LALL',
+    label: '难度赛总成绩'
+  },
+  {
+    value: 'SALL',
+    label: '速度赛总成绩'
+  },
+  {
+    value: 'BALL',
+    label: '攀石赛总成绩'
+  },
 ]
 export let round =
   [

@@ -143,8 +143,19 @@ const uploadSucess = async (response, file, fileList) => {
       // tem[state.currentItem - 4].img = response.data.url
       tableData.speedVal[state.currentItem - 4].img = response.data.url
       let res = await setImg({
-        com: tableData.val,
-        speed: tableData
+        com: {
+          nameStrip: tableData.val[0].img,
+          entryBar: tableData.val[1].img,
+          scrollBar: tableData.val[2].img,
+          logo: tableData.val[3].img,
+        },
+        speed: {
+          nameStrip: tableData.speedVal[0].img,
+          entryBar: tableData.speedVal[1].img,
+          scrollBar: tableData.speedVal[2].img,
+          backImg: tableData.speedVal[3].img
+
+        }
       })
       if (res) {
         tableData.speedVal[state.currentItem - 4].img = response.data.url
@@ -155,7 +166,21 @@ const uploadSucess = async (response, file, fileList) => {
       // let tem = JSON.parse(JSON.stringify(tableData.val))
       // tem[state.currentItem].img = response.data.url
       tableData.val[state.currentItem].img = response.data.url
-      let res = await setImg(tableData)
+      let res = await setImg({
+        com: {
+          nameStrip: tableData.val[0].img,
+          entryBar: tableData.val[1].img,
+          scrollBar: tableData.val[2].img,
+          logo: tableData.val[3].img,
+        },
+        speed: {
+          nameStrip: tableData.speedVal[0].img,
+          entryBar: tableData.speedVal[1].img,
+          scrollBar: tableData.speedVal[2].img,
+          backImg: tableData.speedVal[3].img
+
+        }
+      })
       if (res) {
         tableData.val[state.currentItem].img = response.data.url
         info.fileList = []
@@ -226,8 +251,15 @@ const getInfo = async () => {
 
   let res = await Service.getBackgroundImgConfig()
   if (res) {
-    tableData.val = res[0]
-    tableData.speedVal = res[1]
+    tableData.val[0].img = res.com.nameStrip
+    tableData.val[1].img = res.com.entryBar
+    tableData.val[2].img = res.com.scrollBar
+    tableData.val[3].img = res.com.logo
+    tableData.speedVal[0].img = res.speed.nameStrip
+    tableData.speedVal[1].img = res.speed.entryBar
+    tableData.speedVal[2].img = res.speed.scrollBar
+    tableData.speedVal[3].img = res.speed.backImg
+
   }
 
 }
@@ -238,7 +270,7 @@ const setImg = async (data) => {
 
 }
 onMounted(() => {
-  // getInfo()
+  getInfo()
 })
 </script>
 <style scoped lang="scss">

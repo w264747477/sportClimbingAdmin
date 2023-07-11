@@ -159,7 +159,7 @@ const handleClose = () => {
 const translateData = (val) => {
   let obj = {}
   for (let i = 1; i < 6; i++) {
-    console.log(val[`point${i}`])
+
     if (val[`point${i}`] == null) {
       if (i == 5) {
         return
@@ -187,7 +187,8 @@ const translateData = (val) => {
 watch(
   () => props.info,
   (newVal) => {
-
+    console.log(newVal)
+    console.log((newVal ?? '') != '')
     if ((newVal ?? '') != '') {
       backupData = JSON.parse(JSON.stringify(newVal))
       infoDetail.data = translateData(JSON.parse(JSON.stringify(newVal)))
@@ -198,7 +199,7 @@ watch(
       //   point4: '1,1',
       //   point5: null,
       // })
-      infoDetail.data.id = newVal.id
+      // infoDetail.data.id = newVal.id
     }
   },
   { immediate: true }

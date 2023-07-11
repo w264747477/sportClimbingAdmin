@@ -264,15 +264,15 @@ let allProjectInfo = reactive({
         size: 4,
         x: 96,
       },
-      {
-        title: '年度积分',
-        switch: true,
-        family: '0',
-        color: '1',
-        size: 2,
-        x: 5,
-        y: 6,
-      },
+      // {
+      //   title: '年度积分',
+      //   switch: true,
+      //   family: '0',
+      //   color: '1',
+      //   size: 2,
+      //   x: 5,
+      //   y: 6,
+      // },
     ],
     S: [
       {
@@ -325,15 +325,15 @@ let allProjectInfo = reactive({
         size: 4,
         x: 100,
       },
-      {
-        title: '年度积分',
-        switch: true,
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6,
-      },
+      // {
+      //   title: '年度积分',
+      //   switch: true,
+      //   family: '0',
+      //   color: '0',
+      //   size: 2,
+      //   x: 5,
+      //   y: 6,
+      // },
     ],
     L: [
       {
@@ -420,15 +420,15 @@ let allProjectInfo = reactive({
         size: 4,
         x: 80,
       },
-      {
-        title: '年度积分',
-        switch: true,
-        family: '0',
-        color: '1',
-        size: 4,
-        x: 5,
-        y: 4,
-      },
+      // {
+      //   title: '年度积分',
+      //   switch: true,
+      //   family: '0',
+      //   color: '1',
+      //   size: 4,
+      //   x: 5,
+      //   y: 4,
+      // },
     ],
     A: [
       {
@@ -509,15 +509,15 @@ let allProjectInfo = reactive({
         size: 4,
         x: 73,
       },
-      {
-        title: '年度积分',
-        switch: true,
-        family: '0',
-        color: '0',
-        size: 4,
-        x: 5,
-        y: 6,
-      },
+      // {
+      //   title: '年度积分',
+      //   switch: true,
+      //   family: '0',
+      //   color: '0',
+      //   size: 4,
+      //   x: 5,
+      //   y: 6,
+      // },
     ],
     AU: [
       {
@@ -577,17 +577,217 @@ let allProjectInfo = reactive({
         size: 4,
         x: 100,
       },
+      // {
+      //   title: '年度积分',
+      //   switch: true,
+      //   family: '0',
+      //   color: '0',
+      //   size: 2,
+      //   x: 5,
+      //   y: 6,
+      // },
+    ],
+    BALL: [
       {
-        title: '年度积分',
-        switch: true,
+        title: '排名',
         family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6,
+        color: '1',
+        size: 4,
+        x: 50,
       },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '预赛',
+        family: '0',
+        color: '1',
+        x: 25,
+      },
+      {
+        title: '决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      // {
+      //   title: '积分',
+      //   family: '0',
+      //   color: '1',
+      //   size: 4,
+      //   x: 96,
+      // },
+
+    ],
+    SALL: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '预赛最好成绩',
+        family: '0',
+        color: '1',
+        x: 25,
+      },
+      {
+        title: '1/8决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '1/4决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '1/2决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      // {
+      //   title: '积分',
+      //   family: '0',
+      //   color: '1',
+      //   size: 4,
+      //   x: 90,
+      // },
+
+    ],
+    LALL: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '预赛高度1',
+        family: '0',
+        color: '1',
+        x: 25,
+      },
+      {
+        title: '预赛高度2',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '半决赛高度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+      {
+        title: '决赛高度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+      {
+        title: '决赛时间',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+      // {
+      //   title: '积分',
+      //   family: '0',
+      //   color: '1',
+      //   size: 4,
+      //   x: 96,
+      // },
+
     ],
   }
+})
+let backupComInfo = reactive({
+  data: [
+    {
+      title: '赛事名称',
+      family: '0',
+      color: '0',
+      size: 8,
+      x: 5,
+      y: 6,
+    },
+    {
+      title: '赛事项目',
+      family: '0',
+      color: '0',
+      size: 5,
+      x: 5,
+      y: 6,
+    },
+  ]
 })
 let backupllProjectInfo = reactive({
   data: {
@@ -964,6 +1164,186 @@ let backupllProjectInfo = reactive({
         y: 6,
       },
     ],
+    BALL: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '预赛',
+        family: '0',
+        color: '1',
+        x: 25,
+      },
+      {
+        title: '决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '积分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+
+    ],
+    SALL: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '预赛最好成绩',
+        family: '0',
+        color: '1',
+        x: 25,
+      },
+      {
+        title: '1/8决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '1/4决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '1/2决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '决赛',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '积分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+
+    ],
+    LALL: [
+      {
+        title: '排名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 50,
+      },
+      {
+        title: '号码',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 60,
+      },
+
+      {
+        title: '运动员姓名',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 80,
+      },
+
+      {
+        title: '预赛高度1',
+        family: '0',
+        color: '1',
+        x: 25,
+      },
+      {
+        title: '预赛高度2',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
+      {
+        title: '半决赛高度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+      {
+        title: '决赛高度',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+      {
+        title: '决赛时间',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+      {
+        title: '积分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
+
+    ],
   }
 })
 
@@ -1049,24 +1429,7 @@ const getWarnTxt = (val) => {
 const init = () => {
   allProjectInfo.data = JSON.parse(JSON.stringify(backupllProjectInfo.data))
   detailInfo.info = {
-    tableData: [
-      {
-        title: '赛事名称',
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      },
-      {
-        title: '赛事项目',
-        family: '0',
-        color: '0',
-        size: 2,
-        x: 5,
-        y: 6
-      }
-    ],
+    tableData: backupComInfo.data,
     title: '共性',
     familyOptions,
     colorOptions
@@ -1103,19 +1466,34 @@ const getInfo = async () => {
 
   let res = await Service.getFontStyleCom()
   // getInfoData.val = JSON.parse(JSON.stringify(res))
-  console.log(res)
+
   if (res != undefined) {
-    detailInfo.info = res.info
+    if (res.info.length != 0) {
+      detailInfo.info.tableData = res.info
+      backupComInfo.data = JSON.parse(JSON.stringify(res.info))
+    }
     let tem = {
       A: res.projectInfo.a,
       B: res.projectInfo.b,
       L: res.projectInfo.l,
       S: res.projectInfo.s,
-      AU: res.projectInfo.au
+      AU: res.projectInfo.au,
+      BALL: res.projectInfo.ball,
+      LALL: res.projectInfo.lall,
+      SALL: res.projectInfo.sall
     }
-    allProjectInfo = tem
 
-    backupllProjectInfo = JSON.parse(JSON.stringify(tem))
+    allProjectInfo.data.A = tem.A.length == 0 ? allProjectInfo.data.A : tem.A
+    allProjectInfo.data.B = tem.B.length == 0 ? allProjectInfo.data.B : tem.B
+    allProjectInfo.data.L = tem.L.length == 0 ? allProjectInfo.data.L : tem.L
+    allProjectInfo.data.S = tem.S.length == 0 ? allProjectInfo.data.S : tem.S
+    allProjectInfo.data.AU = tem.AU.length == 0 ? allProjectInfo.data.AU : tem.AU
+    allProjectInfo.data.BALL = tem.BALL.length == 0 ? allProjectInfo.data.BALL : tem.BALL
+    allProjectInfo.data.LALL = tem.LALL.length == 0 ? allProjectInfo.data.LALL : tem.LALL
+    allProjectInfo.data.SALL = tem.SALL.length == 0 ? allProjectInfo.data.SALL : tem.SALL
+    console.log(allProjectInfo)
+    detailInfo.projectInfo.tableData = allProjectInfo.data[detailInfo.projectInfo.selInfo.type]
+    backupllProjectInfo.data = JSON.parse(JSON.stringify(allProjectInfo.data))
 
   }
 }
@@ -1130,12 +1508,17 @@ const confirm = async () => {
         s: allProjectInfo.data.S,
         l: allProjectInfo.data.L,
         a: allProjectInfo.data.A,
-        au: allProjectInfo.data.AU
+        au: allProjectInfo.data.AU,
+        ball: allProjectInfo.data.BALL,
+        sall: allProjectInfo.data.SALL,
+        lall: allProjectInfo.data.LALL,
       }
+
     }
 
   )
   // getInfoData.val = JSON.parse(JSON.stringify(res))
+  console.log(res)
   if (res != undefined) {
     ElMessage.success('字体配置成功')
 

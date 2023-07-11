@@ -70,8 +70,9 @@ const updateInfo = async () => {
 watch(
   () => props.info,
   (newVal) => {
-    if ((newVal ?? '') != '') {
-      infoDetail.data = props.info
+    if ((newVal ?? '') != '' || newVal.length == 0) {
+      infoDetail.data = newVal
+
     }
   },
   { immediate: true }

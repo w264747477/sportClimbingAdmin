@@ -85,14 +85,23 @@ class Service {
       json: true,
     })
   }
-  static setSliderStatus(data: any) {
+  static setSliderStatusStart(data: any) {
     return request({
-      url: data.rollStatus == 0 ? largeConfig.setSliderStatusStop : largeConfig.setSliderStatusStart,
+      url: largeConfig.setSliderStatusStart,
       method: 'POST',
       json: true,
       data: {
-        rollList: data.data
+        rollList: data.data,
+        rollInterval: data.time
       }
+    })
+  }
+  static setSliderStatusStop() {
+    return request({
+      url: largeConfig.setSliderStatusStop,
+      method: 'POST',
+      json: true,
+
     })
   }
   static getSliderAll() {

@@ -4,7 +4,10 @@
       :inline="true" :label-width="'120px'">
       <el-form-item label="类型" prop="type">
         <el-select v-model="infoDetail.data.type" style="width: 300px" @change="change('type')">
-          <el-option v-for="item in gameTypeMid" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-option v-if="exportType == 1" v-for="item in gameTypeMid" :key="item.value" :label="item.label"
+            :value="item.value"></el-option>
+          <el-option v-else v-for="item in gameType" :key="item.value" :label="item.label"
+            :value="item.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="性别" prop="gender">
@@ -105,7 +108,7 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
-import { ageList, gender, gameTypeMid, speedRound } from '@/constant/index'
+import { ageList, gender, gameTypeMid, gameType, speedRound } from '@/constant/index'
 import dayjs from 'dayjs'
 import { Service, exportList } from '../../api/index.ts'
 import { toDownloadFile } from '@/utils/tools'
@@ -145,12 +148,21 @@ const round = [
   {
     value: 'F0',
     label: '决赛'
-  }
+  },
+  {
+    value: 'All',
+    label: '总成绩'
+  },
+
 ]
 const roundPromotion = [
   {
     value: 'F2',
     label: '半决赛'
+  },
+  {
+    value: 'F0',
+    label: '决赛'
   },
 
 ]
@@ -184,6 +196,10 @@ const sround = [
   {
     value: 'F0',
     label: '决赛'
+  },
+  {
+    value: 'All',
+    label: '总成绩'
   }
 ]
 const sroundPromotion = [
@@ -198,6 +214,10 @@ const sroundPromotion = [
   {
     value: 'F2',
     label: '二分之一'
+  },
+  {
+    value: 'F0',
+    label: '决赛'
   }
 
 ]

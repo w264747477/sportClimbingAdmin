@@ -28,7 +28,7 @@
       </draggable>
       <div style="display: flex; margin-top: 30px; align-items: center; margin-bottom: 50px">
         <span style="margin-right: 20px; white-space: nowrap">轮播间隔(秒)</span>
-        <el-input v-model="state.sliderTime" placeholder="Please input" clearable style="width: 180px" />
+        <el-input v-model="state.sliderTime" placeholder="请输入轮播时间" clearable style="width: 180px" />
       </div>
       <div class="middleBtn">
         <el-button type="primary" :disabled="state.isShow == false" @click="updateConfig(1)">开始播放</el-button>
@@ -77,15 +77,23 @@ const getSliderStatus = async () => {
   if (res != undefined) {
 
     state.isShow = res.rollStatus == 0 ? true : false
+    state.sliderTime = res.rollInterval == null ? 10 : res.rollInterval
   }
 }
 //设置轮播状态
 const updateConfig = async (val) => {
-  let res = await Service.setSliderStatus({
-    rollStatus: val,
-    data: state.list
-
-  })
+  let res;
+  if (val == 0) {
+    res = await Service.setSliderStatusStop()
+  } else {
+    res = await Service.setSliderStatusStart({
+      data: state.list,
+      time: state.sliderTime
+    })
+  }
+  // let res = await Service.setSliderStatus({
+  //   data: state.list
+  // })
   if (res != undefined) {
 
     state.isShow = val == 0 ? true : false
@@ -96,14 +104,14 @@ const getSliderBroad = async () => {
   let res = await Service.getSliderBroad()
 
   if (res != undefined) {
-    state.list = res.rollList
+    state.list = res
 
   }
 }
 //获取所有轮播的项目
 const getSliderAll = async () => {
   let res = await Service.getSliderAll()
-  console.log(res)
+
   if (res != undefined) {
     state.allList = res
 

@@ -63,7 +63,7 @@
 import { reactive, ref, watch } from 'vue'
 import Service from '@/views/largeScreenConfig/api'
 import { ElMessage } from 'element-plus'
-const props = defineProps<{ info: object }>()
+const props = defineProps<{ infoProp: object }>()
 let info = reactive({
   tableData: [],
   familyOptions: [],
@@ -73,7 +73,9 @@ let info = reactive({
 })
 let backupData = ref({})
 const init = () => {
-  info = backupData.value
+  console.log(backupData.value)
+  resetData(JSON.parse(JSON.stringify(backupData.value)))
+
 }
 const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   // const obj = {
@@ -83,13 +85,13 @@ const changeCellStyle = ({ row, column, rowIndex, columnIndex }) => {
   // return obj
 }
 const resetData = (newVal) => {
-  info = newVal
-  // console.log(newVal)
-  // info.tableData = newVal.tableData
-  // info.familyOptions = newVal.familyOptions
-  // info.colorOptions = newVal.colorOptions
-  // info.selInfo = newVal.selInfo
-  // info.title = newVal.title
+  // info = newVal
+
+  info.tableData = newVal.tableData
+  info.familyOptions = newVal.familyOptions
+  info.colorOptions = newVal.colorOptions
+  info.selInfo = newVal.selInfo
+  info.title = newVal.title
   // console.log(info.tableData)
 }
 const confirm = async () => {
@@ -109,12 +111,13 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
 }
 
 watch(
-  () => props.info,
+  () => props.infoProp,
   (newVal) => {
     console.log(newVal)
     if ((newVal ?? '') != '') {
       backupData.value = JSON.parse(JSON.stringify(newVal))
-      resetData(newVal)
+      console.log(backupData.value)
+      resetData(JSON.parse(JSON.stringify(newVal)))
       // info.tableData = newVal.tableData
       // info.familyOptions = newVal.familyOptions
       // info.colorOptions = newVal.colorOptions
@@ -122,7 +125,7 @@ watch(
       // info.title = newVal.title
     }
   },
-  { immediate: true }
+  { immediate: true, deep: true }
 )
 </script>
 <style scoped lang="scss">

@@ -6,7 +6,7 @@
       <DouConfigTable></DouConfigTable>
     </div>
     <div class="box">
-      <ConfigTable :info="speedInfo"></ConfigTable>
+      <ConfigTable :infoProp="speedInfo"></ConfigTable>
 
     </div>
   </div>

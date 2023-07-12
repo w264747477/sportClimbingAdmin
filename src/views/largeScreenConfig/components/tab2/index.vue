@@ -2,11 +2,12 @@
   <div class="box">
     <div class="box_item">
       <span>常规</span>
+      <!-- <el-button @click="updateInit">更新</el-button> -->
       <el-table :data="tableData.val" border>
         <el-table-column prop="type" label="类别" align="center" min-width="120" show-overflow-tooltip> </el-table-column>
         <el-table-column prop="img" label="当前图片" align="center" min-width="120" show-overflow-tooltip>
           <template #default="scope">
-            <el-image style="width: 100px; height: 100px" :src="scope.row.img" fit="fill"></el-image>
+            <el-image style="width: 100px; height: 100px" :src="scope.row.img" fit="contain"></el-image>
           </template>
         </el-table-column>
         <el-table-column prop="remark" label="备注" align="center" min-width="120" show-overflow-tooltip> </el-table-column>
@@ -29,7 +30,7 @@
         <el-table-column prop="type" label="类别" align="center" min-width="120" show-overflow-tooltip> </el-table-column>
         <el-table-column prop="img" label="当前图片" align="center" min-width="120" show-overflow-tooltip>
           <template #default="scope">
-            <el-image style="width: 100px; height: 100px" :src="scope.row.img" fit="fill"></el-image>
+            <el-image style="width: 100px; height: 100px" :src="scope.row.img" fit="contain"></el-image>
           </template>
         </el-table-column>
         <el-table-column prop="remark" label="备注" align="center" min-width="120" show-overflow-tooltip> </el-table-column>
@@ -62,25 +63,25 @@ const tableData = reactive({
     {
       value: 0,
       type: '赛事名称条',
-      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      img: 'https://s1.ax1x.com/2023/06/14/pCnaOkF.png',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     },
     {
       value: 1,
       type: '赛事项目条',
-      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      img: 'https://s1.ax1x.com/2023/06/14/pCnrVy9.png',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     },
     {
       value: 2,
       type: '滚动条',
-      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      img: 'https://s1.ax1x.com/2023/06/14/pCnDlKs.png',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     },
     {
       value: 3,
       type: 'logo',
-      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      img: 'https://s1.ax1x.com/2023/06/14/pCnEVzR.png',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     }
   ],
@@ -88,25 +89,25 @@ const tableData = reactive({
     {
       value: 4,
       type: '赛事名称条',
-      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      img: 'https://s1.ax1x.com/2023/06/15/pCutTDf.png',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     },
     {
       value: 5,
       type: '赛事项目条',
-      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      img: 'https://s1.ax1x.com/2023/06/15/pCut7b8.png',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     },
     {
       value: 6,
       type: '滚动条',
-      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      img: 'https://s1.ax1x.com/2023/06/15/pCuNGRA.png',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     },
     {
       value: 7,
-      type: 'logo',
-      img: 'https://fc1tn.baidu.com/it/u=2676575347,2964745498&fm=202&mola=new&crop=v1',
+      type: '背景图',
+      img: 'https://s1.ax1x.com/2023/06/15/pCuNDiQ.png',
       remark: '仅支持xxx*xxx像素，不超过xxx大小的jpg格式'
     }
   ]
@@ -247,6 +248,28 @@ const handleExceed = (files, fileList) => {
   ElMessage.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
 }
 const beforeRemove = (file, fileList) => ElMessage.warning(`确定移除 ${file.name}？`)
+const updateInit = async () => {
+  let res = await setImg({
+    com: {
+      nameStrip: tableData.val[0].img,
+      entryBar: tableData.val[1].img,
+      scrollBar: tableData.val[2].img,
+      logo: tableData.val[3].img,
+    },
+    speed: {
+      nameStrip: tableData.speedVal[0].img,
+      entryBar: tableData.speedVal[1].img,
+      scrollBar: tableData.speedVal[2].img,
+      backImg: tableData.speedVal[3].img
+
+    }
+  })
+  if (res) {
+
+    ElMessage.success('图片更新成功')
+  }
+
+}
 const getInfo = async () => {
 
   let res = await Service.getBackgroundImgConfig()
@@ -270,7 +293,7 @@ const setImg = async (data) => {
 
 }
 onMounted(() => {
-  getInfo()
+  //getInfo()
 })
 </script>
 <style scoped lang="scss">

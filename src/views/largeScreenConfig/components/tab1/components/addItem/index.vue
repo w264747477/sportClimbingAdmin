@@ -18,6 +18,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
 import { defineEmits } from 'vue'
+import Service from '@/views/largeScreenConfig/api/index'
 let detailInfo = reactive({
   allList: [],
   temList: [],
@@ -25,31 +26,93 @@ let detailInfo = reactive({
 })
 const emit = defineEmits(["sucess"])
 const props = defineProps<{ info: object }>()
-const dialogTableVisible = ref(false)
+let dialogTableVisible = ref(false)
 const handleClose = () => {
   dialogTableVisible.value = false
   detailInfo.allList = []
   detailInfo.temList = []
-  detailInfo.isShow = true
+
+}
+const getSliderBroad = async () => {
+  let res = await Service.getSliderBroad()
+
+  if (res != undefined) {
+    state.list = res.rollList
+
+  }
 }
 const delItem = (val) => {
   state.list = state.list.filter((item) => item != val)
 }
+//设置轮播项目
+const setSliderItem = async (val) => {
+  let res = await Service.setSliderBroad({
+    rollList: val,
+
+  })
+  if (res != undefined) {
+
+    state.isShow = val == 0 ? true : false
+  }
+}
 const confirm = () => {
-  emit('sucess', JSON.parse(JSON.stringify(detailInfo)))
+
+  emit('sucess', JSON.parse(JSON.stringify(detailInfo.temList)))
   handleClose()
 }
 watch(
+  () => dialogTableVisible.value,
+  (newVal) => {
+    if (newVal) {
+      console.log(props.info)
+      detailInfo.allList = props.info.allList?.map(item => {
+        item.key = item.id,
+          item.label = item.name
+        return item
+      })
+      detailInfo.temList = props.info.list?.map(item => {
+
+        return item.id
+      })
+      detailInfo.isShow = props.info.isShow
+      console.log(detailInfo.temList)
+    }
+    // if ((newVal ?? '') != '') {
+    //   console.log(newVal)
+    //   detailInfo.allList = newVal.allList?.map(item => {
+    //     item.key = item.id,
+    //       item.label = item.name
+    //     return item
+    //   })
+    //   detailInfo.temList = newVal.list?.map(item => {
+    //     item.key = item.id,
+    //       item.label = item.name
+    //     return item
+    //   })
+    //   detailInfo.isShow = newVal.isShow
+    //   console.log(detailInfo)
+    // }
+  },
+  { deep: true, immediate: true },
+
+)
+
+watch(
   () => props.info,
   (newVal) => {
+
     if ((newVal ?? '') != '') {
-      detailInfo.allList = newVal.allList.map(item => {
-        return {
-          key: item,
-          label: item
-        }
+      console.log(newVal)
+      detailInfo.allList = newVal.allList?.map(item => {
+        item.key = item.id,
+          item.label = item.name
+        return item
       })
-      detailInfo.temList = newVal.list
+      detailInfo.temList = newVal.list?.map(item => {
+        item.key = item.id,
+          item.label = item.name
+        return item
+      })
       detailInfo.isShow = newVal.isShow
       console.log(detailInfo)
     }
@@ -57,6 +120,7 @@ watch(
   { deep: true, immediate: true },
 
 )
+
 </script>
 
 <style lang="scss" scoped>
@@ -71,5 +135,11 @@ watch(
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
+
+}
+
+:deep .el-transfer-panel {
+  width: 250px;
 }
 </style>

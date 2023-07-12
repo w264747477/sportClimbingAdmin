@@ -6,12 +6,21 @@
     <div>
       <h2>轮播项目</h2>
 
-      <draggable v-model="state.list" class="wrapper" :disabled="state.isShow == false" item-key="index" animation="300"
+      <draggable v-model="state.list" class="wrapper" :disabled="state.isShow == false" animation="300"
         @start="state.drag = true" @end="state.drag = false">
+
+        <!-- <div v-for="element in state.list" :key="element.id" class="item">
+          <p> {{ element.name }}</p>
+          <el-icon color="#fff" class="icn" size="14" @click="delItem(element.id)">
+            <CircleCloseFilled />
+          </el-icon>
+
+        </div> -->
+
         <template #item="{ element }">
           <div class="item">
-            <p>{{ element }}</p>
-            <el-icon color="#fff" class="icn" size="14" @click="delItem(element)">
+            <p>{{ element.name }}</p>
+            <el-icon color="#fff" class="icn" size="14" @click="delItem(element.id)">
               <CircleCloseFilled />
             </el-icon>
           </div>
@@ -22,8 +31,8 @@
         <el-input v-model="state.sliderTime" placeholder="Please input" clearable style="width: 180px" />
       </div>
       <div class="middleBtn">
-        <el-button type="primary" :disabled="state.isShow == false" @click="updateConfig(false)">开始播放</el-button>
-        <el-button type="primary" :disabled="state.isShow == true" @click="updateConfig(true)">停止播放</el-button>
+        <el-button type="primary" :disabled="state.isShow == false" @click="updateConfig(1)">开始播放</el-button>
+        <el-button type="primary" :disabled="state.isShow == true" @click="updateConfig(0)">停止播放</el-button>
       </div>
     </div>
 
@@ -39,53 +48,73 @@ import addItem from './components/addItem/index.vue'
 const props = defineProps<{ info: object }>()
 const state = reactive({
   drag: false,
-  list: [1, 2, 3],
-  allList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  sliderTime: 0,
+  list: [],
+  allList: [],
+  sliderTime: 10,
   isShow: false
 })
 
 const delItem = (val) => {
-  state.list = state.list.filter((item) => item != val)
+  state.list = state.list.filter((item) => item.id != val)
 }
 
 const addSucess = (val) => {
-  state.list = val.temList
-  state.allList = val.allList.map(item => {
-    return item.key
-  })
   console.log(val)
+  state.list = state.allList.filter(item => {
+    return val.includes(item.id)
+  })
+
+
+
 }
 const confirm = () => {
   handleClose()
 }
-const updateConfig = async (val) => {
-  state.isShow = val
+//获取轮播状态
+const getSliderStatus = async () => {
+  let res = await Service.getSliderStatus()
 
-  let res = await Service.setSliderConfig({
-    isShow: val,
-    list: state.list,
-    time: state.sliderTime
+  if (res != undefined) {
+
+    state.isShow = res.rollStatus == 0 ? true : false
+  }
+}
+//设置轮播状态
+const updateConfig = async (val) => {
+  let res = await Service.setSliderStatus({
+    rollStatus: val,
+    data: state.list
+
   })
   if (res != undefined) {
 
-    state.isShow = val
-  } else {
-    state.isShow = !val
+    state.isShow = val == 0 ? true : false
   }
 }
-const getInfo = async () => {
-  let res = await Service.getSliderConfig()
+//获取正在轮播的项目
+const getSliderBroad = async () => {
+  let res = await Service.getSliderBroad()
+
   if (res != undefined) {
-    let tem = JSON.parse(JSON.stringify(res))
-    state.list = tem.list
-    state.sliderTime = tem.sliderTime
-    state.allList = tem.allList,
-      state.isShow = tem.isShow
+    state.list = res.rollList
+
   }
 }
+//获取所有轮播的项目
+const getSliderAll = async () => {
+  let res = await Service.getSliderAll()
+  console.log(res)
+  if (res != undefined) {
+    state.allList = res
+
+  }
+}
+
 onMounted(() => {
-  // getInfo()
+
+  getSliderStatus()
+  getSliderBroad()
+  getSliderAll()
 })
 </script>
 <style scoped lang="scss">
@@ -94,14 +123,15 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   width: 100%;
+  flex-wrap: wrap;
   background-color: #b7b4b4;
   min-height: 4rem;
 }
 
 
 .item {
-  width: 120px;
-  height: 30px;
+  width: 250px;
+  height: 35px;
   font-size: 16px;
   text-align: center;
   padding: 4px;
@@ -120,9 +150,10 @@ onMounted(() => {
 }
 
 .item:hover {
-  width: 140px;
-  height: 38px;
-  font-size: 20px;
-  line-height: 38px;
+  // width: 140px;
+  // height: 38px;
+  // font-size: 20px;
+  // line-height: 38px;
+  cursor: pointer;
 }
 </style>

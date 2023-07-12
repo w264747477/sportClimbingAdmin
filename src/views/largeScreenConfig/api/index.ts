@@ -7,6 +7,11 @@ const largeConfig = {
   backgroundImg: "/sportClimbingAdmin/api/score/config/background",
   fontStyleCom: '/sportClimbingAdmin/api/score/config/font/com',
   fontStyleSpd: '/sportClimbingAdmin/api/score/config/font/speed',
+  getSliderStatus: '/sportClimbingAdmin/api/score/roll/status', //获取轮播状态
+  getSliderAll: '/sportClimbingAdmin/api/score/config/roll/all',//获取轮播全部选项
+  getSliderBroad: '/sportClimbingAdmin/api/score/config/roll/broadcast',//获取设置的轮播选项
+  setSliderStatusStart: '/sportClimbingAdmin/api/score/roll/start', //轮播切换
+  setSliderStatusStop: '/sportClimbingAdmin/api/score/roll/stop' //轮播切换
 }
 
 class Service {
@@ -72,5 +77,49 @@ class Service {
       data
     })
   }
+
+  static getSliderStatus() {
+    return request({
+      url: largeConfig.getSliderStatus,
+      method: 'get',
+      json: true,
+    })
+  }
+  static setSliderStatus(data: any) {
+    return request({
+      url: data.rollStatus == 0 ? largeConfig.setSliderStatusStop : largeConfig.setSliderStatusStart,
+      method: 'POST',
+      json: true,
+      data: {
+        rollList: data.data
+      }
+    })
+  }
+  static getSliderAll() {
+    return request({
+      url: largeConfig.getSliderAll,
+      method: 'get',
+      json: true,
+    })
+  }
+  static getSliderBroad() {
+    return request({
+      url: largeConfig.getSliderBroad,
+      method: 'get',
+      json: true,
+
+    })
+  }
+  static setSliderBroad(data: any) {
+    return request({
+      url: largeConfig.getSliderBroad,
+      method: 'post',
+      json: true,
+      data
+
+    })
+  }
+
+
 }
 export default Service

@@ -73,7 +73,7 @@ let info = reactive({
 })
 let backupData = ref({})
 const init = () => {
-  console.log(backupData.value)
+
   resetData(JSON.parse(JSON.stringify(backupData.value)))
 
 }
@@ -113,10 +113,10 @@ const headerRowStyle = ({ row, column, rowIndex, columnIndex }) => {
 watch(
   () => props.infoProp,
   (newVal) => {
-    console.log(newVal)
+
     if ((newVal ?? '') != '') {
       backupData.value = JSON.parse(JSON.stringify(newVal))
-      console.log(backupData.value)
+
       resetData(JSON.parse(JSON.stringify(newVal)))
       // info.tableData = newVal.tableData
       // info.familyOptions = newVal.familyOptions

@@ -21,13 +21,18 @@
         </el-select>
       </el-form-item>
       <el-form-item label="回合">
-        <div v-if="exportType == 1">
+        <el-select v-model="infoDetail.data.round" style="width: 300px" @change="change('round')">
+          <el-option v-for="item in generateRound()" :key="item.value" :label="item.label"
+            :value="item.value"></el-option>
+        </el-select>
+        <!-- <div v-if="exportType == 1">
           <el-select v-if="infoDetail.data.type == 'S'" v-model="infoDetail.data.round" style="width: 300px"
             @change="change('round')">
             <el-option v-for="item in sround" :label="item.label" :value="item.value"></el-option>
           </el-select>
-          <el-select v-else v-model="infoDetail.data.round" style="width: 300px" @change="change('round')">
-            <el-option v-for="item in round" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="infoDetail.data.round" style="width: 300px" @change="change('round')">
+            <el-option v-for="item in generateRound()" :key="item.value" :label="item.label"
+              :value="item.value"></el-option>
           </el-select>
         </div>
         <div v-else>
@@ -39,7 +44,7 @@
             <el-option v-for="item in roundPromotion" :key="item.value" :label="item.label"
               :value="item.value"></el-option>
           </el-select>
-        </div>
+        </div> -->
 
       </el-form-item>
 
@@ -119,7 +124,7 @@ const infoDetail = reactive({
   data: <exportList>{
     type: 'L',
     gender: 'M',
-    round: 'F2',
+    round: 'Q0',
     age: null,
     name: '',
     time: dayjs(new Date()).format('YYYY-MM-DD'),
@@ -136,6 +141,99 @@ const infoDetail = reactive({
   }
 })
 const labelPosition = ref('right')
+const generateRound = () => {
+  if (exportType.value == 1) {
+    if (infoDetail.data.type == 'A') {
+      if (infoDetail.data.age != null) {
+        return [{
+          value: 'All',
+          label: '总成绩'
+        }]
+      } else {
+        return [{
+          value: 'Q0',
+          label: '预赛'
+        },
+        {
+          value: 'F2',
+          label: '半决赛'
+        },
+        {
+          value: 'F0',
+          label: '决赛'
+        },
+        {
+          value: 'All',
+          label: '总成绩'
+        }]
+      }
+
+    } else if (infoDetail.data.type == 'S') {
+      return [{
+        value: 'Q0',
+        label: '预赛'
+      },
+      {
+        value: 'All',
+        label: '总成绩'
+      }
+      ]
+
+    } else {
+      return [{
+        value: 'Q0',
+        label: '预赛'
+      },
+      {
+        value: 'F2',
+        label: '半决赛'
+      },
+      {
+        value: 'F0',
+        label: '决赛'
+      },
+      {
+        value: 'All',
+        label: '总成绩'
+      },]
+    }
+  } else {
+    if (infoDetail.data.type == 'S') {
+      return [
+        {
+          value: 'F8',
+          label: '八分之一'
+        },
+        {
+          value: 'F4',
+          label: '四分之一'
+        },
+        {
+          value: 'F2',
+          label: '二分之一'
+        },
+        {
+          value: 'F0',
+          label: '决赛'
+        }
+      ]
+
+    } else {
+      return [
+
+        {
+          value: 'F2',
+          label: '半决赛'
+        },
+        {
+          value: 'F0',
+          label: '决赛'
+        },
+      ]
+    }
+  }
+
+}
 const round = [
   {
     value: 'Q0',
@@ -181,24 +279,24 @@ const sround = [
     value: 'Q0',
     label: '预赛'
   },
+  // {
+  //   value: 'F8',
+  //   label: '八分之一'
+  // },
+  // {
+  //   value: 'F4',
+  //   label: '四分之一'
+  // },
+  // {
+  //   value: 'F2',
+  //   label: '二分之一'
+  // },
+  // {
+  //   value: 'F0',
+  //   label: '决赛'
+  // },
   {
-    value: 'F8',
-    label: '八分之一'
-  },
-  {
-    value: 'F4',
-    label: '四分之一'
-  },
-  {
-    value: 'F2',
-    label: '二分之一'
-  },
-  {
-    value: 'F0',
-    label: '决赛'
-  },
-  {
-    value: 'All',
+    value: null,
     label: '总成绩'
   }
 ]
@@ -248,9 +346,21 @@ const handleExceed = (files, fileList) => {
   ElMessage.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
 }
 const change = async (val) => {
-  if (infoDetail.data.type != 'S' && ['F8', 'F4'].includes(infoDetail.data.round)) {
-    infoDetail.data.round = 'Q0'
+  // if (infoDetail.data.type != 'S' && ['F8', 'F4'].includes(infoDetail.data.round)) {
+  //   infoDetail.data.round = 'Q0'
+  // }
+
+  if (val == 'type') {
+    let t = generateRound()
+
+    infoDetail.data.round = t[0].value
+  } else if (val == 'age') {
+    let t = generateRound()
+    if (infoDetail.data.type == 'A') {
+      infoDetail.data.round = t[0].value
+    }
   }
+
 
 }
 const beforeAvatarUpload = (file) => {
@@ -386,6 +496,9 @@ watch(
     console.log(newVal)
     if ((newVal ?? '') != '') {
       exportType.value = newVal
+      let t = generateRound()
+      infoDetail.data.round = t[0].value
+
     }
   },
   { deep: true, immediate: true },

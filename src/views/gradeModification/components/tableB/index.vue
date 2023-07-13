@@ -66,7 +66,7 @@
       <el-table-column prop="ranking" label="排名" min-width="120" />
       <el-table-column label="操作" min-width="120">
         <template #default="scope">
-          <updateGrate :info="scope.row" @sucess="updateInfo"></updateGrate>
+          <updateGrate :info="scope.row" @sucess="updateInfo" :age="props.age"></updateGrate>
 
         </template>
       </el-table-column>
@@ -82,7 +82,7 @@ import { ElMessage } from 'element-plus'
 import { defineEmits } from 'vue'
 import updateGrate from "./components/updateGrate/index.vue"
 const emit = defineEmits(["sucess"])
-const props = defineProps<{ info: object }>()
+const props = defineProps<{ info: object, age: number }>()
 let infoDetail = reactive({
   data: []
 })
@@ -108,11 +108,23 @@ const modifyGrade = async (item) => {
   }
 }
 const formatPoint = (val) => {
+
   if (val == null) {
-    return '0z0T'
+    return '-'
   } else {
     let l = val.split(',')
-    return `${l[0]}z${l[1]}T`
+    if (props.age == null) {
+      return `${l[0]}z${l[1]}Z${l[2]}T`
+    } else {
+      return `${l[0]}z${l[1]}T`
+    }
+
+    // if (l.length == 3) {
+    //   return `${l[0]}z${l[1]}Z${l[2]}T`
+    // } else {
+    //   return `${l[0]}z${l[1]}T`
+    // }
+
   }
 
 

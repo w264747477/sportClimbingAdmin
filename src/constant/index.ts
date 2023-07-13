@@ -3,7 +3,7 @@ export const ageList = () => {
     value: null,
     label: '成年组'
   }]
-  for (let i = 5; i < 18; i++) {
+  for (let i = 5; i < 19; i++) {
     let s = `U${i}`
     list.push({
       value: s,

@@ -64,7 +64,7 @@ watch(
   () => dialogTableVisible.value,
   (newVal) => {
     if (newVal) {
-      console.log(props.info)
+
       detailInfo.allList = props.info.allList?.map(item => {
         item.key = item.id,
           item.label = item.name
@@ -75,7 +75,7 @@ watch(
         return item.id
       })
       detailInfo.isShow = props.info.isShow
-      console.log(detailInfo.temList)
+
     }
     // if ((newVal ?? '') != '') {
     //   console.log(newVal)
@@ -102,7 +102,7 @@ watch(
   (newVal) => {
 
     if ((newVal ?? '') != '') {
-      console.log(newVal)
+
       detailInfo.allList = newVal.allList?.map(item => {
         item.key = item.id,
           item.label = item.name
@@ -114,7 +114,7 @@ watch(
         return item
       })
       detailInfo.isShow = newVal.isShow
-      console.log(detailInfo)
+
     }
   },
   { deep: true, immediate: true },

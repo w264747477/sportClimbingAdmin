@@ -602,7 +602,13 @@ let allProjectInfo = reactive({
         size: 4,
         x: 60,
       },
-
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 200,
+      },
       {
         title: '运动员姓名',
         family: '0',
@@ -624,14 +630,13 @@ let allProjectInfo = reactive({
         size: 4,
         x: 90,
       },
-      // {
-      //   title: '积分',
-      //   family: '0',
-      //   color: '1',
-      //   size: 4,
-      //   x: 96,
-      // },
-
+      {
+        title: '积分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 200,
+      },
     ],
     SALL: [
       {
@@ -648,7 +653,13 @@ let allProjectInfo = reactive({
         size: 4,
         x: 60,
       },
-
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 200,
+      },
       {
         title: '运动员姓名',
         family: '0',
@@ -691,14 +702,13 @@ let allProjectInfo = reactive({
         size: 4,
         x: 90,
       },
-      // {
-      //   title: '积分',
-      //   family: '0',
-      //   color: '1',
-      //   size: 4,
-      //   x: 90,
-      // },
-
+      {
+        title: '积分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 90,
+      },
     ],
     LALL: [
       {
@@ -715,7 +725,13 @@ let allProjectInfo = reactive({
         size: 4,
         x: 60,
       },
-
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 200,
+      },
       {
         title: '运动员姓名',
         family: '0',
@@ -758,14 +774,13 @@ let allProjectInfo = reactive({
         size: 4,
         x: 96,
       },
-      // {
-      //   title: '积分',
-      //   family: '0',
-      //   color: '1',
-      //   size: 4,
-      //   x: 96,
-      // },
-
+      {
+        title: '积分',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 96,
+      },
     ],
   }
 })
@@ -1179,7 +1194,13 @@ let backupllProjectInfo = reactive({
         size: 4,
         x: 60,
       },
-
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 200,
+      },
       {
         title: '运动员姓名',
         family: '0',
@@ -1206,9 +1227,8 @@ let backupllProjectInfo = reactive({
         family: '0',
         color: '1',
         size: 4,
-        x: 96,
+        x: 200,
       },
-
     ],
     SALL: [
       {
@@ -1225,7 +1245,13 @@ let backupllProjectInfo = reactive({
         size: 4,
         x: 60,
       },
-
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 200,
+      },
       {
         title: '运动员姓名',
         family: '0',
@@ -1275,7 +1301,6 @@ let backupllProjectInfo = reactive({
         size: 4,
         x: 90,
       },
-
     ],
     LALL: [
       {
@@ -1292,7 +1317,13 @@ let backupllProjectInfo = reactive({
         size: 4,
         x: 60,
       },
-
+      {
+        title: '代表队',
+        family: '0',
+        color: '1',
+        size: 4,
+        x: 200,
+      },
       {
         title: '运动员姓名',
         family: '0',
@@ -1342,7 +1373,6 @@ let backupllProjectInfo = reactive({
         size: 4,
         x: 96,
       },
-
     ],
   }
 })
@@ -1491,7 +1521,7 @@ const getInfo = async () => {
     allProjectInfo.data.BALL = tem.BALL.length == 0 ? allProjectInfo.data.BALL : tem.BALL
     allProjectInfo.data.LALL = tem.LALL.length == 0 ? allProjectInfo.data.LALL : tem.LALL
     allProjectInfo.data.SALL = tem.SALL.length == 0 ? allProjectInfo.data.SALL : tem.SALL
-    console.log(allProjectInfo)
+
     detailInfo.projectInfo.tableData = allProjectInfo.data[detailInfo.projectInfo.selInfo.type]
     backupllProjectInfo.data = JSON.parse(JSON.stringify(allProjectInfo.data))
 
@@ -1518,7 +1548,7 @@ const confirm = async () => {
 
   )
   // getInfoData.val = JSON.parse(JSON.stringify(res))
-  console.log(res)
+
   if (res != undefined) {
     ElMessage.success('字体配置成功')
 

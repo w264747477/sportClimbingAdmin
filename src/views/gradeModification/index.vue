@@ -31,7 +31,7 @@
       </el-form>
     </div>
 
-    <tableB :info="tableData.B" v-if="info.type == 'B'" @sucess="getInfo"></tableB>
+    <tableB :info="tableData.B" v-if="info.type == 'B'" @sucess="getInfo" :age="info.age"></tableB>
     <tableL :info="tableData.L" v-if="info.type == 'L'" @sucess="getInfo"></tableL>
     <tableS :info="tableData.S" v-if="info.type == 'S'" @sucess="getInfo"></tableS>
   </div>

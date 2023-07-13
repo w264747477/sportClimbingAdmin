@@ -45,7 +45,9 @@ import draggable from 'vuedraggable'
 import { CircleCloseFilled } from '@element-plus/icons-vue'
 import Service from '../../api'
 import addItem from './components/addItem/index.vue'
+import { useStore } from '@/store/index'
 const props = defineProps<{ info: object }>()
+const store = useStore()
 const state = reactive({
   drag: false,
   list: [],
@@ -59,7 +61,7 @@ const delItem = (val) => {
 }
 
 const addSucess = (val) => {
-  console.log(val)
+
   state.list = state.allList.filter(item => {
     return val.includes(item.id)
   })
@@ -75,9 +77,11 @@ const getSliderStatus = async () => {
   let res = await Service.getSliderStatus()
 
   if (res != undefined) {
-
+    store.commit('dataModule/setRunningState', res.rollStatus)
+    console.log(store.state.dataModule.isRunning)
     state.isShow = res.rollStatus == 0 ? true : false
     state.sliderTime = res.rollInterval == null ? 10 : res.rollInterval
+    state.list = res.data
   }
 }
 //设置轮播状态
@@ -95,8 +99,8 @@ const updateConfig = async (val) => {
   //   data: state.list
   // })
   if (res != undefined) {
-
     state.isShow = val == 0 ? true : false
+    store.commit('dataModule/setRunningState', val)
   }
 }
 //获取正在轮播的项目
@@ -121,7 +125,7 @@ const getSliderAll = async () => {
 onMounted(() => {
 
   getSliderStatus()
-  getSliderBroad()
+  //getSliderBroad()
   getSliderAll()
 })
 </script>

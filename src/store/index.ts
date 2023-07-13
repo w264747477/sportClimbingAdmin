@@ -6,6 +6,7 @@ import appModule from './modules/app/index'
 import messageModule from './modules/message/index'
 import permissionModule from './modules/permission/index'
 import tabModule from './modules/tabs/index'
+import dataModule from './modules/dataStore/index'
 import RootStateTypes, { AllStateTypes } from './types'
 
 const defaultState = {
@@ -37,7 +38,8 @@ export const store = createStore({
     appModule,
     messageModule,
     permissionModule,
-    tabModule
+    tabModule,
+    dataModule
   }
 })
 

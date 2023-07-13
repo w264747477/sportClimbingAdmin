@@ -136,7 +136,7 @@ const beforeAvatarUpload = (file) => {
   // 判断图片的大小
 }
 const uploadSucess = async (response, file, fileList) => {
-  console.log(response)
+
   if (response.code == 200) {
 
     if (state.currentItem > 3) {

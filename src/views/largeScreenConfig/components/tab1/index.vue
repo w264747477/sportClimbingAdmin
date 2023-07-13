@@ -91,7 +91,10 @@ const updateConfig = async (val) => {
     res = await Service.setSliderStatusStop()
   } else {
     res = await Service.setSliderStatusStart({
-      data: state.list,
+      data: state.list.map((item, index) => {
+        item.idx = index
+        return item
+      }),
       time: state.sliderTime
     })
   }
